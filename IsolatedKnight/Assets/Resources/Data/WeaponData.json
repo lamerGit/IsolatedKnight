@@ -1,0 +1,36 @@
+{
+  "weapons": [
+    {
+      "type": "1",
+      "touchDamage": "10",
+      "touchSpeed": "0.5",
+      "staminaconsum": "10.0",
+      "partnerDamage": "10",
+      "skillDamage": "10"
+    },
+    {
+      "type": "2",
+      "touchDamage": "10",
+      "touchSpeed": "0.5",
+      "staminaconsum": "10.0",
+      "partnerDamage": "10",
+      "skillDamage": "10"
+    },
+    {
+      "type": "3",
+      "touchDamage": "10",
+      "touchSpeed": "0.5",
+      "staminaconsum": "10.0",
+      "partnerDamage": "10",
+      "skillDamage": "10"
+    },
+    {
+      "type": "4",
+      "touchDamage": "10",
+      "touchSpeed": "0.5",
+      "staminaconsum": "10.0",
+      "partnerDamage": "10",
+      "skillDamage": "10"
+    }
+  ]
+} 
