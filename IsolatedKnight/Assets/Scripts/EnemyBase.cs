@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,9 +21,13 @@ public class EnemyBase : Poolable
 
     protected WaitForSeconds dieTimer = new WaitForSeconds(1.0f);
 
+    protected WaitForSeconds SpeedDownTimer = new WaitForSeconds(1.0f);
+
  
 
     SkinnedMeshRenderer _skinnedMeshRenderer;
+
+    float _multiHitRange = 3.0f;
 
     protected virtual int Hp
     {
@@ -67,13 +72,49 @@ public class EnemyBase : Poolable
         
     }
 
-    public void OnDamage(int damage)
+    public void OnTouchDamage(int damage)
     {
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(damage, transform);
         StartCoroutine(HitMaterial());
         Hp-=damage;
         Debug.Log(Hp);
+        if(Managers.GameManager.TouchTier2SpeedDown)
+        {
+            StartCoroutine(TouchTier2SpeedDown());
+        }
+
+        if(Managers.GameManager.TouchTier2MultiHit)
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, _multiHitRange, LayerMask.GetMask("Enemy"));
+            if(colliders.Length > 0)
+            {
+
+                for(int i=0; i<colliders.Length; i++)
+                {
+                    if (colliders[i].gameObject!=transform.gameObject)
+                    {
+                        colliders[i].GetComponent<EnemyBase>().OnMultiDamage(damage);
+                    }
+                }
+            }
+        }
+    }
+
+    void OnMultiDamage(int damage)
+    {
+        Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
+        p.DamageTextSpawn(damage, transform);
+        StartCoroutine(HitMaterial());
+        Hp -= damage;
+        Debug.Log(Hp);
+    }
+
+    IEnumerator TouchTier2SpeedDown()
+    {
+        _agent.speed = _agent.speed - 0.2f;
+        yield return SpeedDownTimer;
+        _agent.speed = _agent.speed + 0.2f;
     }
 
     IEnumerator HitMaterial()
@@ -82,4 +123,12 @@ public class EnemyBase : Poolable
         yield return new WaitForSeconds(0.2f);
         _skinnedMeshRenderer.material.color = Color.white;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(transform.position, transform.up, _multiHitRange);
+    }
+#endif
 }

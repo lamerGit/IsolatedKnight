@@ -9,6 +9,7 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
     UI_LevelUpButton _Middle;
     UI_LevelUpButton _right;
 
+    public Sprite[] _levelIcon;
 
     private void Awake()
     {
@@ -19,6 +20,10 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
 
     public void Open()
     {
+        _left.Option=LevelUpOption.TouchDamage;
+        _Middle.Option=LevelUpOption.TouchSpeed;
+        _right.Option=LevelUpOption.Stamina;
+
         gameObject.SetActive(true);
     }
 

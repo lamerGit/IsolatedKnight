@@ -48,7 +48,8 @@ public class PlayerController : MonoBehaviour
             GameObject e = hit.transform.gameObject;
             if (myPlayer.TouchPossibleCheck && myPlayer.StaminaCheck)
             {
-                e.GetComponent<EnemyBase>().OnDamage(myPlayer.TouchDamage);
+                int touchDamage = myPlayer.TouchDamage + Managers.GameManager.ExtraTouchDamage;
+                e.GetComponent<EnemyBase>().OnTouchDamage(touchDamage);
                 myPlayer.AttackAnimation();
                 myPlayer.ResetTouchSpeed();
             }

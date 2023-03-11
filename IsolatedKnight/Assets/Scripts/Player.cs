@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
                 _currentExp = 0;
                 _level++;
                 int nextLevel = _level + 1;
-                _maxExp = nextLevel * (nextLevel + 1) * 25 - 50;
+                _maxExp = nextLevel * (nextLevel + 1) * 25 - 100;
                 _currentExp += tempExp;
 
                 Managers.GameManager.State = GameState.LevelUp;
