@@ -7,15 +7,13 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     PlayerInput _inputActions;
-    Animator _animator;
 
     Player myPlayer;
 
     private void Awake()
     {
         _inputActions = new();
-        _animator = GetComponent<Animator>();
-
+       
         myPlayer = GetComponent<Player>();
     }
 
@@ -33,8 +31,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnClick(InputAction.CallbackContext obj)
     {
-        MouseRay(Mouse.current.position.ReadValue());
-        //MouseRay(Touchscreen.current.position.ReadValue());
+        if (Managers.GameManager.State == GameState.Nomal)
+        {
+            MouseRay(Mouse.current.position.ReadValue()); // pc에서 할때 주석풀기
+
+            //MouseRay(Touchscreen.current.position.ReadValue());  핸드폰에서 할때 주석풀기
+        }
     }
 
     private void MouseRay(Vector2 mousePos)
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
             if (myPlayer.TouchPossibleCheck && myPlayer.StaminaCheck)
             {
                 e.GetComponent<EnemyBase>().OnDamage(myPlayer.TouchDamage);
-                _animator.SetTrigger("Attack");
+                myPlayer.AttackAnimation();
                 myPlayer.ResetTouchSpeed();
             }
 

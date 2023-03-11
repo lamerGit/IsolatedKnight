@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     float _currentExp = 0.0f;
     float _maxExp = 100.0f;
 
+    Animator _animator;
+
     float CurrentExp
     {
         get { return _currentExp; }
@@ -47,6 +49,10 @@ public class Player : MonoBehaviour
                 int nextLevel = _level + 1;
                 _maxExp = nextLevel * (nextLevel + 1) * 25 - 50;
                 _currentExp += tempExp;
+
+                Managers.GameManager.State = GameState.LevelUp;
+                Managers.UIManager.LevelUpButtonGroup.Open();
+                Debug.Log("레벨업!!");
             }
 
 
@@ -77,12 +83,14 @@ public class Player : MonoBehaviour
             if (_currentStamina == 0.0f)
             {
                 StaminaCheck = false;
+                OverloadAnimation();
                 Debug.Log("과부화");
             }
 
             if( _currentStamina == _maxStamina)
             {
                 StaminaCheck = true;
+                OverloadAnimation();
                 Debug.Log("과부화해제");
             }
 
@@ -98,7 +106,12 @@ public class Player : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
+
     void Start()
     {
         Weapon weapon = null;
@@ -131,19 +144,19 @@ public class Player : MonoBehaviour
         
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (Managers.GameManager.State == GameState.Nomal)
         {
             if (CurrenTouchSpeed < _touchSpeed)
             {
-                CurrenTouchSpeed += Time.fixedDeltaTime;
+                CurrenTouchSpeed += Time.deltaTime;
                 //Debug.Log(CurrenTouchSpeed);
             }
 
             if (CurrentStamina < _maxStamina)
             {
-                CurrentStamina += _staminaRecoverySpeed * Time.fixedDeltaTime;
+                CurrentStamina += _staminaRecoverySpeed * Time.deltaTime;
                 //Debug.Log(CurrentStamina);
             }
         }
@@ -157,5 +170,19 @@ public class Player : MonoBehaviour
         TouchPossibleCheck=false;
     }
 
+    public void AttackAnimation()
+    {
+        _animator.SetTrigger("Attack");
+    }
+
+    void OverloadAnimation()
+    {
+        _animator.SetBool("Overload", StaminaCheck);
+    }
+
+    public void ExpUp(float exp)
+    {
+        CurrentExp += exp;
+    }
 
 }

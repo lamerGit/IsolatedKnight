@@ -29,6 +29,8 @@ public class Enemy_Skel : EnemyBase
         _animator.SetTrigger("Die");
         _collider.enabled = false;
 
+        Managers.Object.MyPlayer.ExpUp(_exp);
+
         StartCoroutine(ReturnSkel());
     }
 

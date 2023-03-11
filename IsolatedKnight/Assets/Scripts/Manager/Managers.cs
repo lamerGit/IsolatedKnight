@@ -7,14 +7,16 @@ public class Managers : MonoBehaviour
     static Managers s_instance;
     public static Managers Instance { get { Init(); return s_instance; } }
 
-    //public GameObject _playerPrefab = null;
-    //public GameObject _skelPrefab = null;
+    public Canvas Canvas;
 
     #region Contents
 
     ObjectManager _obj = new ObjectManager();
     PoolManager _pool =new PoolManager();
     GameManager _gameManager = new GameManager();
+    UIManager _uiManager = new UIManager();
+
+    public static UIManager UIManager { get { return Instance._uiManager; } }
 
     public static GameManager GameManager { get { return Instance._gameManager; } }
     public static PoolManager Pool { get { return Instance._pool; } }
@@ -32,6 +34,8 @@ public class Managers : MonoBehaviour
 
     private void Start()
     {
+        Canvas=FindObjectOfType<Canvas>();
+
         Init();
 
     }
@@ -53,9 +57,11 @@ public class Managers : MonoBehaviour
             s_instance._data.Init();
 
             //게임씬일때만
+            s_instance._uiManager.GameScenInit();
             s_instance._obj.Init();
             s_instance._pool.Init();
             s_instance._pool.CreatePool(Object.Skel,count:30);
+            s_instance._pool.CreatePool(Object.DamageText,count:30);
             
             
             

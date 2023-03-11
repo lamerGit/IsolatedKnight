@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if(CurrentSkelSpawnTimer<_skelSpawnTime)
+        if(CurrentSkelSpawnTimer<_skelSpawnTime && Managers.GameManager.State==GameState.Nomal)
         {
             CurrentSkelSpawnTimer+= Time.deltaTime;
         }

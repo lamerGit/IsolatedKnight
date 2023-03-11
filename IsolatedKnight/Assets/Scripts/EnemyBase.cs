@@ -20,6 +20,10 @@ public class EnemyBase : Poolable
 
     protected WaitForSeconds dieTimer = new WaitForSeconds(1.0f);
 
+ 
+
+    SkinnedMeshRenderer _skinnedMeshRenderer;
+
     protected virtual int Hp
     {
         get { return _hp; }
@@ -31,6 +35,7 @@ public class EnemyBase : Poolable
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
+        _skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
 
         Managers.GameManager.StateChange += StateChange;
     }
@@ -64,7 +69,17 @@ public class EnemyBase : Poolable
 
     public void OnDamage(int damage)
     {
+        Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
+        p.DamageTextSpawn(damage, transform);
+        StartCoroutine(HitMaterial());
         Hp-=damage;
         Debug.Log(Hp);
+    }
+
+    IEnumerator HitMaterial()
+    {
+        _skinnedMeshRenderer.material.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        _skinnedMeshRenderer.material.color = Color.white;
     }
 }

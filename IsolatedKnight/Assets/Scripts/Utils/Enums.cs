@@ -17,3 +17,12 @@ public enum GameState
     PlayerDie
 
 }
+
+public enum LevelUpOption
+{
+    None=0,
+    TouchDamage,
+    TouchSpeed,
+    Stamina,
+    TouchBuff
+}
