@@ -1,6 +1,7 @@
 using Data;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -27,12 +28,53 @@ public class Player : MonoBehaviour
     float _currentTouchSpeed = 0.0f;
     float _currentStamina = 0.0f;
 
-    // 레벨 x (레벨+1) x 25 - 50
+    // 레벨 x (레벨+1) x 25 - 100
     int _level = 1;
     float _currentExp = 0.0f;
     float _maxExp = 100.0f;
 
     Animator _animator;
+
+    float _currentAutoAttackTimer = 0.0f;
+    float _AutoAttackTimer = 5.0f;
+    float _AutoAttackRange = 60.0f;
+
+    public int PartnerDamage
+    {
+        get { return _partnerDamage; }
+    }
+
+    float CurrentAutoAttackTimer
+    {
+        get { return _currentAutoAttackTimer; }
+        set
+        {
+            _currentAutoAttackTimer = Mathf.Clamp(value, 0.0f, _AutoAttackTimer);
+            if (_currentAutoAttackTimer == _AutoAttackTimer)
+            {
+                AutoAttack();
+            }
+
+        }
+    }
+
+    public int MaxStamina
+    {
+        get { return _maxStamina; }
+        private set { _maxStamina = value;}
+    }
+
+    public float StaminaConsum
+    {
+        get { return _staminaconsum-Managers.GameManager.ExtraStaminaconsum; }
+        private set { _staminaconsum = value;}
+    }
+
+    public float TouchSpeed
+    {
+        get { return _touchSpeed- Managers.GameManager.ExtraTouchSpeed; }
+        private set { _touchSpeed = value; }
+    }
 
     float CurrentExp
     {
@@ -60,13 +102,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    float CurrenTouchSpeed
+    public float CurrenTouchSpeed
     {
         get { return _currentTouchSpeed; }
         set
         {
-            _currentTouchSpeed = Mathf.Clamp(value, 0.0f, _touchSpeed);
-            if (_currentTouchSpeed == _touchSpeed)
+            _currentTouchSpeed = Mathf.Clamp(value, 0.0f, TouchSpeed);
+            if (_currentTouchSpeed == TouchSpeed)
             {
                 TouchPossibleCheck = true;
             }
@@ -74,36 +116,72 @@ public class Player : MonoBehaviour
         }
     }
 
-    float CurrentStamina
+    public float CurrentStamina
     {
         get { return _currentStamina; }
-        set
+        private set
         {
-            _currentStamina = Mathf.Clamp(value, 0.0f, _maxStamina);
-            if (_currentStamina == 0.0f)
+            _currentStamina = Mathf.Clamp(value, 0.0f, MaxStamina+Managers.GameManager.ExtraMaxStamina);
+
+            Managers.UIManager.StaminaUI.AmountChange(_currentStamina, MaxStamina + Managers.GameManager.ExtraMaxStamina);
+            if (_currentStamina == 0.0f )
             {
+                if (Managers.GameManager.StaminaTier3Overload && StaminaCheck)
+                {
+                    _partnerDamage += 15;
+                    _skillDamage += 30;
+                    Debug.Log(_partnerDamage);
+                    Debug.Log(_skillDamage);
+                    
+                }
+                if(StaminaCheck)
+                {
+                    Managers.UIManager.StaminaUI.OverloadColor(StaminaCheck);
+                    Debug.Log("과부화");
+                }
+
                 StaminaCheck = false;
                 OverloadAnimation();
-                Debug.Log("과부화");
+                
+                
             }
 
-            if( _currentStamina == _maxStamina)
+            if( _currentStamina == MaxStamina + Managers.GameManager.ExtraMaxStamina )
             {
+                if (Managers.GameManager.StaminaTier3Overload && !StaminaCheck)
+                {
+                    _partnerDamage -= 15;
+                    _skillDamage -= 30;
+                    Debug.Log(_partnerDamage);
+                    Debug.Log(_skillDamage);
+                    
+                }
+
+                if(!StaminaCheck)
+                {
+                    Managers.UIManager.StaminaUI.OverloadColor(StaminaCheck);
+                    Debug.Log("과부화해제");
+                }
+
                 StaminaCheck = true;
                 OverloadAnimation();
-                Debug.Log("과부화해제");
+                
             }
 
         }
     }
 
     public bool TouchPossibleCheck { get; private set; } = false;
+
+    /// <summary>
+    /// 스태미나를 오버해서 썻는지 확인하는 변수
+    /// </summary>
     public bool StaminaCheck { get;private set; } = true;
 
     public int TouchDamage
     {
         get { return _touchDamage; }
-
+        private set { _touchDamage = value; }
     }
 
     private void Awake()
@@ -122,14 +200,14 @@ public class Player : MonoBehaviour
 
         // 무기데이터 파싱
         _type=weapon.type;
-        _touchDamage=weapon.touchDamage;
-        _touchSpeed=weapon.touchSpeed;
-        _staminaconsum=weapon.staminaconsum;
+        TouchDamage = weapon.touchDamage;
+        TouchSpeed =weapon.touchSpeed;
+        StaminaConsum = weapon.staminaconsum;
         _partnerDamage=weapon.partnerDamage;
         _skillDamage = weapon.skillDamage;
 
         // 스탯데이터 파싱
-        _maxStamina = stat.maxStamina; 
+        MaxStamina = stat.maxStamina; 
         _staminaRecoverySpeed=stat.staminaRecoverySpeed;
         _skillRecoverySpeed = stat.skillRecoverySpeed;
         _partnerAttackSpeed=stat.partnerAttackSpeed;
@@ -139,8 +217,8 @@ public class Player : MonoBehaviour
 
         ////////////////////////////////
 
-        CurrenTouchSpeed = _touchSpeed;
-        CurrentStamina = _maxStamina;
+        CurrenTouchSpeed = TouchSpeed;
+        CurrentStamina = MaxStamina-0.1f;
         
     }
 
@@ -148,16 +226,21 @@ public class Player : MonoBehaviour
     {
         if (Managers.GameManager.State == GameState.Nomal)
         {
-            if (CurrenTouchSpeed < _touchSpeed)
+            if (CurrenTouchSpeed < TouchSpeed)
             {
                 CurrenTouchSpeed += Time.deltaTime;
                 //Debug.Log(CurrenTouchSpeed);
             }
 
-            if (CurrentStamina < _maxStamina)
+            if (CurrentStamina < MaxStamina + Managers.GameManager.ExtraMaxStamina)
             {
                 CurrentStamina += _staminaRecoverySpeed * Time.deltaTime;
                 //Debug.Log(CurrentStamina);
+            }
+
+            if(CurrentAutoAttackTimer<_AutoAttackTimer && Managers.GameManager.TouchBuffTier2AutoAttack)
+            {
+                CurrentAutoAttackTimer += Time.deltaTime;
             }
         }
         
@@ -166,7 +249,25 @@ public class Player : MonoBehaviour
     public void ResetTouchSpeed()
     {
         CurrenTouchSpeed = 0.0f;
-        CurrentStamina -= _staminaconsum;
+
+        if (Managers.GameManager.TouchSpeedTier3RandomConsum)
+        {
+            float r=Random.Range(0.0f, 1.0f);
+            if(r<0.5f)
+            {
+                CurrentStamina -= StaminaConsum;
+                Debug.Log(CurrentStamina);
+
+            }
+            else
+            {
+                Debug.Log("스태미나 소모 없음");
+            }
+        }
+        else
+        {
+            CurrentStamina -= StaminaConsum;
+        }
         TouchPossibleCheck=false;
     }
 
@@ -182,7 +283,42 @@ public class Player : MonoBehaviour
 
     public void ExpUp(float exp)
     {
-        CurrentExp += exp;
+        CurrentExp += exp+(exp*Managers.GameManager.ExtraExpPersent);
+        Debug.Log(exp + (exp * Managers.GameManager.ExtraExpPersent));
     }
 
+    void AutoAttack()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _AutoAttackRange, LayerMask.GetMask("Enemy"));
+
+        if(colliders.Length > 0 )
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                int touchDamage = TouchDamage + Managers.GameManager.ExtraTouchDamage;
+                if (Managers.GameManager.TouchBuffTier3AutoAttackBuff)
+                {
+                    colliders[i].GetComponent<EnemyBase>().OnTouchDamage(touchDamage);
+                }
+                else
+                {
+                    colliders[i].GetComponent<EnemyBase>().OnMultiDamage(touchDamage);
+                }
+            }
+
+            CurrentAutoAttackTimer = 0.0f;
+
+        }else
+        {
+            CurrentAutoAttackTimer = _AutoAttackTimer - 0.1f;
+        }
+    }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(transform.position, transform.up, _AutoAttackRange);
+    }
+#endif
 }

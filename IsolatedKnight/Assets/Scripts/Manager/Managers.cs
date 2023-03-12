@@ -62,9 +62,14 @@ public class Managers : MonoBehaviour
             s_instance._pool.Init();
             s_instance._pool.CreatePool(Object.Skel,count:30);
             s_instance._pool.CreatePool(Object.DamageText,count:30);
-            
-            
-            
+            s_instance._pool.CreatePool(Object.TouchAttackFx,count:30);
+            s_instance._pool.CreatePool(Object.DragonBreath, count: 30);
+            s_instance._pool.CreatePool(Object.GolemRock, count: 30);
+
+
+
+
+
         }
     }
 

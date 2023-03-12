@@ -41,7 +41,7 @@ public class EnemyBase : Poolable
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
         _skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-
+        
         Managers.GameManager.StateChange += StateChange;
     }
 
@@ -72,19 +72,34 @@ public class EnemyBase : Poolable
         
     }
 
+    public void OnPartnerDamage(int damage)
+    {
+        Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
+        p.DamageTextSpawn(damage, transform);
+        StartCoroutine(HitMaterial());
+        Hp -= damage;
+
+        Debug.Log(Hp);
+    }
+
     public void OnTouchDamage(int damage)
     {
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(damage, transform);
         StartCoroutine(HitMaterial());
-        Hp-=damage;
+        Hp -= damage;
+
+        Poolable fx = Managers.Pool.Pop(Managers.Object.TouchAttackFx);
+        fx.Spawn(transform);
+
         Debug.Log(Hp);
-        if(Managers.GameManager.TouchTier2SpeedDown)
+
+        if(Managers.GameManager.TouchDamageTier2SpeedDown)
         {
             StartCoroutine(TouchTier2SpeedDown());
         }
 
-        if(Managers.GameManager.TouchTier2MultiHit)
+        if(Managers.GameManager.TouchDamageTier3MultiHit)
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, _multiHitRange, LayerMask.GetMask("Enemy"));
             if(colliders.Length > 0)
@@ -101,14 +116,19 @@ public class EnemyBase : Poolable
         }
     }
 
-    void OnMultiDamage(int damage)
+    public void OnMultiDamage(int damage)
     {
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(damage, transform);
         StartCoroutine(HitMaterial());
         Hp -= damage;
+
+        Poolable fx = Managers.Pool.Pop(Managers.Object.TouchAttackFx);
+        fx.Spawn(transform);
+
         Debug.Log(Hp);
     }
+
 
     IEnumerator TouchTier2SpeedDown()
     {
@@ -123,6 +143,9 @@ public class EnemyBase : Poolable
         yield return new WaitForSeconds(0.2f);
         _skinnedMeshRenderer.material.color = Color.white;
     }
+
+    
+
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

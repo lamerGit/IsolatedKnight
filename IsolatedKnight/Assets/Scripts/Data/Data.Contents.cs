@@ -96,4 +96,31 @@ namespace Data
         }
     }
     #endregion
+
+    #region Partner
+    [Serializable]
+    public class Partner
+    {
+        public int type;
+        public float attackSpeed;
+        public int attackDamage;
+    }
+
+    [Serializable]
+    public class PartnerLoader : ILoader<int, Partner>
+    {
+        public List<Partner> partners = new List<Partner>();
+
+        public Dictionary<int, Partner> MakeDict()
+        {
+            Dictionary<int, Partner> dict = new Dictionary<int, Partner>();
+            foreach (Partner partner in partners)
+            {
+                dict.Add(partner.type, partner);
+            }
+            return dict;
+
+        }
+    }
+    #endregion
 }

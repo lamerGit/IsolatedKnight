@@ -24,5 +24,16 @@ public enum LevelUpOption
     TouchDamage,
     TouchSpeed,
     Stamina,
-    TouchBuff
+    TouchBuff,
+    PartnerDragon,
+    PartnerGolem,
+    PartnerGost,
+    PartnerBuff
+}
+
+public enum PartnerType
+{
+    Dragon=0,
+    Golem,
+    Gost
 }
