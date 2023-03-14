@@ -8,6 +8,10 @@ public class UIManager
 
     public UI_Stamina StaminaUI { get; private set; }
 
+    public UI_Exp ExpUI { get; private set; }
+
+    public UI_SkillSlotGroup SkillSlotGroup { get; private set; }
+
     //게임 씬일때만 나타나는 UI
     public void GameScenInit()
     {
@@ -23,5 +27,19 @@ public class UIManager
         InstStaminaUI.name=s.name;
 
         StaminaUI=InstStaminaUI.GetComponent<UI_Stamina>();
+
+        GameObject e = Resources.Load<GameObject>($"Prefabs/ExpUI");
+        GameObject InstExpUI = Object.Instantiate(e, Managers.Instance.Canvas.transform);
+        InstExpUI.name=e.name;
+
+        ExpUI=InstExpUI.GetComponent<UI_Exp>();
+
+
+        GameObject skillSlotGroup= Resources.Load<GameObject>($"Prefabs/SkillSlotGroupUI");
+        GameObject InstSlotGroup= Object.Instantiate(skillSlotGroup, Managers.Instance.Canvas.transform);
+        InstSlotGroup.name=skillSlotGroup.name;
+
+        SkillSlotGroup=InstSlotGroup.GetComponent<UI_SkillSlotGroup>();
+
     }
 }

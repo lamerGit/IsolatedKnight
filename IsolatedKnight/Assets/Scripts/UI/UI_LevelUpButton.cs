@@ -55,6 +55,22 @@ public class UI_LevelUpButton : MonoBehaviour
                     _button.image.sprite = _group._levelIcon[8];
                     TierCheck(Managers.GameManager.PartnerBuffTier);
                     break;
+                case LevelUpOption.SkillOnePoint:
+                    _button.image.sprite = _group._levelIcon[9];
+                    TierCheck(Managers.GameManager.SkillOnePointTier);
+                    break;
+                case LevelUpOption.SkillMultiPoint:
+                    _button.image.sprite = _group._levelIcon[10];
+                    TierCheck(Managers.GameManager.SkillMultiPointTier);
+                    break;
+                case LevelUpOption.SkillTouchBuff:
+                    _button.image.sprite = _group._levelIcon[11];
+                    TierCheck(Managers.GameManager.SkillTouchBuffTier);
+                    break;
+                case LevelUpOption.SkillBuff:
+                    _button.image.sprite = _group._levelIcon[12];
+                    TierCheck(Managers.GameManager.SkillBuffTier);
+                    break;
             }
 
 
@@ -100,6 +116,18 @@ public class UI_LevelUpButton : MonoBehaviour
             case LevelUpOption.PartnerBuff:
                 PartnerBuffTierSelected();
                 break;
+            case LevelUpOption.SkillOnePoint:
+                SkillOnePointTierSelected();
+                break;
+            case LevelUpOption.SkillMultiPoint:
+                SkillMultitTierSelected();
+                break;
+            case LevelUpOption.SkillTouchBuff:
+                SkillTouchBuffTierSelected();
+                break;
+            case LevelUpOption.SkillBuff:
+                SkillBuffTierSelected();
+                break;
         }
 
 
@@ -107,7 +135,79 @@ public class UI_LevelUpButton : MonoBehaviour
 
         _group.Close();
     }
+    #region Skill
+    private void SkillOnePointTierSelected()
+    {
+        switch (Managers.GameManager.SkillOnePointTier)
+        {
+            case 0:
+                Managers.UIManager.SkillSlotGroup.AddSkill(SkillType.OnePoint);
+                break;
+            case 1:
+               
+                break;
+            case 2:
+                
+                break;
 
+        }
+        Managers.GameManager.SkillOnePointTier++;
+    }
+
+    private void SkillMultitTierSelected()
+    {
+        switch (Managers.GameManager.SkillMultiPointTier)
+        {
+            case 0:
+                Managers.UIManager.SkillSlotGroup.AddSkill(SkillType.MultiPoint);
+                break;
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+
+        }
+        Managers.GameManager.SkillMultiPointTier++;
+    }
+
+    private void SkillTouchBuffTierSelected()
+    {
+        switch (Managers.GameManager.SkillTouchBuffTier)
+        {
+            case 0:
+                Managers.UIManager.SkillSlotGroup.AddSkill(SkillType.TouchBuff);
+                break;
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+
+        }
+        Managers.GameManager.SkillTouchBuffTier++;
+    }
+
+    private void SkillBuffTierSelected()
+    {
+        switch (Managers.GameManager.SkillBuffTier)
+        {
+            case 0:
+
+                break;
+            case 1:
+
+                break;
+            case 2:
+                Managers.UIManager.SkillSlotGroup.AddSkill(SkillType.Buff);
+                break;
+
+        }
+        Managers.GameManager.SkillBuffTier++;
+    }
+    #endregion
     #region PartnerSelected
     private void PartnerGolemTierSelected()
     {
@@ -117,10 +217,12 @@ public class UI_LevelUpButton : MonoBehaviour
                 Managers.Object.PartnerGolem.Spawn();
                 break;
             case 1:
-
+                Managers.GameManager.PartnerGolemTier2Billia = true;
+                Managers.GameManager.ExtraGolemDamage += (int)(Managers.Object.PartnerGolem.AttackDamge * 0.5f);
                 break;
             case 2:
-
+                Managers.GameManager.PartnerGolemTier3Explosion = true;
+                Managers.GameManager.ExtraGolemDamage += (int)(Managers.Object.PartnerGolem.AttackDamge * 0.5f);
                 break;
 
         }
@@ -132,13 +234,13 @@ public class UI_LevelUpButton : MonoBehaviour
         switch (Managers.GameManager.PartnerGostTier)
         {
             case 0:
-
+                Managers.Object.PartnerGost.Spawn();
                 break;
             case 1:
-
+                Managers.GameManager.PartnerGostTier2Slow= true;
                 break;
             case 2:
-
+                Managers.GameManager.PartnerGostTier3Slow = true;
                 break;
 
         }
@@ -150,13 +252,15 @@ public class UI_LevelUpButton : MonoBehaviour
         switch (Managers.GameManager.PartnerBuffTier)
         {
             case 0:
-
+                Managers.GameManager.ExtraPartnerDamage += (int)(Managers.Object.MyPlayer.PartnerDamage * 0.2f);
+                Managers.GameManager.ExtraExpPersent += 0.2f;
                 break;
             case 1:
-
+                Managers.GameManager.ExtraTouchDamage += (int)(Managers.Object.MyPlayer.TouchDamage * 0.3f);
+                Managers.GameManager.ExtraPartnerDamage += (int)(Managers.Object.MyPlayer.PartnerDamage * 0.3f);
                 break;
             case 2:
-
+                Managers.GameManager.PartnerBuffTier3ExtraAttack = true;
                 break;
 
         }

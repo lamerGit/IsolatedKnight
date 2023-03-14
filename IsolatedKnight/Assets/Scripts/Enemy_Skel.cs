@@ -36,6 +36,7 @@ public class Enemy_Skel : EnemyBase
 
     public override void Spawn(Transform t)
     {
+        // Json 데이터 파싱
         Skel skel = null;
         Managers.Data.SkelDict.TryGetValue(1, out skel);
 
@@ -55,6 +56,10 @@ public class Enemy_Skel : EnemyBase
             _agent.SetDestination(_target.transform.position);
             _animator.SetBool("Walk", true);
         }
+
+        // 상태이상 스택 초기화
+        _speedDownStack = 0;
+        OutLineOff();
     }
 
     IEnumerator ReturnSkel()

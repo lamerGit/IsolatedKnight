@@ -93,8 +93,8 @@ public class DragonBreath : Poolable
     {
         if(other.CompareTag("Enemy") && Managers.GameManager.State==GameState.Nomal)
         {
-            int totalDamage = Damage + Managers.Object.MyPlayer.PartnerDamage;
-            other.GetComponent<EnemyBase>().OnPartnerDamage(totalDamage);
+            
+            other.GetComponent<EnemyBase>().OnPartnerDamage(Damage);
             if(!Managers.GameManager.PartnerDragonTier2SpearShot)
             {
                 CurrentDeSpawnTimer = 0.0f;

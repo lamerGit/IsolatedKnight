@@ -21,13 +21,34 @@ public class EnemyBase : Poolable
 
     protected WaitForSeconds dieTimer = new WaitForSeconds(1.0f);
 
-    protected WaitForSeconds SpeedDownTimer = new WaitForSeconds(1.0f);
-
- 
 
     SkinnedMeshRenderer _skinnedMeshRenderer;
 
     float _multiHitRange = 3.0f;
+
+    protected int _speedDownStack = 0;
+
+    float _currentSpeedDownTimer = 0.0f;
+
+    float _SpeedDownTimer = 2.0f;
+    float _speedDownPoint = 0.3f;
+
+    
+    float CurrentSpeedDownTimer
+    {
+        get { return _currentSpeedDownTimer; }
+        set { _currentSpeedDownTimer = Mathf.Clamp(value,0.0f,_SpeedDownTimer);
+        
+            if(_currentSpeedDownTimer == _SpeedDownTimer ) {
+
+                _agent.speed =_agent.speed+ _speedDownStack * _speedDownPoint;
+                _speedDownStack = 0;
+            
+            }
+        
+        
+        }
+    }
 
     protected virtual int Hp
     {
@@ -41,8 +62,21 @@ public class EnemyBase : Poolable
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
         _skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+
+        
         
         Managers.GameManager.StateChange += StateChange;
+    }
+
+    private void Update()
+    {
+        if (Managers.GameManager.State == GameState.Nomal)
+        {
+            if (CurrentSpeedDownTimer < _SpeedDownTimer)
+            {
+                CurrentSpeedDownTimer += Time.deltaTime;
+            }
+        }
     }
 
 
@@ -72,7 +106,29 @@ public class EnemyBase : Poolable
         
     }
 
+    /// <summary>
+    /// 파트너에게 공격당했을때 사용하는 함수
+    /// </summary>
+    /// <param name="damage"></param>
     public void OnPartnerDamage(int damage)
+    {
+        int totaldamage=damage + Managers.Object.MyPlayer.PartnerDamage + Managers.GameManager.ExtraPartnerDamage;
+
+        Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
+        p.DamageTextSpawn(totaldamage, transform);
+        StartCoroutine(HitMaterial());
+        Hp -= totaldamage;
+
+        if(Managers.GameManager.PartnerBuffTier3ExtraAttack)
+        {
+            int extraDamage = (int)(totaldamage * 0.3f);
+            OnExtraPartnerDamage(extraDamage);
+        }
+
+        Debug.Log(Hp);
+    }
+
+    public void OnExtraPartnerDamage(int damage)
     {
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(damage, transform);
@@ -82,12 +138,19 @@ public class EnemyBase : Poolable
         Debug.Log(Hp);
     }
 
+
+    /// <summary>
+    /// 터치로 공격당했을때 사용하는 함수
+    /// </summary>
+    /// <param name="damage">받는 데미지</param>
     public void OnTouchDamage(int damage)
     {
+        int totaldamage = damage + Managers.GameManager.ExtraTouchDamage;
+
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
-        p.DamageTextSpawn(damage, transform);
+        p.DamageTextSpawn(totaldamage, transform);
         StartCoroutine(HitMaterial());
-        Hp -= damage;
+        Hp -= totaldamage;
 
         Poolable fx = Managers.Pool.Pop(Managers.Object.TouchAttackFx);
         fx.Spawn(transform);
@@ -96,7 +159,7 @@ public class EnemyBase : Poolable
 
         if(Managers.GameManager.TouchDamageTier2SpeedDown)
         {
-            StartCoroutine(TouchTier2SpeedDown());
+            EnemySlow();
         }
 
         if(Managers.GameManager.TouchDamageTier3MultiHit)
@@ -109,14 +172,18 @@ public class EnemyBase : Poolable
                 {
                     if (colliders[i].gameObject!=transform.gameObject)
                     {
-                        colliders[i].GetComponent<EnemyBase>().OnMultiDamage(damage);
+                        colliders[i].GetComponent<EnemyBase>().OnExtraDamage(totaldamage);
                     }
                 }
             }
         }
     }
 
-    public void OnMultiDamage(int damage)
+    /// <summary>
+    /// 적이 추가데미지를 받을때 쓰는 함수
+    /// </summary>
+    /// <param name="damage">받는 데미지</param>
+    public void OnExtraDamage(int damage)
     {
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(damage, transform);
@@ -130,11 +197,12 @@ public class EnemyBase : Poolable
     }
 
 
-    IEnumerator TouchTier2SpeedDown()
+
+    public void EnemySlow(int stack=1)
     {
-        _agent.speed = _agent.speed - 0.2f;
-        yield return SpeedDownTimer;
-        _agent.speed = _agent.speed + 0.2f;
+        _speedDownStack+=stack;
+        CurrentSpeedDownTimer = 0.0f;
+        _agent.speed =_agent.speed- _speedDownPoint*stack;
     }
 
     IEnumerator HitMaterial()
@@ -144,6 +212,15 @@ public class EnemyBase : Poolable
         _skinnedMeshRenderer.material.color = Color.white;
     }
 
+    public void OutLineOn()
+    {
+        _skinnedMeshRenderer.gameObject.layer = 7;
+    }
+
+    public void OutLineOff() {
+        _skinnedMeshRenderer.gameObject.layer = LayerMask.GetMask("Default");
+
+    }
     
 
 

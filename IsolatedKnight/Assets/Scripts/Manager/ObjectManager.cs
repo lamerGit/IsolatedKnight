@@ -20,6 +20,12 @@ public class ObjectManager
     public PartnerGolem PartnerGolem { get; private set; }
     public GameObject GolemRock { get; private set; }
 
+    public GameObject RockExplosion { get; private set; }
+
+    public PartnerGost PartnerGost { get; private set; }
+
+    public GameObject GostAttackFx { get;private set; }
+
     public void Init()
     {
         GameObject p = Resources.Load<GameObject>($"Prefabs/Player");
@@ -48,5 +54,16 @@ public class ObjectManager
 
         DragonBreath = Resources.Load<GameObject>($"Prefabs/DragonBreath");
         GolemRock= Resources.Load<GameObject>($"Prefabs/GolemRock");
+
+        RockExplosion= Resources.Load<GameObject>($"Prefabs/RockExplosion");
+
+        GameObject partnerGost= Resources.Load<GameObject>($"Prefabs/Partner_Gost");
+        GameObject InstPartnerGost = Object.Instantiate(partnerGost);
+        InstPartnerGost.name = partnerGost.name;
+
+        PartnerGost=InstPartnerGost.GetComponent<PartnerGost>();
+        PartnerGost.DeSpawn();
+
+        GostAttackFx = Resources.Load<GameObject>($"Prefabs/GostAttack");
     }
 }

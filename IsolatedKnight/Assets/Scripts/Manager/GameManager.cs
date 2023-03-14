@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class GameManager 
@@ -47,6 +48,7 @@ public class GameManager
 
     #endregion
 
+
     #region Dragon
 
     public int PartnerDragonTier { get; set;} = 0;
@@ -63,17 +65,38 @@ public class GameManager
 
     public int PartnerGolemTier { get; set; } = 0;
 
+    public int ExtraGolemDamage { get; set; } = 0;
+
+    public bool PartnerGolemTier2Billia { get; set; } = false;
+    public bool PartnerGolemTier3Explosion { get; set; } = false;  
+
     #endregion
 
     #region Gost
 
     public int PartnerGostTier { get; set; } = 0;
 
+    public bool PartnerGostTier2Slow { get; set; } = false;
+    public bool PartnerGostTier3Slow { get; set;} = false;
+
     #endregion
 
     #region PartnerBuff
 
     public int PartnerBuffTier { get; set; } = 0;
+
+    public int ExtraPartnerDamage { get; set;} = 0;
+
+    public bool PartnerBuffTier3ExtraAttack { get; set; } = false;
+
+    #endregion
+
+    #region Skill
+
+    public int SkillOnePointTier { get; set; } = 0;
+    public int SkillMultiPointTier { get; set; } = 0;
+    public int SkillTouchBuffTier { get; set; } = 0;
+    public int SkillBuffTier { get; set; } = 0;
 
     #endregion
 }

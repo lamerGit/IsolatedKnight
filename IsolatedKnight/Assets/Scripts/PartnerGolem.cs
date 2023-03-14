@@ -18,9 +18,15 @@ public class PartnerGolem : MonoBehaviour
 
     float _bulletSpeed = 20.0f;
 
+    public int AttackDamge
+    {
+        get { return _attackDamage; }
+        private set { _attackDamage = value; }
+    }
+
     public float AttackSpeed
     {
-        get { return _attackSpeed - Managers.GameManager.ExtraDragonAttackSpeed; }
+        get { return _attackSpeed; }
         private set { _attackSpeed = value; }
     }
 
@@ -81,7 +87,7 @@ public class PartnerGolem : MonoBehaviour
                 dir.y += 0.1f;
                 component.Rigid.velocity = dir * _bulletSpeed;
 
-                component.Damage = _attackDamage;
+                component.Damage = AttackDamge+Managers.GameManager.ExtraGolemDamage;
                 component.Dir = dir;
                 component.Speed = _bulletSpeed;
 
@@ -109,10 +115,10 @@ public class PartnerGolem : MonoBehaviour
 
 
         AttackSpeed = partner.attackSpeed;
-        _attackDamage = partner.attackDamage;
+        AttackDamge = partner.attackDamage;
 
         Debug.Log(AttackSpeed);
-        Debug.Log(_attackDamage);
+        Debug.Log(AttackDamge);
     }
 
     public void DeSpawn()

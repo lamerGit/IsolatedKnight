@@ -20,9 +20,9 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
 
     public void Open()
     {
-        _left.Option=LevelUpOption.PartnerDragon;
-        _Middle.Option=LevelUpOption.PartnerGolem;
-        _right.Option = LevelUpOption.PartnerGost;
+        _left.Option=LevelUpOption.SkillOnePoint;
+        _Middle.Option=LevelUpOption.SkillMultiPoint;
+        _right.Option = LevelUpOption.SkillTouchBuff;
 
         gameObject.SetActive(true);
     }

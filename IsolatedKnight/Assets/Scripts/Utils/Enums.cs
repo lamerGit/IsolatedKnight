@@ -28,7 +28,11 @@ public enum LevelUpOption
     PartnerDragon,
     PartnerGolem,
     PartnerGost,
-    PartnerBuff
+    PartnerBuff,
+    SkillOnePoint,
+    SkillMultiPoint,
+    SkillTouchBuff,
+    SkillBuff
 }
 
 public enum PartnerType
@@ -36,4 +40,13 @@ public enum PartnerType
     Dragon=0,
     Golem,
     Gost
+}
+
+public enum SkillType
+{
+    None=0,
+    OnePoint,
+    MultiPoint,
+    TouchBuff,
+    Buff
 }

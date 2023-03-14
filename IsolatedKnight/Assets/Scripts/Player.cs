@@ -97,6 +97,8 @@ public class Player : MonoBehaviour
                 Debug.Log("·¹º§¾÷!!");
             }
 
+            Managers.UIManager.ExpUI.AmountChange(_currentExp,_maxExp, _level);
+
 
 
         }
@@ -219,7 +221,8 @@ public class Player : MonoBehaviour
 
         CurrenTouchSpeed = TouchSpeed;
         CurrentStamina = MaxStamina-0.1f;
-        
+
+        Managers.UIManager.ExpUI.AmountChange(_currentExp, _maxExp, _level);
     }
 
     private void Update()
@@ -295,14 +298,14 @@ public class Player : MonoBehaviour
         {
             for (int i = 0; i < 1; i++)
             {
-                int touchDamage = TouchDamage + Managers.GameManager.ExtraTouchDamage;
+                
                 if (Managers.GameManager.TouchBuffTier3AutoAttackBuff)
                 {
-                    colliders[i].GetComponent<EnemyBase>().OnTouchDamage(touchDamage);
+                    colliders[i].GetComponent<EnemyBase>().OnTouchDamage(TouchDamage);
                 }
                 else
                 {
-                    colliders[i].GetComponent<EnemyBase>().OnMultiDamage(touchDamage);
+                    colliders[i].GetComponent<EnemyBase>().OnExtraDamage(TouchDamage);
                 }
             }
 
