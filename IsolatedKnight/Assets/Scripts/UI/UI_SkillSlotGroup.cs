@@ -44,4 +44,12 @@ public class UI_SkillSlotGroup : MonoBehaviour
 
 
     }
+
+    public void AllCoolTimeReset()
+    {
+        for (int i = 0; i < _slotList.Count; i++)
+        {
+            _slotList[i].CurrentSkillColTime = _slotList[i].SkillColTime;
+        }
+    }
 }

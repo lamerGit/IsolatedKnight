@@ -71,6 +71,22 @@ public class UI_LevelUpButton : MonoBehaviour
                     _button.image.sprite = _group._levelIcon[12];
                     TierCheck(Managers.GameManager.SkillBuffTier);
                     break;
+                case LevelUpOption.PassiveExp:
+                    _button.image.sprite = _group._levelIcon[13];
+                    TierCheck(Managers.GameManager.PassiveExpTier);
+                    break;
+                case LevelUpOption.PassiveDefence:
+                    _button.image.sprite = _group._levelIcon[14];
+                    TierCheck(Managers.GameManager.PassiveDefenceTier);
+                    break;
+                case LevelUpOption.PassiveFire:
+                    _button.image.sprite = _group._levelIcon[15];
+                    TierCheck(Managers.GameManager.PassiveFireTier);
+                    break;
+                case LevelUpOption.PassiveThunder:
+                    _button.image.sprite = _group._levelIcon[16];
+                    TierCheck(Managers.GameManager.PassiveThunderTier);
+                    break;
             }
 
 
@@ -128,6 +144,18 @@ public class UI_LevelUpButton : MonoBehaviour
             case LevelUpOption.SkillBuff:
                 SkillBuffTierSelected();
                 break;
+            case LevelUpOption.PassiveExp:
+                PassiveExpTierSelected();
+                break;
+            case LevelUpOption.PassiveDefence:
+                PassiveDefenceTierSelected();
+                break;
+            case LevelUpOption.PassiveFire:
+                PassiveFireTierSelected();
+                break;
+            case LevelUpOption.PassiveThunder:
+                PassiveThunderTierSelected();
+                break;
         }
 
 
@@ -135,7 +163,84 @@ public class UI_LevelUpButton : MonoBehaviour
 
         _group.Close();
     }
-    #region Skill
+
+    private void PassiveThunderTierSelected()
+    {
+        switch (Managers.GameManager.PassiveThunderTier)
+        {
+            case 0:
+
+                break;
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+
+        }
+        Managers.GameManager.PassiveThunderTier++;
+    }
+
+    private void PassiveFireTierSelected()
+    {
+        switch (Managers.GameManager.PassiveFireTier)
+        {
+            case 0:
+
+                break;
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+
+        }
+        Managers.GameManager.PassiveFireTier++;
+    }
+
+    private void PassiveDefenceTierSelected()
+    {
+        switch (Managers.GameManager.PassiveDefenceTier)
+        {
+            case 0:
+
+                break;
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+
+        }
+        Managers.GameManager.PassiveDefenceTier++;
+    }
+
+    private void PassiveExpTierSelected()
+    {
+        switch (Managers.GameManager.PassiveExpTier)
+        {
+            case 0:
+                Managers.GameManager.ExtraExpPersent += 0.5f;
+                
+                break;
+            case 1:
+                Managers.GameManager.ExtraExpPersent += 0.6f;
+                Managers.GameManager.PassiveExpTier2Arrow = true;
+                break;
+            case 2:
+                Managers.GameManager.ExtraExpPersent += 0.7f;
+                Managers.GameManager.PassiveExpTier3Arrow = true;
+                break;
+
+        }
+        Managers.GameManager.PassiveExpTier++;
+    }
+
+
+    #region SkillSelected
     private void SkillOnePointTierSelected()
     {
         switch (Managers.GameManager.SkillOnePointTier)
@@ -144,10 +249,11 @@ public class UI_LevelUpButton : MonoBehaviour
                 Managers.UIManager.SkillSlotGroup.AddSkill(SkillType.OnePoint);
                 break;
             case 1:
-               
+                Managers.GameManager.ExtraSkillDamage += (int)(Managers.Object.MyPlayer.SkillDamage * 1.0f);
                 break;
             case 2:
-                
+                Managers.GameManager.ExtraSkillDamage += (int)(Managers.Object.MyPlayer.SkillDamage * 1.0f);
+                Managers.GameManager.OnePointSkillTier3HpAttack = true;
                 break;
 
         }
@@ -162,10 +268,11 @@ public class UI_LevelUpButton : MonoBehaviour
                 Managers.UIManager.SkillSlotGroup.AddSkill(SkillType.MultiPoint);
                 break;
             case 1:
-
+                Managers.GameManager.SkillMutiPointTier2Slow = true;
                 break;
             case 2:
-
+                Managers.GameManager.ExtraSkillDamage += (int)(Managers.Object.MyPlayer.SkillDamage * 0.5f);
+                Managers.GameManager.SkillMutiPointTier3Slow = true;
                 break;
 
         }
@@ -180,10 +287,10 @@ public class UI_LevelUpButton : MonoBehaviour
                 Managers.UIManager.SkillSlotGroup.AddSkill(SkillType.TouchBuff);
                 break;
             case 1:
-
+                Managers.GameManager.SkillTouchBuffTier2SpeedUp = true;
                 break;
             case 2:
-
+                Managers.GameManager.SkillTouchBuffTier3StaminaRecovery = true;
                 break;
 
         }
@@ -195,9 +302,11 @@ public class UI_LevelUpButton : MonoBehaviour
         switch (Managers.GameManager.SkillBuffTier)
         {
             case 0:
-
+                Managers.GameManager.ExtraSkillDamage += (int)(Managers.Object.MyPlayer.SkillDamage * 0.2f);
+                Managers.GameManager.ExtraExpPersent += 0.2f;
                 break;
             case 1:
+                Managers.GameManager.ExtraSkillRecovery += Managers.Object.MyPlayer.SkillRecoverySpeed * 1.0f;
 
                 break;
             case 2:
@@ -208,6 +317,7 @@ public class UI_LevelUpButton : MonoBehaviour
         Managers.GameManager.SkillBuffTier++;
     }
     #endregion
+
     #region PartnerSelected
     private void PartnerGolemTierSelected()
     {
@@ -319,17 +429,17 @@ public class UI_LevelUpButton : MonoBehaviour
         switch (Managers.GameManager.TouchSpeedTier)
         {
             case 0:
-                Managers.GameManager.ExtraTouchSpeed += Managers.Object.MyPlayer.TouchSpeed * 0.3f;
+                Managers.GameManager.ExtraTouchSpeed += Managers.Object.MyPlayer.TouchSpeed * 0.1f;
                 Managers.Object.MyPlayer.CurrenTouchSpeed = 0.0f;
                
                 break;
             case 1:
-                Managers.GameManager.ExtraTouchSpeed += Managers.Object.MyPlayer.TouchSpeed * 0.3f;
+                Managers.GameManager.ExtraTouchSpeed += Managers.Object.MyPlayer.TouchSpeed * 0.2f;
                 Managers.GameManager.ExtraStaminaconsum += Managers.Object.MyPlayer.StaminaConsum * 0.2f;
                 Managers.Object.MyPlayer.CurrenTouchSpeed = 0.0f;
                 break;
             case 2:
-                Managers.GameManager.ExtraTouchSpeed += Managers.Object.MyPlayer.TouchSpeed * 0.3f;
+                Managers.GameManager.ExtraTouchSpeed += Managers.Object.MyPlayer.TouchSpeed * 0.2f;
                 Managers.Object.MyPlayer.CurrenTouchSpeed = 0.0f;
                 Managers.GameManager.TouchSpeedTier3RandomConsum= true;
                 break;

@@ -32,7 +32,11 @@ public enum LevelUpOption
     SkillOnePoint,
     SkillMultiPoint,
     SkillTouchBuff,
-    SkillBuff
+    SkillBuff,
+    PassiveExp,
+    PassiveDefence,
+    PassiveFire,
+    PassiveThunder
 }
 
 public enum PartnerType

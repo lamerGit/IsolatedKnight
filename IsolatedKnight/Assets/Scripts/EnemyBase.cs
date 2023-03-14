@@ -106,6 +106,40 @@ public class EnemyBase : Poolable
         
     }
 
+    public void OnFixedDamage(int damage)
+    {
+        int totaldamage = damage + Managers.Object.MyPlayer.FixedDamage;
+
+        Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
+        p.DamageTextSpawn(damage, transform);
+        StartCoroutine(HitMaterial());
+        Hp -= damage;
+
+        Debug.Log(Hp);
+    }
+
+    public void OnSkillDamge(int damage)
+    {
+        int totaldamage = damage + Managers.Object.MyPlayer.SkillDamage+Managers.GameManager.ExtraSkillDamage;
+
+        Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
+        p.DamageTextSpawn(totaldamage, transform);
+        StartCoroutine(HitMaterial());
+        Hp -= totaldamage;
+        Debug.Log(Hp);
+    }
+
+    public void OnExtraSkillDamage(int damage)
+    {
+        Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
+        p.DamageTextSpawn(damage, transform);
+        StartCoroutine(HitMaterial());
+        Hp -= damage;
+
+        Debug.Log(Hp);
+    }
+
+
     /// <summary>
     /// 파트너에게 공격당했을때 사용하는 함수
     /// </summary>
@@ -220,6 +254,11 @@ public class EnemyBase : Poolable
     public void OutLineOff() {
         _skinnedMeshRenderer.gameObject.layer = LayerMask.GetMask("Default");
 
+    }
+
+    public int GetMaxHp()
+    {
+        return _maxHp;
     }
     
 

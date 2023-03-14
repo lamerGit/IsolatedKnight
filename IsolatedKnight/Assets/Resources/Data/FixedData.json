@@ -1,0 +1,11 @@
+{
+  "fixeds": [
+    {
+      "type": "0",
+      "arrow": "10",
+      "defence": "10",
+      "fire": "1",
+      "thunder": "5"
+    }
+  ]
+} 

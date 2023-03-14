@@ -79,6 +79,8 @@ public class Managers : MonoBehaviour
         s_instance._pool.CreatePool(Object.GolemRock, count: 30);
         s_instance._pool.CreatePool(Object.RockExplosion, count: 30);
         s_instance._pool.CreatePool(Object.GostAttackFx, count: 30);
+        s_instance._pool.CreatePool(Object.OnePointSkillFx, count: 10);
+        s_instance._pool.CreatePool(Object.ExpAllow, count: 30);
     }
 
 }

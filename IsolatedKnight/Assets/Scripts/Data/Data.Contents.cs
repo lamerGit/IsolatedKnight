@@ -13,8 +13,7 @@ namespace Data
         public int maxStamina;
         public float staminaRecoverySpeed;
         public float skillRecoverySpeed;
-        public float partnerAttackSpeed;
-        public float fixedDamage;
+        public int fixedDamage;
         public float expAmount;
         public float goldAmount;
 
@@ -117,6 +116,62 @@ namespace Data
             foreach (Partner partner in partners)
             {
                 dict.Add(partner.type, partner);
+            }
+            return dict;
+
+        }
+    }
+    #endregion
+
+    #region Skill
+    [Serializable]
+    public class Skill
+    {
+        public int type;
+        public float skillColTime;
+        public int skillDamage;
+    }
+
+    [Serializable]
+    public class SkillLoader : ILoader<int, Skill>
+    {
+        public List<Skill> skills = new List<Skill>();
+
+        public Dictionary<int, Skill> MakeDict()
+        {
+            Dictionary<int, Skill> dict = new Dictionary<int, Skill>();
+            foreach (Skill skill in skills)
+            {
+                dict.Add(skill.type, skill);
+            }
+            return dict;
+
+        }
+    }
+    #endregion
+
+    #region Fixed
+    [Serializable]
+    public class Fixed
+    {
+        public int type;
+        public int arrow;
+        public int defence;
+        public int fire;
+        public int thunder;
+    }
+
+    [Serializable]
+    public class FixedLoader : ILoader<int, Fixed>
+    {
+        public List<Fixed> fixeds = new List<Fixed>();
+
+        public Dictionary<int, Fixed> MakeDict()
+        {
+            Dictionary<int, Fixed> dict = new Dictionary<int, Fixed>();
+            foreach (Fixed f in fixeds)
+            {
+                dict.Add(f.type, f);
             }
             return dict;
 

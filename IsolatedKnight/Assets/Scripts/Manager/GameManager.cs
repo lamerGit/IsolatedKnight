@@ -94,9 +94,37 @@ public class GameManager
     #region Skill
 
     public int SkillOnePointTier { get; set; } = 0;
+
+    public int ExtraSkillDamage { get; set;} = 0;
+
+    public bool OnePointSkillTier3HpAttack { get; set; }= false;
+
     public int SkillMultiPointTier { get; set; } = 0;
+
+    public bool SkillMutiPointTier2Slow { get; set; } = false;
+    public bool SkillMutiPointTier3Slow { get; set; } = false;
+
+
     public int SkillTouchBuffTier { get; set; } = 0;
+
+    public bool SkillTouchBuffTier2SpeedUp { get; set;} = false;
+    public bool SkillTouchBuffTier3StaminaRecovery { get; set;} = false;
     public int SkillBuffTier { get; set; } = 0;
+
+    public float ExtraSkillRecovery { get; set;} = 0.0f;
+
+    #endregion
+
+    #region Passive
+
+    public int PassiveExpTier { get; set; } = 0;
+
+    public bool PassiveExpTier2Arrow { get; set; } = false;
+    public bool PassiveExpTier3Arrow { get; set; } = false;
+    public int PassiveDefenceTier { get; set; } = 0;
+    public int PassiveFireTier { get; set; } = 0;
+    public int PassiveThunderTier { get; set; } = 0;
+
 
     #endregion
 }

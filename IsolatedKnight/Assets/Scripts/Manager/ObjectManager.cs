@@ -26,6 +26,10 @@ public class ObjectManager
 
     public GameObject GostAttackFx { get;private set; }
 
+    public GameObject OnePointSkillFx { get; private set; }
+    
+    public GameObject ExpAllow { get;private set; }
+    
     public void Init()
     {
         GameObject p = Resources.Load<GameObject>($"Prefabs/Player");
@@ -65,5 +69,10 @@ public class ObjectManager
         PartnerGost.DeSpawn();
 
         GostAttackFx = Resources.Load<GameObject>($"Prefabs/GostAttack");
+
+        OnePointSkillFx = Resources.Load<GameObject>($"Prefabs/OnePointAttackFx");
+
+        ExpAllow = Resources.Load<GameObject>($"Prefabs/PassiveExpArrow");
+
     }
 }
