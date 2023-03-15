@@ -44,8 +44,74 @@ public class Player : MonoBehaviour
     float _AutoAttackTimer = 5.0f;
     float _AutoAttackRange = 60.0f;
 
-    float _expAttackRange = 20.0f;
+    float _expAttackRange = 60.0f;
     float _allowSpeed = 40.0f;
+
+    float _currentLightningTimer = 0.0f;
+    float _lightningTimer = 2.0f;
+    float _lightningRange = 60.0f;
+
+    public float CurrentLightningTimer
+    {
+        get { return _currentLightningTimer; }
+        set { _currentLightningTimer = Mathf.Clamp(value, 0.0f, _lightningTimer); 
+        
+            if( _currentLightningTimer ==_lightningTimer ) 
+            {
+                Collider[] colliders = Physics.OverlapSphere(transform.position, _lightningRange, LayerMask.GetMask("Enemy"));
+
+                if (colliders.Length > 0)
+                {
+                    int totalDamage = _thunder;
+                    int count = Managers.GameManager.PassiveThunderCount;
+
+                    for (int i = 0; i < colliders.Length; i++)
+                    {
+                        if (count < 1)
+                            break;
+
+                        EnemyBase e = colliders[i].GetComponent<EnemyBase>();
+                        Poolable p = Managers.Pool.Pop(Managers.Object.PassiveLightningFx);
+                        p.Spawn(e.transform);
+                        e.OnFixedDamage(totalDamage);
+                        count--;
+
+                        if(Managers.GameManager.PassiveThunderTier3CoolTimeRecovery)
+                        {
+                            int index=Managers.UIManager.SkillSlotGroup.SlotList.Count;
+
+                            for(int skillIndex=0; skillIndex < index; skillIndex++)
+                            {
+                                Managers.UIManager.SkillSlotGroup.SlotList[skillIndex].CurrentSkillColTime += 0.2f;
+                            }
+                        }
+                    }
+                    _currentLightningTimer = 0.0f;
+
+                }
+                else
+                {
+                    _currentLightningTimer = _lightningTimer - 0.1f;
+
+
+                }
+
+            }
+
+        }
+    }
+
+    public int Fire
+    {
+        get { return _fire; }
+        private set { _fire = value; }
+    }
+
+    public int Defence
+    {
+        get { return _defence; }
+        private set { _defence = value; }
+    }
     public int FixedDamage
     {
         get { return _fixedDamage; }
@@ -298,8 +364,8 @@ public class Player : MonoBehaviour
 
         // 고정데미지 데이터 파싱
         _arrow = f.arrow;
-        _defence = f.defence;
-        _fire = f.fire;
+        Defence = f.defence;
+        Fire = f.fire;
         _thunder = f.thunder;
 
         CurrenTouchSpeed = TouchSpeed;
@@ -327,6 +393,11 @@ public class Player : MonoBehaviour
             if(CurrentAutoAttackTimer<_AutoAttackTimer && Managers.GameManager.TouchBuffTier2AutoAttack)
             {
                 CurrentAutoAttackTimer += Time.deltaTime;
+            }
+
+            if(CurrentLightningTimer<_lightningTimer && Managers.GameManager.PassiveThunderTier1ThunderOn)
+            {
+                CurrentLightningTimer += Time.deltaTime;
             }
         }
         

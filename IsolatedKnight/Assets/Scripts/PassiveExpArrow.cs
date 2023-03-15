@@ -11,7 +11,7 @@ public class PassiveExpArrow : Poolable
     float _currentDeSpawnTimer = 0.0f;
     float _deSpawnTimer = 3.0f;
 
-    float _billiaRange = 10.0f;
+    //float _billiaRange = 10.0f;
 
 
     float CurrentDeSpawnTimer

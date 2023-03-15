@@ -122,8 +122,22 @@ public class GameManager
     public bool PassiveExpTier2Arrow { get; set; } = false;
     public bool PassiveExpTier3Arrow { get; set; } = false;
     public int PassiveDefenceTier { get; set; } = 0;
+
+    public int ExtraPassiveDefenceDamage { get; set;} = 0;
     public int PassiveFireTier { get; set; } = 0;
+
+    public bool PassiveFireTire1FireOn { get; set; } = false;
+
+    public bool PassiveFireTire2DoubleFire { get; set; } = false;
+
+    public bool PassiveFireTire3FireOn { get; set;} = false;
     public int PassiveThunderTier { get; set; } = 0;
+
+    public bool PassiveThunderTier1ThunderOn { get; set;} = false;
+
+    public int PassiveThunderCount { get;set; } = 1;
+
+    public bool PassiveThunderTier3CoolTimeRecovery { get;set; } = false;
 
 
     #endregion

@@ -8,6 +8,14 @@ public class UI_SkillSlotGroup : MonoBehaviour
 
     int _slotCount = 0;
 
+    public List<UI_SkillSlot> SlotList
+    {
+        get { return _slotList; }
+        private set { _slotList = value; } 
+    } 
+
+
+
     int SlotCount
     {
         get { return _slotCount; }

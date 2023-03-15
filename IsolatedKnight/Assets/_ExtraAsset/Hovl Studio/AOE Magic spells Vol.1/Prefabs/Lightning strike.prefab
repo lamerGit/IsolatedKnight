@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4835746125147334
 Transform:
   m_ObjectHideFlags: 0
@@ -4899,7 +4899,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4902108089727442
 Transform:
   m_ObjectHideFlags: 0
@@ -9781,7 +9781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4717401824278190
 Transform:
   m_ObjectHideFlags: 0
@@ -14663,7 +14663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4239231234855192
 Transform:
   m_ObjectHideFlags: 0
@@ -19604,13 +19604,14 @@ GameObject:
   - component: {fileID: 198326567477740528}
   - component: {fileID: 199239826631146052}
   - component: {fileID: 108431015627444874}
+  - component: {fileID: 6866584618800292981}
   m_Layer: 0
   m_Name: StartShoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4262277599494510
 Transform:
   m_ObjectHideFlags: 0
@@ -24601,6 +24602,26 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &6866584618800292981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558425910830510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &1573406218364202
 GameObject:
   m_ObjectHideFlags: 0
@@ -24618,7 +24639,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4581020864333268
 Transform:
   m_ObjectHideFlags: 0
@@ -29540,14 +29561,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604970523841052}
   serializedVersion: 8
-  lengthInSec: 20
+  lengthInSec: 1
   simulationSpeed: 5
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -29555,7 +29576,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 2
+    scalar: 1
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -30161,7 +30182,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 10
+    angle: 0.1
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -30247,7 +30268,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 3
+      value: 0.1
       mode: 0
       spread: 0
       speed:
@@ -30475,8 +30496,8 @@ ParticleSystem:
       time: 0
       countCurve:
         serializedVersion: 2
-        minMaxState: 1
-        scalar: 4
+        minMaxState: 0
+        scalar: 1
         minScalar: 0
         maxCurve:
           serializedVersion: 2
@@ -30526,11 +30547,11 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 33
+      cycleCount: 1
       repeatInterval: 0.3
       probability: 1
     - serializedVersion: 2
-      time: 3
+      time: 1
       countCurve:
         serializedVersion: 2
         minMaxState: 0
@@ -34747,7 +34768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4466093931513064
 Transform:
   m_ObjectHideFlags: 0
@@ -39629,7 +39650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4415408419371088
 Transform:
   m_ObjectHideFlags: 0
@@ -44454,7 +44475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4008458090058104
 Transform:
   m_ObjectHideFlags: 0
@@ -49336,7 +49357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4044735120018810
 Transform:
   m_ObjectHideFlags: 0
@@ -54218,7 +54239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4151675268404296
 Transform:
   m_ObjectHideFlags: 0

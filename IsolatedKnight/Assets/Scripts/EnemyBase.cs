@@ -22,7 +22,7 @@ public class EnemyBase : Poolable
     protected WaitForSeconds dieTimer = new WaitForSeconds(1.0f);
 
 
-    SkinnedMeshRenderer _skinnedMeshRenderer;
+    protected SkinnedMeshRenderer _skinnedMeshRenderer;
 
     float _multiHitRange = 3.0f;
 
@@ -33,7 +33,50 @@ public class EnemyBase : Poolable
     float _SpeedDownTimer = 2.0f;
     float _speedDownPoint = 0.3f;
 
-    
+    protected ParticleSystem _stateFireFx;
+
+    float _currentFireTimer = 0.0f;
+    float _fireTimer = 2.0f;
+    protected int _fireStack = 0;
+
+    float _currentFireTick = 0.0f;
+    float _fireTick = 1.0f;
+
+    float CurrentFireTick
+    {
+        get { return _currentFireTick; }
+        set
+        {
+            _currentFireTick = Mathf.Clamp(value, 0.0f, _fireTick);
+            if (_currentFireTick == _fireTick && Hp!=0)
+            {
+                int totalDamage = Managers.Object.MyPlayer.Fire*_fireStack;
+
+                OnExtraFixedDamage(totalDamage);
+                _currentFireTick = 0.0f;
+            
+            
+            }
+
+        }
+    }
+
+    float CurrentFireTimer
+    {
+        get { return _currentFireTimer; }
+        set
+        {
+            _currentFireTimer = Mathf.Clamp(value, 0.0f, _fireTimer);
+            if (_currentFireTimer == _fireTimer)
+            {
+                _stateFireFx.Stop();
+                _fireStack = 0;
+            }
+
+
+        }
+    }
+
     float CurrentSpeedDownTimer
     {
         get { return _currentSpeedDownTimer; }
@@ -63,7 +106,8 @@ public class EnemyBase : Poolable
         _collider = GetComponent<Collider>();
         _skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
 
-        
+        _stateFireFx=transform.Find("State_Fire").GetComponent<ParticleSystem>();
+        _stateFireFx.Stop();
         
         Managers.GameManager.StateChange += StateChange;
     }
@@ -75,6 +119,16 @@ public class EnemyBase : Poolable
             if (CurrentSpeedDownTimer < _SpeedDownTimer)
             {
                 CurrentSpeedDownTimer += Time.deltaTime;
+            }
+
+            if(CurrentFireTimer<_fireTimer)
+            {
+                CurrentFireTimer += Time.deltaTime;
+            }
+
+            if(CurrentFireTick<_fireTick && _fireStack>0)
+            {
+                CurrentFireTick += Time.deltaTime;
             }
         }
     }
@@ -111,6 +165,19 @@ public class EnemyBase : Poolable
         int totaldamage = damage + Managers.Object.MyPlayer.FixedDamage;
 
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
+        p.DamageTextSpawn(totaldamage, transform);
+        StartCoroutine(HitMaterial());
+        Hp -= totaldamage;
+
+        FireCheck();
+
+        Debug.Log(Hp);
+    }
+
+    public void OnExtraFixedDamage(int damage)
+    {
+        
+        Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(damage, transform);
         StartCoroutine(HitMaterial());
         Hp -= damage;
@@ -126,6 +193,8 @@ public class EnemyBase : Poolable
         p.DamageTextSpawn(totaldamage, transform);
         StartCoroutine(HitMaterial());
         Hp -= totaldamage;
+
+        FireCheck();
         Debug.Log(Hp);
     }
 
@@ -158,7 +227,7 @@ public class EnemyBase : Poolable
             int extraDamage = (int)(totaldamage * 0.3f);
             OnExtraPartnerDamage(extraDamage);
         }
-
+        FireCheck();
         Debug.Log(Hp);
     }
 
@@ -191,25 +260,49 @@ public class EnemyBase : Poolable
 
         Debug.Log(Hp);
 
-        if(Managers.GameManager.TouchDamageTier2SpeedDown)
+        if (Managers.GameManager.TouchDamageTier2SpeedDown)
         {
             EnemySlow();
         }
 
-        if(Managers.GameManager.TouchDamageTier3MultiHit)
+        if (Managers.GameManager.TouchDamageTier3MultiHit)
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, _multiHitRange, LayerMask.GetMask("Enemy"));
-            if(colliders.Length > 0)
+            if (colliders.Length > 0)
             {
 
-                for(int i=0; i<colliders.Length; i++)
+                for (int i = 0; i < colliders.Length; i++)
                 {
-                    if (colliders[i].gameObject!=transform.gameObject)
+                    if (colliders[i].gameObject != transform.gameObject)
                     {
                         colliders[i].GetComponent<EnemyBase>().OnExtraDamage(totaldamage);
                     }
                 }
             }
+        }
+
+        FireCheck();
+    }
+
+    private void FireCheck()
+    {
+        if (Managers.GameManager.PassiveFireTire1FireOn)
+        {
+            if (Managers.GameManager.PassiveFireTire3FireOn)
+            {
+
+                EnemyFire();
+            }
+            else
+            {
+                float r = Random.Range(0.0f, 1.0f);
+
+                if (r < 0.51f)
+                {
+                    EnemyFire();
+                }
+            }
+
         }
     }
 
@@ -230,7 +323,18 @@ public class EnemyBase : Poolable
         Debug.Log(Hp);
     }
 
+    void EnemyFire()
+    {
+        _stateFireFx.Play();
+        _fireStack ++;
 
+        if(Managers.GameManager.PassiveFireTire2DoubleFire)
+        {
+            _fireStack++;
+        }
+
+        CurrentFireTimer = 0.0f;
+    }
 
     public void EnemySlow(int stack=1)
     {
@@ -246,15 +350,6 @@ public class EnemyBase : Poolable
         _skinnedMeshRenderer.material.color = Color.white;
     }
 
-    public void OutLineOn()
-    {
-        _skinnedMeshRenderer.gameObject.layer = 7;
-    }
-
-    public void OutLineOff() {
-        _skinnedMeshRenderer.gameObject.layer = LayerMask.GetMask("Default");
-
-    }
 
     public int GetMaxHp()
     {

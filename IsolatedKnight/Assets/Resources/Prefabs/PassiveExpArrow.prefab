@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2060054655075466487}
   - component: {fileID: 2060054655076912281}
   - component: {fileID: 1052331986524757559}
-  - component: {fileID: 1526966696296481268}
   - component: {fileID: 1509037083440975048}
+  - component: {fileID: 803156867100696434}
   m_Layer: 0
   m_Name: PassiveExpArrow
   m_TagString: Untagged
@@ -102,19 +102,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &1526966696296481268
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060054655074374351}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.2
-  m_Center: {x: 0, y: 0, z: 0.35}
 --- !u!114 &1509037083440975048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,3 +115,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsUsing: 0
+--- !u!136 &803156867100696434
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060054655074374351}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}

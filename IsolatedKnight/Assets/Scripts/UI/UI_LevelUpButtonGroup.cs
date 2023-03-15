@@ -20,9 +20,9 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
 
     public void Open()
     {
-        _left.Option=LevelUpOption.PassiveExp;
-        _Middle.Option=LevelUpOption.PassiveDefence;
-        _right.Option = LevelUpOption.PassiveFire;
+        _left.Option=LevelUpOption.PassiveThunder;
+        _Middle.Option=LevelUpOption.SkillOnePoint;
+        _right.Option = LevelUpOption.SkillMultiPoint;
 
         gameObject.SetActive(true);
     }

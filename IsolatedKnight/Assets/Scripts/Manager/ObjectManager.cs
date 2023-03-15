@@ -29,7 +29,10 @@ public class ObjectManager
     public GameObject OnePointSkillFx { get; private set; }
     
     public GameObject ExpAllow { get;private set; }
+
+    public PassiveDefence PassiveDefence { get; private set; }
     
+    public GameObject PassiveLightningFx { get; private set; }
     public void Init()
     {
         GameObject p = Resources.Load<GameObject>($"Prefabs/Player");
@@ -73,6 +76,15 @@ public class ObjectManager
         OnePointSkillFx = Resources.Load<GameObject>($"Prefabs/OnePointAttackFx");
 
         ExpAllow = Resources.Load<GameObject>($"Prefabs/PassiveExpArrow");
+
+        GameObject passiveDefence= Resources.Load<GameObject>($"Prefabs/PassiveDefence");
+        GameObject InstPassiveDefence= Object.Instantiate(passiveDefence);
+        InstPassiveDefence.name=passiveDefence.name;
+
+        PassiveDefence=InstPassiveDefence.GetComponent<PassiveDefence>();
+        PassiveDefence.DeSpawn();
+
+        PassiveLightningFx= Resources.Load<GameObject>($"Prefabs/PassiveLightningFx");
 
     }
 }

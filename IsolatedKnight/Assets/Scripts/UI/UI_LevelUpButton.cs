@@ -169,13 +169,13 @@ public class UI_LevelUpButton : MonoBehaviour
         switch (Managers.GameManager.PassiveThunderTier)
         {
             case 0:
-
+                Managers.GameManager.PassiveThunderTier1ThunderOn = true;
                 break;
             case 1:
-
+                Managers.GameManager.PassiveThunderCount = 3;
                 break;
             case 2:
-
+                Managers.GameManager.PassiveThunderTier3CoolTimeRecovery = true;
                 break;
 
         }
@@ -187,13 +187,13 @@ public class UI_LevelUpButton : MonoBehaviour
         switch (Managers.GameManager.PassiveFireTier)
         {
             case 0:
-
+                Managers.GameManager.PassiveFireTire1FireOn = true;
                 break;
             case 1:
-
+                Managers.GameManager.PassiveFireTire2DoubleFire = true;
                 break;
             case 2:
-
+                Managers.GameManager.PassiveFireTire3FireOn = true;
                 break;
 
         }
@@ -205,13 +205,14 @@ public class UI_LevelUpButton : MonoBehaviour
         switch (Managers.GameManager.PassiveDefenceTier)
         {
             case 0:
-
+                Managers.Object.PassiveDefence.Spawn();
                 break;
             case 1:
-
+                Managers.GameManager.ExtraPassiveDefenceDamage += 5;
                 break;
             case 2:
-
+                Managers.Object.PassiveDefence.AttackSpeed = 1.0f;
+                Managers.Object.PassiveDefence.CurrentAttackTimer = 0.0f;
                 break;
 
         }

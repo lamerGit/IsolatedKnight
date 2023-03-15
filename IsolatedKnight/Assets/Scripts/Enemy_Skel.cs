@@ -58,8 +58,11 @@ public class Enemy_Skel : EnemyBase
         }
 
         // 상태이상 스택 초기화
+        _skinnedMeshRenderer.material.color = Color.white;
         _speedDownStack = 0;
-        OutLineOff();
+        _fireStack = 0;
+        _stateFireFx.Stop();
+
     }
 
     IEnumerator ReturnSkel()
