@@ -19,6 +19,14 @@ public class PartnerDragon : MonoBehaviour
 
     float _bulletSpeed = 10.0f;
 
+    float _attackSpeedTick = 1.0f;
+
+    public float AttackSpeedTick
+    {
+        get { return _attackSpeedTick; }
+        set { _attackSpeedTick = value; }
+    }
+
     public float AttackSpeed
     {
         get { return _attackSpeed - Managers.GameManager.ExtraDragonAttackSpeed; }
@@ -49,7 +57,7 @@ public class PartnerDragon : MonoBehaviour
         {
             if (CurrentAttackTimer < AttackSpeed)
             {
-                CurrentAttackTimer += Time.deltaTime;
+                CurrentAttackTimer += Time.deltaTime*AttackSpeedTick;
 
             }
         }
@@ -75,7 +83,7 @@ public class PartnerDragon : MonoBehaviour
                 DragonBreath component= bullet.GetComponent<DragonBreath>();
 
                 //component.Rigid.transform.LookAt(colliders[i].transform.position);
-                dir.y += 0.1f;
+                dir.y += 0.01f;
                 component.Rigid.velocity = dir * _bulletSpeed;
 
                 component.Damage = _attackDamage;

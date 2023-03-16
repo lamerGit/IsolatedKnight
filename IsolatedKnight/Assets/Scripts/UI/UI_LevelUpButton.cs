@@ -87,6 +87,26 @@ public class UI_LevelUpButton : MonoBehaviour
                     _button.image.sprite = _group._levelIcon[16];
                     TierCheck(Managers.GameManager.PassiveThunderTier);
                     break;
+                case LevelUpOption.SpeedGame:
+                    _button.image.sprite = _group._levelIcon[17];
+                    TierCheck(Managers.GameManager.SynergySpeedGameTier);
+                    break;
+                case LevelUpOption.PowerSkillAttack:
+                    _button.image.sprite = _group._levelIcon[18];
+                    TierCheck(Managers.GameManager.SynergyPowerSkillAttackTier);
+                    break;
+                case LevelUpOption.ThunderArrow:
+                    _button.image.sprite = _group._levelIcon[19];
+                    TierCheck(Managers.GameManager.SynergyThunderArrowTier);
+                    break;
+                case LevelUpOption.WaringDragon:
+                    _button.image.sprite = _group._levelIcon[20];
+                    TierCheck(Managers.GameManager.SynergyWaringDragonTier);
+                    break;
+                case LevelUpOption.DefenceFire:
+                    _button.image.sprite = _group._levelIcon[21];
+                    TierCheck(Managers.GameManager.SynergyDefenceFireTier);
+                    break;
             }
 
 
@@ -156,6 +176,21 @@ public class UI_LevelUpButton : MonoBehaviour
             case LevelUpOption.PassiveThunder:
                 PassiveThunderTierSelected();
                 break;
+            case LevelUpOption.SpeedGame:
+                SynergySpeedGameTierSelected();
+                break;
+            case LevelUpOption.PowerSkillAttack:
+                SynergyPowerSkillAttackTierSelected();
+                break;
+            case LevelUpOption.ThunderArrow:
+                SynergyThunderArrowTierSelected();
+                break;
+            case LevelUpOption.WaringDragon:
+                SynergyWaringDragonTierSelected();
+                break;
+            case LevelUpOption.DefenceFire:
+                SynergyDefenceFireTierSelected();
+                break;
         }
 
 
@@ -163,6 +198,71 @@ public class UI_LevelUpButton : MonoBehaviour
 
         _group.Close();
     }
+
+    private void SynergySpeedGameTierSelected()
+    {
+        switch (Managers.GameManager.SynergySpeedGameTier)
+        {
+            case 0:
+                Managers.GameManager.ExtraTouchDamage += (int)(Managers.Object.MyPlayer.TouchDamage * 0.5f);
+                Managers.GameManager.ExtraTouchSpeed += Managers.Object.MyPlayer.TouchSpeed * 0.2f;
+                Managers.GameManager.ExtraEnemySpeed += 0.5f;
+                break;
+
+        }
+        Managers.GameManager.SynergySpeedGameTier++;
+    }
+
+    private void SynergyPowerSkillAttackTierSelected()
+    {
+        switch (Managers.GameManager.SynergyPowerSkillAttackTier)
+        {
+            case 0:
+                Managers.GameManager.ExtraSkillDamage += (int)(Managers.Object.MyPlayer.SkillDamage * 2.0f);
+                Managers.GameManager.ExtraSkillRecovery -= Managers.Object.MyPlayer.SkillRecoverySpeed * 0.5f;
+                break;
+
+        }
+        Managers.GameManager.SynergyPowerSkillAttackTier++;
+    }
+
+    private void SynergyThunderArrowTierSelected()
+    {
+        switch (Managers.GameManager.SynergyThunderArrowTier)
+        {
+            case 0:
+                Managers.GameManager.SynergyThunderArrowTier1billia = true;
+                break;
+
+        }
+        Managers.GameManager.SynergyThunderArrowTier++;
+    }
+
+    private void SynergyWaringDragonTierSelected()
+    {
+        switch (Managers.GameManager.SynergyWaringDragonTier)
+        {
+            case 0:
+                Managers.GameManager.SynergyWaringDragonTier1WaningOn = true;
+                break;
+
+        }
+        Managers.GameManager.SynergyWaringDragonTier++;
+    }
+
+    private void SynergyDefenceFireTierSelected()
+    {
+        switch (Managers.GameManager.SynergyDefenceFireTier)
+        {
+            case 0:
+                Managers.GameManager.SynergyDefenceFireTier1FireTrans = true;
+                break;
+            
+        }
+        Managers.GameManager.SynergyDefenceFireTier++;
+    }
+
+    #region PassiveSelected
 
     private void PassiveThunderTierSelected()
     {
@@ -239,6 +339,8 @@ public class UI_LevelUpButton : MonoBehaviour
         }
         Managers.GameManager.PassiveExpTier++;
     }
+
+    #endregion
 
 
     #region SkillSelected

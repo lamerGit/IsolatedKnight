@@ -31,6 +31,22 @@ public class Enemy_Skel : EnemyBase
 
         Managers.Object.MyPlayer.ExpUp(_exp);
 
+        if(Managers.GameManager.SynergyDefenceFireTier1FireTrans && _fireStack>0)
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, _fireTranRange, LayerMask.GetMask("Enemy"));
+            if (colliders.Length > 0)
+            {
+
+                for (int i = 0; i < colliders.Length; i++)
+                {
+                    if (colliders[i].gameObject != transform.gameObject)
+                    {
+                        colliders[i].GetComponent<EnemyBase>().EnemyFire();
+                    }
+                }
+            }
+        }
+
         StartCoroutine(ReturnSkel());
     }
 
@@ -43,7 +59,7 @@ public class Enemy_Skel : EnemyBase
         _level = skel.level;
         _maxHp = skel.maxHp;
         Hp = skel.maxHp;
-        _agent.speed = skel.speed;
+        _agent.speed = skel.speed + Managers.GameManager.ExtraEnemySpeed;
         _exp = skel.exp;
 
         _state = EnemyState.Chase;
@@ -62,6 +78,8 @@ public class Enemy_Skel : EnemyBase
         _speedDownStack = 0;
         _fireStack = 0;
         _stateFireFx.Stop();
+
+        
 
     }
 

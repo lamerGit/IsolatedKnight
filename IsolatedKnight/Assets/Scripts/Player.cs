@@ -267,6 +267,12 @@ public class Player : MonoBehaviour
                 if(StaminaCheck)
                 {
                     Managers.UIManager.StaminaUI.OverloadColor(StaminaCheck);
+
+                    if(Managers.GameManager.SynergyWaringDragonTier1WaningOn)
+                    {
+                        Managers.Object.PartnerDragon.AttackSpeedTick = 3.0f;
+                    }
+
                     Debug.Log("과부화");
                 }
 
@@ -290,6 +296,12 @@ public class Player : MonoBehaviour
                 if(!StaminaCheck)
                 {
                     Managers.UIManager.StaminaUI.OverloadColor(StaminaCheck);
+
+                    if (Managers.GameManager.SynergyWaringDragonTier1WaningOn)
+                    {
+                        Managers.Object.PartnerDragon.AttackSpeedTick = 1.0f;
+                    }
+
                     Debug.Log("과부화해제");
                 }
 
@@ -489,7 +501,7 @@ public class Player : MonoBehaviour
                     bullet.Spawn(AttackPoint.transform);
 
                     Vector3 dir = (colliders[i].transform.position - AttackPoint.transform.position).normalized;
-                    bullet.transform.LookAt(dir);
+                    bullet.transform.LookAt(colliders[i].transform.position);
                     PassiveExpArrow component = bullet.GetComponent<PassiveExpArrow>();
 
                     dir.y += 0.1f;
@@ -512,8 +524,8 @@ public class Player : MonoBehaviour
                         right.Spawn(AttackPoint.transform);
 
                         dir= (colliders[i].transform.position - AttackPoint.transform.position).normalized;
-                        left.transform.LookAt(dir);
-                        right.transform.LookAt(dir);
+                        left.transform.LookAt(colliders[i].transform.position);
+                        right.transform.LookAt(colliders[i].transform.position);
 
                         PassiveExpArrow leftComponent= left.GetComponent<PassiveExpArrow>();
                         PassiveExpArrow rightComponent= right.GetComponent<PassiveExpArrow>();

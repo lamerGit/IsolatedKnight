@@ -36,7 +36,12 @@ public enum LevelUpOption
     PassiveExp,
     PassiveDefence,
     PassiveFire,
-    PassiveThunder
+    PassiveThunder,
+    SpeedGame,
+    PowerSkillAttack,
+    ThunderArrow,
+    WaringDragon,
+    DefenceFire,
 }
 
 public enum PartnerType

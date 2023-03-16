@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build;
 using UnityEngine;
 
 public class GameManager 
@@ -139,6 +138,24 @@ public class GameManager
 
     public bool PassiveThunderTier3CoolTimeRecovery { get;set; } = false;
 
+
+    #endregion
+
+    #region Synergy
+
+    public int SynergySpeedGameTier { get; set; } = 0;
+
+    public float ExtraEnemySpeed { get; set; } = 0.0f;
+    public int SynergyPowerSkillAttackTier { get; set; } = 0;
+    public int SynergyThunderArrowTier { get; set; } = 0;
+
+    public bool SynergyThunderArrowTier1billia { get; set;} = false;
+    public int SynergyWaringDragonTier { get; set; } = 0;
+
+    public bool SynergyWaringDragonTier1WaningOn { get; set;} = false;
+    public int SynergyDefenceFireTier { get; set; } = 0;
+
+    public bool SynergyDefenceFireTier1FireTrans { get; set;} = false;
 
     #endregion
 }

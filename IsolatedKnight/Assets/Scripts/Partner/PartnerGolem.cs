@@ -84,7 +84,7 @@ public class PartnerGolem : MonoBehaviour
                 Vector3 dir = (colliders[i].transform.position - _hand.transform.position).normalized;
                 GolemRock component = bullet.GetComponent<GolemRock>();
 
-                dir.y += 0.1f;
+                dir.y += 0.01f;
                 component.Rigid.velocity = dir * _bulletSpeed;
 
                 component.Damage = AttackDamge+Managers.GameManager.ExtraGolemDamage;

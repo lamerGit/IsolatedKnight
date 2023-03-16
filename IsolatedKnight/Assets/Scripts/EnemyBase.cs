@@ -42,6 +42,8 @@ public class EnemyBase : Poolable
     float _currentFireTick = 0.0f;
     float _fireTick = 1.0f;
 
+    protected float _fireTranRange = 5.0f;
+
     float CurrentFireTick
     {
         get { return _currentFireTick; }
@@ -323,7 +325,7 @@ public class EnemyBase : Poolable
         Debug.Log(Hp);
     }
 
-    void EnemyFire()
+    public void EnemyFire()
     {
         _stateFireFx.Play();
         _fireStack ++;
