@@ -12,6 +12,8 @@ public class UIManager
 
     public UI_SkillSlotGroup SkillSlotGroup { get; private set; }
 
+    public UI_Timer TimerUI { get; private set; }   
+
     //게임 씬일때만 나타나는 UI
     public void GameScenInit()
     {
@@ -40,6 +42,12 @@ public class UIManager
         InstSlotGroup.name=skillSlotGroup.name;
 
         SkillSlotGroup=InstSlotGroup.GetComponent<UI_SkillSlotGroup>();
+
+        GameObject timerUI= Resources.Load<GameObject>($"Prefabs/TimerUI");
+        GameObject InstTimerUI= Object.Instantiate(timerUI, Managers.Instance.Canvas.transform);
+        InstTimerUI.name=timerUI.name;
+
+        TimerUI=InstTimerUI.GetComponent<UI_Timer>();
 
     }
 }

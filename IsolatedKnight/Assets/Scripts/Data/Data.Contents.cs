@@ -96,6 +96,62 @@ namespace Data
     }
     #endregion
 
+    #region SkelDefence
+    [Serializable]
+    public class SkelDefence
+    {
+        public int level;
+        public int maxHp;
+        public float speed;
+        public float exp;
+    }
+
+    [Serializable]
+    public class SkelDefenceLoader : ILoader<int, SkelDefence>
+    {
+        public List<SkelDefence> skelDefences = new List<SkelDefence>();
+
+        public Dictionary<int, SkelDefence> MakeDict()
+        {
+            Dictionary<int, SkelDefence> dict = new Dictionary<int, SkelDefence>();
+            foreach (SkelDefence skelDefence in skelDefences)
+            {
+                dict.Add(skelDefence.level, skelDefence);
+            }
+            return dict;
+
+        }
+    }
+    #endregion
+
+    #region SkelSpeed
+    [Serializable]
+    public class SkelSpeed
+    {
+        public int level;
+        public int maxHp;
+        public float speed;
+        public float exp;
+    }
+
+    [Serializable]
+    public class SkelSpeedLoader : ILoader<int, SkelSpeed>
+    {
+        public List<SkelSpeed> skelSpeeds = new List<SkelSpeed>();
+
+        public Dictionary<int, SkelSpeed> MakeDict()
+        {
+            Dictionary<int, SkelSpeed> dict = new Dictionary<int, SkelSpeed>();
+            foreach (SkelSpeed skelSpeed in skelSpeeds)
+            {
+                dict.Add(skelSpeed.level, skelSpeed);
+            }
+            return dict;
+
+        }
+    }
+    #endregion
+
     #region Partner
     [Serializable]
     public class Partner
@@ -172,6 +228,36 @@ namespace Data
             foreach (Fixed f in fixeds)
             {
                 dict.Add(f.type, f);
+            }
+            return dict;
+
+        }
+    }
+    #endregion
+
+    #region Boss
+    [Serializable]
+    public class Boss
+    {
+        public int type;
+        public int maxHp;
+        public float speed;
+        public float skillCoolTime;
+        public float skillRecovery;
+        public float exp;
+    }
+
+    [Serializable]
+    public class BossLoader : ILoader<int, Boss>
+    {
+        public List<Boss> bosss = new List<Boss>();
+
+        public Dictionary<int, Boss> MakeDict()
+        {
+            Dictionary<int, Boss> dict = new Dictionary<int, Boss>();
+            foreach (Boss boss in bosss)
+            {
+                dict.Add(boss.type, boss);
             }
             return dict;
 

@@ -114,7 +114,7 @@ public class EnemyBase : Poolable
         Managers.GameManager.StateChange += StateChange;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (Managers.GameManager.State == GameState.Nomal)
         {
@@ -137,7 +137,7 @@ public class EnemyBase : Poolable
 
 
 
-    void StateChange()
+    protected virtual void StateChange()
     {
         if (!gameObject.activeSelf)
             return;
@@ -147,15 +147,18 @@ public class EnemyBase : Poolable
             case GameState.Nomal:
                 if (_state == EnemyState.Chase)
                 {
-                    _target = Managers.Object.MyPlayer.transform;
-                    _agent.SetDestination(_target.transform.position);
+                    //_target = Managers.Object.MyPlayer.transform;
+                    //_agent.SetDestination(_target.transform.position);
+                    _agent.isStopped = false;
                 }
                 break;
             case GameState.LevelUp:
-                _agent.ResetPath();
+                //_agent.ResetPath();
+                _agent.isStopped = true;
                 break;
             case GameState.PlayerDie:
-                _agent.ResetPath();
+                //_agent.ResetPath();
+                _agent.isStopped = true;
                 break;
         }
 
@@ -358,6 +361,12 @@ public class EnemyBase : Poolable
         return _maxHp;
     }
     
+
+    protected void StateClean()
+    {
+        CurrentFireTimer = _fireTimer;
+        CurrentSpeedDownTimer = _SpeedDownTimer;
+    }
 
 
 #if UNITY_EDITOR

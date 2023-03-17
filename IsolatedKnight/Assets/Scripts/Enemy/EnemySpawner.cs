@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    
 
+    public SpawnerType _type=SpawnerType.Nomal;
 
     float _currentSkelSpawnTimer = 0.0f;
     float _skelSpawnTime = 3.0f;
@@ -37,8 +37,23 @@ public class EnemySpawner : MonoBehaviour
 
     void SkelSpawn()
     {
-        Poolable temp = Managers.Pool.Pop(Managers.Object.Skel);
-        temp.Spawn(transform);
+        switch (_type)
+        {
+            case SpawnerType.Nomal:
+                Poolable tempNomal = Managers.Pool.Pop(Managers.Object.Skel);
+                tempNomal.Spawn(transform);
+                break;
+            case SpawnerType.Defence:
+                Poolable tempDefence = Managers.Pool.Pop(Managers.Object.SkelDefence);
+                tempDefence.Spawn(transform);
+                break;
+            case SpawnerType.Speed:
+                Poolable tempSpeed = Managers.Pool.Pop(Managers.Object.SkelSpeed);
+                tempSpeed.Spawn(transform);
+                break;
+        }
+
+        
     }
 
 }

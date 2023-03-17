@@ -217,8 +217,10 @@ public class Player : MonoBehaviour
                 _level++;
                 int nextLevel = _level + 1;
                 _maxExp = nextLevel * (nextLevel + 1) * 25 - 100;
-                _currentExp += tempExp;
+                CurrentExp += tempExp;
 
+
+                Managers.GameManager.LevelUpStack++;
                 Managers.GameManager.State = GameState.LevelUp;
                 Managers.UIManager.LevelUpButtonGroup.Open();
                 Debug.Log("·¹º§¾÷!!");
@@ -504,7 +506,7 @@ public class Player : MonoBehaviour
                     bullet.transform.LookAt(colliders[i].transform.position);
                     PassiveExpArrow component = bullet.GetComponent<PassiveExpArrow>();
 
-                    dir.y += 0.1f;
+                    dir.y += 0.01f;
                     component.Rigid.velocity = dir * _allowSpeed;
 
                     component.Damage = _arrow;
@@ -530,7 +532,7 @@ public class Player : MonoBehaviour
                         PassiveExpArrow leftComponent= left.GetComponent<PassiveExpArrow>();
                         PassiveExpArrow rightComponent= right.GetComponent<PassiveExpArrow>();
 
-                        dir.y += 0.1f;
+                        dir.y += 0.01f;
 
                         leftComponent.Rigid.velocity = dir * _allowSpeed;
                         rightComponent.Rigid.velocity = dir * _allowSpeed;

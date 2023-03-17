@@ -13,6 +13,10 @@ public class GameManager
 
     public Action StateChange { get; set; }
 
+    public int GameLevel { get; set; } = 0;
+
+    public int LevelUpStack { get; set; } = 0;
+
     #region Touch
     public int TouchDamageTier { get; set; } = 0;
     public int TouchSpeedTier { get; set; } = 0;

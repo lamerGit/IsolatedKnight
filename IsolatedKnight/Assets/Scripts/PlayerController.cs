@@ -33,9 +33,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Managers.GameManager.State == GameState.Nomal)
         {
-            //MouseRay(Mouse.current.position.ReadValue()); // pc에서 할때 주석풀기
+            MouseRay(Mouse.current.position.ReadValue()); // pc에서 할때 주석풀기
 
-            MouseRay(Touchscreen.current.position.ReadValue()); // 핸드폰에서 할때 주석풀기
+            //MouseRay(Touchscreen.current.position.ReadValue()); // 핸드폰에서 할때 주석풀기
         }
     }
 

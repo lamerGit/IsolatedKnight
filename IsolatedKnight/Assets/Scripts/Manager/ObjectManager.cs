@@ -9,6 +9,8 @@ public class ObjectManager
     public Player MyPlayer { get; private set; }
 
     public GameObject Skel { get; private set; }
+    public GameObject SkelDefence { get; private set; }
+    public GameObject SkelSpeed { get; private set; }
 
     public GameObject DamageText { get;private set; }
     public GameObject TouchAttackFx { get; private set; }
@@ -33,6 +35,13 @@ public class ObjectManager
     public PassiveDefence PassiveDefence { get; private set; }
     
     public GameObject PassiveLightningFx { get; private set; }
+
+    public GameObject BossSnake { get;private set; }
+
+    public BossSpawner BossZone { get;private set; }
+
+    public GameObject SnakePath { get; private set; }
+
     public void Init()
     {
         GameObject p = Resources.Load<GameObject>($"Prefabs/Player");
@@ -42,7 +51,10 @@ public class ObjectManager
         MyPlayer=go.GetComponent<Player>();
 
         Skel = Resources.Load<GameObject>($"Prefabs/Enemy_Skel_Slave");
-        DamageText=Resources.Load<GameObject>($"Prefabs/DamageText");
+        SkelDefence = Resources.Load<GameObject>($"Prefabs/Enemy_Skel_Soldier_Defence");
+        SkelSpeed = Resources.Load<GameObject>($"Prefabs/Enemy_Skel_Soldier_Speed");
+
+        DamageText =Resources.Load<GameObject>($"Prefabs/DamageText");
         TouchAttackFx=Resources.Load<GameObject>($"Prefabs/TouchHit");
         
         GameObject partnerD= Resources.Load<GameObject>($"Prefabs/Partner_Dragon");
@@ -85,6 +97,18 @@ public class ObjectManager
         PassiveDefence.DeSpawn();
 
         PassiveLightningFx= Resources.Load<GameObject>($"Prefabs/PassiveLightningFx");
+
+        BossSnake= Resources.Load<GameObject>($"Prefabs/Enemy_Boss_Snake");
+
+        GameObject bossZone= Resources.Load<GameObject>($"Prefabs/BossZone");
+        GameObject InstBossZone= Object.Instantiate(bossZone);
+        InstBossZone.name=bossZone.name;
+
+        BossZone=InstBossZone.GetComponent<BossSpawner>();
+
+        GameObject snakePath= Resources.Load<GameObject>($"Prefabs/SnakePath");
+        SnakePath=Object.Instantiate(snakePath);
+        SnakePath.name=snakePath.name;
 
     }
 }

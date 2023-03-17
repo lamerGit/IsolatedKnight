@@ -193,9 +193,8 @@ public class UI_LevelUpButton : MonoBehaviour
                 break;
         }
 
-
-        Managers.GameManager.State = GameState.Nomal;
-
+        Managers.GameManager.LevelUpStack--;
+        
         _group.Close();
     }
 

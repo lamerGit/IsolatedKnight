@@ -73,6 +73,8 @@ public class Managers : MonoBehaviour
         s_instance._obj.Init();
         s_instance._pool.Init();
         s_instance._pool.CreatePool(Object.Skel, count: 30);
+        s_instance._pool.CreatePool(Object.SkelDefence, count: 30);
+        s_instance._pool.CreatePool(Object.SkelSpeed, count: 30);
         s_instance._pool.CreatePool(Object.DamageText, count: 30);
         s_instance._pool.CreatePool(Object.TouchAttackFx, count: 30);
         s_instance._pool.CreatePool(Object.DragonBreath, count: 30);
@@ -82,6 +84,7 @@ public class Managers : MonoBehaviour
         s_instance._pool.CreatePool(Object.OnePointSkillFx, count: 10);
         s_instance._pool.CreatePool(Object.ExpAllow, count: 30);
         s_instance._pool.CreatePool(Object.PassiveLightningFx, count: 30);
+        s_instance._pool.CreatePool(Object.BossSnake, count: 1);
     }
 
 }

@@ -59,3 +59,21 @@ public enum SkillType
     TouchBuff,
     Buff
 }
+
+public enum SpawnerType
+{
+    Nomal=0,
+    Defence,
+    Speed
+}
+
+public enum BossType
+{
+    Snake=0,
+    SnakeBuff,
+    Wolf,
+    WolfBuff,
+    Bloom,
+    BloomBuff,
+    Reaper
+}

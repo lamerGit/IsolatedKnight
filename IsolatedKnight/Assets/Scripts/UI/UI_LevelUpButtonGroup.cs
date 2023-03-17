@@ -24,7 +24,7 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
         _Middle.Option=LevelUpOption.None;
         _right.Option = LevelUpOption.None;
         RandomOption();
-
+        
         gameObject.SetActive(true);
     }
 
@@ -169,6 +169,14 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
 
     public void Close()
     {
-        gameObject.SetActive(false);
+        if (Managers.GameManager.LevelUpStack > 0)
+        {
+            RandomOption();
+        }
+        else
+        {
+            Managers.GameManager.State = GameState.Nomal;
+            gameObject.SetActive(false);
+        }
     }
 }

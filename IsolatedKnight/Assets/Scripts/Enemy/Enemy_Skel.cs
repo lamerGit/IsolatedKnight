@@ -2,7 +2,6 @@ using Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Enemy_Skel : EnemyBase
 {
@@ -54,7 +53,7 @@ public class Enemy_Skel : EnemyBase
     {
         // Json 데이터 파싱
         Skel skel = null;
-        Managers.Data.SkelDict.TryGetValue(1, out skel);
+        Managers.Data.SkelDict.TryGetValue(Managers.GameManager.GameLevel, out skel);
 
         _level = skel.level;
         _maxHp = skel.maxHp;
