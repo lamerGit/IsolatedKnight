@@ -42,6 +42,8 @@ public class ObjectManager
 
     public GameObject SnakePath { get; private set; }
 
+    public GameObject SwordWind { get; private set; }
+
     public void Init()
     {
         GameObject p = Resources.Load<GameObject>($"Prefabs/Player");
@@ -109,6 +111,8 @@ public class ObjectManager
         GameObject snakePath= Resources.Load<GameObject>($"Prefabs/SnakePath");
         SnakePath=Object.Instantiate(snakePath);
         SnakePath.name=snakePath.name;
+
+        SwordWind= Resources.Load<GameObject>($"Prefabs/SwordWind");
 
     }
 }

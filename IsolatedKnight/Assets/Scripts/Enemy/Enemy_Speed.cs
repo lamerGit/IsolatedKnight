@@ -24,7 +24,8 @@ public class Enemy_Speed : EnemyBase
     private void Die()
     {
         _state = EnemyState.Die;
-        _agent.ResetPath();
+        //_agent.ResetPath();
+        _agent.enabled = false;
         _animator.SetTrigger("Die");
         _collider.enabled = false;
 
@@ -51,6 +52,8 @@ public class Enemy_Speed : EnemyBase
 
     public override void Spawn(Transform t)
     {
+        transform.position = t.position;
+        _agent.enabled = true;
         // Json µ•¿Ã≈Õ ∆ƒΩÃ
         SkelSpeed skelSpeed = null;
         Managers.Data.SkelSpeedDict.TryGetValue(Managers.GameManager.GameLevel, out skelSpeed);
@@ -63,7 +66,7 @@ public class Enemy_Speed : EnemyBase
 
         _state = EnemyState.Chase;
         _collider.enabled = true;
-        transform.position = t.position;
+        
 
         if (Managers.Object.MyPlayer != null)
         {

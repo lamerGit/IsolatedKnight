@@ -77,3 +77,28 @@ public enum BossType
     BloomBuff,
     Reaper
 }
+
+public enum BossRewardOption
+{
+    None=0,
+    SwordWind,
+    SwordPartner,
+    SwordTheTogether,
+    AxeHeavy,
+    AxeArrow,
+    Axefrenzy,
+    HammerStun,
+    HammerExtraAttack,
+    HammerFixed,
+    StickNoTouch,
+    StickRandomSkill,
+    StickSkillPlus,
+    HeavyPower,
+    PartnerPass,
+    SkillWizad,
+    ThaHard,
+    StaminaUp,
+    TheSpeed,
+    FixedUp,
+    ExpUP
+}

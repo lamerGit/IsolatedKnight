@@ -87,6 +87,7 @@ public class Boss_Snake : EnemyBase
     {
         if (!gameObject.activeSelf)
             return;
+        if (!_agent.enabled) return;
 
         switch (Managers.GameManager.State)
         {
@@ -109,11 +110,15 @@ public class Boss_Snake : EnemyBase
     private void Die()
     {
         _state = EnemyState.Die;
-        _agent.ResetPath();
+        //_agent.ResetPath();
+        _agent.enabled = false;
         _animator.SetTrigger("Die");
         _collider.enabled = false;
 
         Managers.Object.MyPlayer.ExpUp(_exp);
+        Managers.GameManager.State = GameState.LevelUp;
+        Managers.GameManager.BossRewardStack++;
+        Managers.UIManager.BossRewardButtonGroup.Open();
 
         if (Managers.GameManager.SynergyDefenceFireTier1FireTrans && _fireStack > 0)
         {
@@ -136,6 +141,8 @@ public class Boss_Snake : EnemyBase
 
     public override void Spawn(Transform t)
     {
+        transform.position = t.position;
+        _agent.enabled = true;
         // Json µ•¿Ã≈Õ ∆ƒΩÃ
         Boss boss = null;
         Managers.Data.BossDict.TryGetValue((int)BossType.Snake, out boss);
@@ -149,7 +156,7 @@ public class Boss_Snake : EnemyBase
 
         _state = EnemyState.Chase;
         _collider.enabled = true;
-        transform.position = t.position;
+
 
         Transform[] point=Managers.Object.SnakePath.GetComponentsInChildren<Transform>();
         _path = new List<Transform>();

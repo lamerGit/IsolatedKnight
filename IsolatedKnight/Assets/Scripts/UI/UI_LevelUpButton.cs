@@ -198,6 +198,7 @@ public class UI_LevelUpButton : MonoBehaviour
         _group.Close();
     }
 
+    #region Synergy
     private void SynergySpeedGameTierSelected()
     {
         switch (Managers.GameManager.SynergySpeedGameTier)
@@ -260,6 +261,8 @@ public class UI_LevelUpButton : MonoBehaviour
         }
         Managers.GameManager.SynergyDefenceFireTier++;
     }
+
+    #endregion
 
     #region PassiveSelected
 

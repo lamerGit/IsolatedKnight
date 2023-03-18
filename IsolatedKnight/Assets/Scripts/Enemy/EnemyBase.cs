@@ -52,7 +52,7 @@ public class EnemyBase : Poolable
             _currentFireTick = Mathf.Clamp(value, 0.0f, _fireTick);
             if (_currentFireTick == _fireTick && Hp!=0)
             {
-                int totalDamage = Managers.Object.MyPlayer.Fire*_fireStack;
+                int totalDamage = (Managers.Object.MyPlayer.Fire+Managers.GameManager.ExtraFixedDamage)*_fireStack;
 
                 OnExtraFixedDamage(totalDamage);
                 _currentFireTick = 0.0f;
@@ -142,6 +142,8 @@ public class EnemyBase : Poolable
         if (!gameObject.activeSelf)
             return;
 
+        if(!_agent.enabled) return;
+
         switch (Managers.GameManager.State)
         {
             case GameState.Nomal:
@@ -167,7 +169,11 @@ public class EnemyBase : Poolable
 
     public void OnFixedDamage(int damage)
     {
-        int totaldamage = damage + Managers.Object.MyPlayer.FixedDamage;
+        int totaldamage = damage + Managers.Object.MyPlayer.FixedDamage+Managers.GameManager.ExtraFixedDamage;
+
+        if(totaldamage < 0) {
+        totaldamage = 0;
+        }
 
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(totaldamage, transform);
@@ -181,11 +187,17 @@ public class EnemyBase : Poolable
 
     public void OnExtraFixedDamage(int damage)
     {
-        
+        int totaldamage = damage;
+
+        if (totaldamage < 0)
+        {
+            totaldamage = 0;
+        }
+
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
-        p.DamageTextSpawn(damage, transform);
+        p.DamageTextSpawn(totaldamage, transform);
         StartCoroutine(HitMaterial());
-        Hp -= damage;
+        Hp -= totaldamage;
 
         Debug.Log(Hp);
     }
@@ -193,6 +205,11 @@ public class EnemyBase : Poolable
     public void OnSkillDamge(int damage)
     {
         int totaldamage = damage + Managers.Object.MyPlayer.SkillDamage+Managers.GameManager.ExtraSkillDamage;
+
+        if (totaldamage < 0)
+        {
+            totaldamage = 0;
+        }
 
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(totaldamage, transform);
@@ -205,10 +222,18 @@ public class EnemyBase : Poolable
 
     public void OnExtraSkillDamage(int damage)
     {
+        int totaldamage = damage;
+
+        if (totaldamage < 0)
+        {
+            totaldamage = 0;
+        }
+
+
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
-        p.DamageTextSpawn(damage, transform);
+        p.DamageTextSpawn(totaldamage, transform);
         StartCoroutine(HitMaterial());
-        Hp -= damage;
+        Hp -= totaldamage;
 
         Debug.Log(Hp);
     }
@@ -221,6 +246,11 @@ public class EnemyBase : Poolable
     public void OnPartnerDamage(int damage)
     {
         int totaldamage=damage + Managers.Object.MyPlayer.PartnerDamage + Managers.GameManager.ExtraPartnerDamage;
+
+        if (totaldamage < 0)
+        {
+            totaldamage = 0;
+        }
 
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(totaldamage, transform);
@@ -238,10 +268,17 @@ public class EnemyBase : Poolable
 
     public void OnExtraPartnerDamage(int damage)
     {
+        int totaldamage = damage;
+
+        if (totaldamage < 0)
+        {
+            totaldamage = 0;
+        }
+
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
-        p.DamageTextSpawn(damage, transform);
+        p.DamageTextSpawn(totaldamage, transform);
         StartCoroutine(HitMaterial());
-        Hp -= damage;
+        Hp -= totaldamage;
 
         Debug.Log(Hp);
     }
@@ -254,6 +291,11 @@ public class EnemyBase : Poolable
     public void OnTouchDamage(int damage)
     {
         int totaldamage = damage + Managers.GameManager.ExtraTouchDamage;
+
+        if (totaldamage < 0)
+        {
+            totaldamage = 0;
+        }
 
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(totaldamage, transform);
@@ -284,6 +326,16 @@ public class EnemyBase : Poolable
                     }
                 }
             }
+        }
+
+        if(Managers.GameManager.HammaerStunTier1StunOn)
+        {
+            EnemySlow(stack:3);
+        }
+
+        if(Managers.GameManager.HammerExtraAttackTier1ExtraAttackOn)
+        {
+            OnFixedDamage(totaldamage);
         }
 
         FireCheck();
@@ -317,10 +369,18 @@ public class EnemyBase : Poolable
     /// <param name="damage">받는 데미지</param>
     public void OnExtraDamage(int damage)
     {
+        int totaldamage = damage;
+
+        if (totaldamage < 0)
+        {
+            totaldamage = 0;
+        }
+
+
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
-        p.DamageTextSpawn(damage, transform);
+        p.DamageTextSpawn(totaldamage, transform);
         StartCoroutine(HitMaterial());
-        Hp -= damage;
+        Hp -= totaldamage;
 
         Poolable fx = Managers.Pool.Pop(Managers.Object.TouchAttackFx);
         fx.Spawn(transform);

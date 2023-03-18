@@ -46,13 +46,13 @@ public class UI_SkillSlot : MonoBehaviour
 
                 if (_touchBuffTier1Check)
                 {
-                    Managers.GameManager.ExtraTouchDamage -= (int)(Managers.Object.MyPlayer.TouchDamage * 0.7f);
+                    Managers.GameManager.ExtraTouchDamage -= (int)(Managers.Object.MyPlayer.TouchDamage * 2.0f);
                     _touchBuffTier1Check=false;
                 }
 
                 if (Managers.GameManager.SkillTouchBuffTier2SpeedUp && _touchBuffTier2Check)
                 {
-                    Managers.GameManager.ExtraTouchDamage -= (int)(Managers.Object.MyPlayer.TouchDamage * 0.9f);
+                    Managers.GameManager.ExtraTouchDamage -= (int)(Managers.Object.MyPlayer.TouchDamage * 3.0f);
                     Managers.GameManager.ExtraTouchSpeed -= Managers.Object.MyPlayer.TouchSpeed * 0.2f;
                     Managers.Object.MyPlayer.CurrenTouchSpeed = 0.0f;
                     _touchBuffTier2Check =false;
@@ -60,7 +60,7 @@ public class UI_SkillSlot : MonoBehaviour
 
                 if (Managers.GameManager.SkillTouchBuffTier3StaminaRecovery && _touchBuffTier3Check)
                 {
-                    Managers.GameManager.ExtraTouchDamage -= (int)(Managers.Object.MyPlayer.TouchDamage * 1.2f);
+                    Managers.GameManager.ExtraTouchDamage -= (int)(Managers.Object.MyPlayer.TouchDamage * 4.0f);
                     Managers.GameManager.ExtraTouchSpeed -= Managers.Object.MyPlayer.TouchSpeed * 0.3f;
                     Managers.Object.MyPlayer.StaminaRecoverySpeed -=10.0f;
                     Managers.Object.MyPlayer.CurrenTouchSpeed = 0.0f;
@@ -219,7 +219,19 @@ public class UI_SkillSlot : MonoBehaviour
                         Debug.Log("½ºÅ³4");
                         break;
                 }
-                CurrentSkillColTime = 0.0f;
+                if(Managers.GameManager.StickRandomSkillTier1RandomOn)
+                {
+                    float r = Random.Range(0.0f, 1.0f);
+                    if(r<0.51f)
+                    {
+                        CurrentSkillColTime = 0.0f;
+                    }
+
+                }else
+                {
+                    CurrentSkillColTime = 0.0f;
+                }
+                
             }
             else
             {
@@ -295,14 +307,14 @@ public class UI_SkillSlot : MonoBehaviour
 
         if (!_touchBuffTier1Check)
         {
-            Managers.GameManager.ExtraTouchDamage += (int)(Managers.Object.MyPlayer.TouchDamage * 0.7f);
+            Managers.GameManager.ExtraTouchDamage += (int)(Managers.Object.MyPlayer.TouchDamage * 2.0f);
             _touchBuffTier1Check = true;
         }
 
 
         if (Managers.GameManager.SkillTouchBuffTier2SpeedUp && !_touchBuffTier2Check)
         {
-            Managers.GameManager.ExtraTouchDamage += (int)(Managers.Object.MyPlayer.TouchDamage * 0.9f);
+            Managers.GameManager.ExtraTouchDamage += (int)(Managers.Object.MyPlayer.TouchDamage * 3.0f);
             Managers.GameManager.ExtraTouchSpeed += Managers.Object.MyPlayer.TouchSpeed * 0.2f;
             Managers.Object.MyPlayer.CurrenTouchSpeed = 0.0f;
             _touchBuffTier2Check = true;
@@ -310,7 +322,7 @@ public class UI_SkillSlot : MonoBehaviour
 
         if (Managers.GameManager.SkillTouchBuffTier3StaminaRecovery && !_touchBuffTier3Check)
         {
-            Managers.GameManager.ExtraTouchDamage += (int)(Managers.Object.MyPlayer.TouchDamage * 1.2f);
+            Managers.GameManager.ExtraTouchDamage += (int)(Managers.Object.MyPlayer.TouchDamage * 4.0f);
             Managers.GameManager.ExtraTouchSpeed += Managers.Object.MyPlayer.TouchSpeed * 0.3f;
             Managers.Object.MyPlayer.StaminaRecoverySpeed += 10.0f;
             Managers.Object.MyPlayer.CurrenTouchSpeed = 0.0f;

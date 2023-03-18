@@ -17,6 +17,10 @@ public class GameManager
 
     public int LevelUpStack { get; set; } = 0;
 
+    public int BossRewardStack { get; set;} = 0;
+
+    public int ExtraFixedDamage { get; set; } = 0;
+
     #region Touch
     public int TouchDamageTier { get; set; } = 0;
     public int TouchSpeedTier { get; set; } = 0;
@@ -160,6 +164,42 @@ public class GameManager
     public int SynergyDefenceFireTier { get; set; } = 0;
 
     public bool SynergyDefenceFireTier1FireTrans { get; set;} = false;
+
+    #endregion
+
+    #region BossReward
+
+    public int SwordWindTier { get; set;} = 0;
+
+    public bool SwordWindTier1SwordWindOn { get; set;} = false;
+
+    public int SwordPartnerTier { get; set; } = 0;
+
+    public int SwordTheTogetherTier { get; set;} = 0;
+
+    public int AxeHeavyTier { get; set;} = 0;
+    public int AxeArrowTier { get; set;} = 0;
+
+    public bool AxeArrowTier1ArrowOn { get; set;} = false;
+    public int AxeFrenzyTier { get; set;} = 0;
+
+    public bool AxeFrenzyTier1FrenzyOn { get; set;} = false;
+
+    public int HammerStunTier { get; set;} = 0;
+
+    public bool HammaerStunTier1StunOn { get; set;} = false;
+    public int HammerExtraAttackTier { get; set;} = 0;
+
+    public bool HammerExtraAttackTier1ExtraAttackOn { get; set;} = false;
+    public int HammerFixedTier { get; set;} = 0;
+
+    public int StickNoTouchTier { get; set; } = 0;
+    public int StickRandomSkillTier { get; set; } = 0;
+
+    public bool StickRandomSkillTier1RandomOn { get; set;} = false;
+    public int StickSkillPlusTier { get; set; } = 0;
+
+
 
     #endregion
 }

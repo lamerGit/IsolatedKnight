@@ -228,7 +228,10 @@ public class Player : MonoBehaviour
 
             Managers.UIManager.ExpUI.AmountChange(_currentExp,_maxExp, _level);
 
-            ExpAttack();
+            if (Managers.GameManager.PassiveExpTier2Arrow)
+            {
+                ExpAttack();
+            }
 
 
         }
@@ -485,87 +488,87 @@ public class Player : MonoBehaviour
         }
     }
 
- 
-    void ExpAttack()
+
+    public void ExpAttack()
     {
-        if(Managers.GameManager.PassiveExpTier2Arrow)
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _expAttackRange, LayerMask.GetMask("Enemy"));
+
+        if (colliders.Length > 0)
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, _expAttackRange, LayerMask.GetMask("Enemy"));
-
-            if (colliders.Length > 0)
+            for (int i = 0; i < 1; i++)
             {
-                for (int i = 0; i < 1; i++)
+
+                Poolable bullet = Managers.Pool.Pop(Managers.Object.ExpAllow);
+
+                bullet.transform.position = AttackPoint.transform.position;
+                bullet.Spawn(AttackPoint.transform);
+
+                Vector3 dir = (colliders[i].transform.position - AttackPoint.transform.position).normalized;
+                bullet.transform.LookAt(colliders[i].transform.position);
+                PassiveExpArrow component = bullet.GetComponent<PassiveExpArrow>();
+
+                dir.y += 0.01f;
+                component.Rigid.velocity = dir * _allowSpeed;
+
+                component.Damage = _arrow;
+                component.Dir = dir;
+                component.Speed = _allowSpeed;
+
+
+                if (Managers.GameManager.PassiveExpTier3Arrow)
                 {
-                   
-                    Poolable bullet = Managers.Pool.Pop(Managers.Object.ExpAllow);
+                    Poolable left = Managers.Pool.Pop(Managers.Object.ExpAllow);
+                    Poolable right = Managers.Pool.Pop(Managers.Object.ExpAllow);
 
-                    bullet.transform.position = AttackPoint.transform.position;
-                    bullet.Spawn(AttackPoint.transform);
+                    left.transform.position = AttackPoint.transform.position + Vector3.left;
+                    right.transform.position = AttackPoint.transform.position + Vector3.forward;
 
-                    Vector3 dir = (colliders[i].transform.position - AttackPoint.transform.position).normalized;
-                    bullet.transform.LookAt(colliders[i].transform.position);
-                    PassiveExpArrow component = bullet.GetComponent<PassiveExpArrow>();
+                    left.Spawn(AttackPoint.transform);
+                    right.Spawn(AttackPoint.transform);
+
+                    dir = (colliders[i].transform.position - AttackPoint.transform.position).normalized;
+                    left.transform.LookAt(colliders[i].transform.position);
+                    right.transform.LookAt(colliders[i].transform.position);
+
+                    PassiveExpArrow leftComponent = left.GetComponent<PassiveExpArrow>();
+                    PassiveExpArrow rightComponent = right.GetComponent<PassiveExpArrow>();
 
                     dir.y += 0.01f;
-                    component.Rigid.velocity = dir * _allowSpeed;
 
-                    component.Damage = _arrow;
-                    component.Dir = dir;
-                    component.Speed = _allowSpeed;
-                    
+                    leftComponent.Rigid.velocity = dir * _allowSpeed;
+                    rightComponent.Rigid.velocity = dir * _allowSpeed;
 
-                    if(Managers.GameManager.PassiveExpTier3Arrow)
-                    {
-                        Poolable left = Managers.Pool.Pop(Managers.Object.ExpAllow);
-                        Poolable right = Managers.Pool.Pop(Managers.Object.ExpAllow);
+                    leftComponent.Damage = _arrow;
+                    rightComponent.Damage = _arrow;
 
-                        left.transform.position= AttackPoint.transform.position+Vector3.left;
-                        right.transform.position= AttackPoint.transform.position+Vector3.forward;
+                    leftComponent.Dir = dir;
+                    rightComponent.Dir = dir;
 
-                        left.Spawn(AttackPoint.transform);
-                        right.Spawn(AttackPoint.transform);
-
-                        dir= (colliders[i].transform.position - AttackPoint.transform.position).normalized;
-                        left.transform.LookAt(colliders[i].transform.position);
-                        right.transform.LookAt(colliders[i].transform.position);
-
-                        PassiveExpArrow leftComponent= left.GetComponent<PassiveExpArrow>();
-                        PassiveExpArrow rightComponent= right.GetComponent<PassiveExpArrow>();
-
-                        dir.y += 0.01f;
-
-                        leftComponent.Rigid.velocity = dir * _allowSpeed;
-                        rightComponent.Rigid.velocity = dir * _allowSpeed;
-
-                        leftComponent.Damage = _arrow;
-                        rightComponent.Damage = _arrow;
-
-                        leftComponent.Dir = dir;
-                        rightComponent.Dir = dir;
-
-                        leftComponent.Speed = _allowSpeed;
-                        rightComponent.Speed = _allowSpeed;
-
-                        if (Managers.GameManager.State == GameState.LevelUp)
-                        {
-                            leftComponent.Rigid.velocity = Vector3.zero;
-                            rightComponent.Rigid.velocity = Vector3.zero;
-
-                        }
-
-                    }
-
+                    leftComponent.Speed = _allowSpeed;
+                    rightComponent.Speed = _allowSpeed;
 
                     if (Managers.GameManager.State == GameState.LevelUp)
                     {
-                        component.Rigid.velocity = Vector3.zero;
-                        
+                        leftComponent.Rigid.velocity = Vector3.zero;
+                        rightComponent.Rigid.velocity = Vector3.zero;
+
                     }
 
                 }
-                
+
+
+                if (Managers.GameManager.State == GameState.LevelUp)
+                {
+                    component.Rigid.velocity = Vector3.zero;
+
+                }
+
             }
+
         }
+
+
     }
 
 #if UNITY_EDITOR

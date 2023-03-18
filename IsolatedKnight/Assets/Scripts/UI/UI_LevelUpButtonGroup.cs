@@ -175,7 +175,11 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
         }
         else
         {
-            Managers.GameManager.State = GameState.Nomal;
+            if (Managers.GameManager.BossRewardStack < 1)
+            {
+                Managers.GameManager.State = GameState.Nomal;
+            }
+            
             gameObject.SetActive(false);
         }
     }

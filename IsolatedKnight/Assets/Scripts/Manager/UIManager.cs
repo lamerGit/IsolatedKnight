@@ -14,6 +14,8 @@ public class UIManager
 
     public UI_Timer TimerUI { get; private set; }   
 
+    public UI_BossRewardButtonGroup BossRewardButtonGroup { get; private set; }
+
     //게임 씬일때만 나타나는 UI
     public void GameScenInit()
     {
@@ -48,6 +50,13 @@ public class UIManager
         InstTimerUI.name=timerUI.name;
 
         TimerUI=InstTimerUI.GetComponent<UI_Timer>();
+
+        GameObject bossRewardUI= Resources.Load<GameObject>($"Prefabs/BossRewardButtonGroup");
+        GameObject InstBossRewardUI= Object.Instantiate(bossRewardUI, Managers.Instance.Canvas.transform);
+        InstBossRewardUI.name=bossRewardUI.name;
+
+        BossRewardButtonGroup=InstBossRewardUI.GetComponent<UI_BossRewardButtonGroup>();
+        BossRewardButtonGroup.Close();
 
     }
 }

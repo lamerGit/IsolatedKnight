@@ -2,7 +2,7 @@
   "bosss": [
     {
       "type": "0",
-      "maxHp": "900",
+      "maxHp": "90",
       "speed": "2.0",
       "skillCoolTime": "5.0",
       "skillRecovery": "1.0",
