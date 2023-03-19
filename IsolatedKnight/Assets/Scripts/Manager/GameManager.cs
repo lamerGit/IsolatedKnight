@@ -199,6 +199,21 @@ public class GameManager
     public bool StickRandomSkillTier1RandomOn { get; set;} = false;
     public int StickSkillPlusTier { get; set; } = 0;
 
+    public int HeavyPowerTier { get; set;} = 0;
+
+    public int PartnerPassTier { get; set; } = 0;
+
+    public int SkillWizadTier { get; set; } = 0;
+
+    public int TheHardTier { get; set; } = 0;
+
+    public int StaminaUpTier { get; set; } = 0;
+
+    public int TheSpeedTier { get; set; } = 0;
+
+    public int FixedUpTier { get; set; } = 0;
+
+    public int ExpUpTier { get; set; } = 0;
 
 
     #endregion

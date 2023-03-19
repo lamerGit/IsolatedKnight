@@ -96,9 +96,20 @@ public enum BossRewardOption
     HeavyPower,
     PartnerPass,
     SkillWizad,
-    ThaHard,
+    TheHard,
     StaminaUp,
     TheSpeed,
     FixedUp,
     ExpUP
+}
+
+public enum WeaponType
+{
+    Sword=0,
+    Axe,
+    Hammer,
+    Stick,
+    Hand
+
+
 }

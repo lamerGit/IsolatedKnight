@@ -27,6 +27,8 @@ public class UI_SkillSlot : MonoBehaviour
     bool _touchBuffTier2Check = false;
     bool _touchBuffTier3Check = false;
 
+    GameObject _onOffFx;
+
     public float SkillColTime
     {
         get { return _skillColTime; }
@@ -83,6 +85,7 @@ public class UI_SkillSlot : MonoBehaviour
 
             if(_currentSkillColTime== SkillColTime)
             {
+                _onOffFx.SetActive(true);
                 switch (SkillType)
                 {
                     case SkillType.None:
@@ -168,6 +171,9 @@ public class UI_SkillSlot : MonoBehaviour
         _backGroundImage = transform.Find("Background").GetComponent<Image>();
 
         _button.onClick.AddListener(OnSkill);
+
+        _onOffFx = transform.Find("OnOff").gameObject;
+        _onOffFx.SetActive(false);
     }
 
     private void Update()
@@ -225,11 +231,13 @@ public class UI_SkillSlot : MonoBehaviour
                     if(r<0.51f)
                     {
                         CurrentSkillColTime = 0.0f;
+                        _onOffFx.SetActive(false);
                     }
 
                 }else
                 {
                     CurrentSkillColTime = 0.0f;
+                    _onOffFx.SetActive(false);
                 }
                 
             }

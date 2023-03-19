@@ -19,4 +19,9 @@ public class Poolable : MonoBehaviour
 	{
 
 	}
+
+	public virtual void BossSpawn(Transform spawnTransform,BossType bossType)
+	{
+
+	}
 }

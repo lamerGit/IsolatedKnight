@@ -139,13 +139,13 @@ public class Boss_Snake : EnemyBase
         StartCoroutine(ReturnSkel());
     }
 
-    public override void Spawn(Transform t)
+    public override void BossSpawn(Transform t,BossType bossType)
     {
         transform.position = t.position;
         _agent.enabled = true;
         // Json 데이터 파싱
         Boss boss = null;
-        Managers.Data.BossDict.TryGetValue((int)BossType.Snake, out boss);
+        Managers.Data.BossDict.TryGetValue((int)bossType, out boss);
 
         _maxHp = boss.maxHp;
         Hp = boss.maxHp;

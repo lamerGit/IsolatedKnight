@@ -1,6 +1,14 @@
 {
   "weapons": [
     {
+      "type": "0",
+      "touchDamage": "10",
+      "touchSpeed": "0.5",
+      "staminaconsum": "10.0",
+      "partnerDamage": "10",
+      "skillDamage": "10"
+    },
+    {
       "type": "1",
       "touchDamage": "10",
       "touchSpeed": "0.5",

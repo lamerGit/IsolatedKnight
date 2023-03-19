@@ -51,6 +51,53 @@ public class Player : MonoBehaviour
     float _lightningTimer = 2.0f;
     float _lightningRange = 60.0f;
 
+    GameObject Sword;
+    GameObject Axe;
+    GameObject Hammer;
+    GameObject Staff;
+
+    public WeaponType EquipWeaponType
+    {
+        get { return (WeaponType)_type; }
+        private set { _type = (int)value;
+            switch ((WeaponType)_type)
+            {
+                case WeaponType.Sword:
+                    Sword.SetActive(true);
+                    Axe.SetActive(false);
+                    Hammer.SetActive(false);
+                    Staff.SetActive(false);
+                    break;
+                case WeaponType.Axe:
+                    Sword.SetActive(false);
+                    Axe.SetActive(true);
+                    Hammer.SetActive(false);
+                    Staff.SetActive(false);
+                    break;
+                case WeaponType.Hammer:
+                    Sword.SetActive(false);
+                    Axe.SetActive(false);
+                    Hammer.SetActive(true);
+                    Staff.SetActive(false);
+                    break;
+                case WeaponType.Stick:
+                    Sword.SetActive(false);
+                    Axe.SetActive(false);
+                    Hammer.SetActive(false);
+                    Staff.SetActive(true);
+                    break;
+                case WeaponType.Hand:
+                    Sword.SetActive(false);
+                    Axe.SetActive(false);
+                    Hammer.SetActive(false);
+                    Staff.SetActive(false);
+                    break;
+            }
+
+
+        }
+    }
+
     public float CurrentLightningTimer
     {
         get { return _currentLightningTimer; }
@@ -349,13 +396,20 @@ public class Player : MonoBehaviour
 
         SkillResetFx = transform.Find("SkillResetFx").GetComponent<ParticleSystem>();
         SkillResetFx.Stop();
+
+        GameObject WeaponGroup = transform.Find("Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/WeaponGroup").gameObject;
+        Sword = WeaponGroup.transform.Find("Sword").gameObject;
+        Axe = WeaponGroup.transform.Find("Axe").gameObject;
+        Hammer = WeaponGroup.transform.Find("Hammer").gameObject;
+        Staff = WeaponGroup.transform.Find("Staff").gameObject;
+
     }
 
 
     void Start()
     {
         Weapon weapon = null;
-        Managers.Data.WeaponDict.TryGetValue(1,out weapon);
+        Managers.Data.WeaponDict.TryGetValue((int)WeaponType.Sword,out weapon);
 
         Stat stat = null;
         Managers.Data.StatDict.TryGetValue(1,out stat);
@@ -364,7 +418,7 @@ public class Player : MonoBehaviour
         Managers.Data.FixedDict.TryGetValue(0,out f);
 
         // 무기데이터 파싱
-        _type=weapon.type;
+        EquipWeaponType = (WeaponType)weapon.type;
         TouchDamage = weapon.touchDamage;
         TouchSpeed =weapon.touchSpeed;
         StaminaConsum = weapon.staminaconsum;

@@ -22,8 +22,33 @@ public class UI_Timer : MonoBehaviour
                 Managers.GameManager.GameLevel = _min;
                 if (_min == 1)
                 {
-                    Poolable p = Managers.Pool.Pop(Managers.Object.BossSnake);
-                    p.Spawn(Managers.Object.BossZone.transform);
+                    int bossTypeCount=System.Enum.GetValues(typeof(BossType)).Length;
+                    //int r=Random.Range(0, bossTypeCount);
+                    int r = 1;
+
+                    switch ((BossType)r)
+                    {
+                        case BossType.Snake:
+                            Poolable snake = Managers.Pool.Pop(Managers.Object.BossSnake);
+                            snake.BossSpawn(Managers.Object.BossZone.transform, BossType.Snake);
+                            break;
+                        case BossType.SnakeBuff:
+                            Poolable snakeBuff = Managers.Pool.Pop(Managers.Object.BossSnakeBuff);
+                            snakeBuff.BossSpawn(Managers.Object.BossZone.transform, BossType.SnakeBuff);
+                            break;
+                        case BossType.Wolf:
+                            break;
+                        case BossType.WolfBuff:
+                            break;
+                        case BossType.Bloom:
+                            break;
+                        case BossType.BloomBuff:
+                            break;
+                        case BossType.Reaper:
+                            break;
+                    }
+
+                    
                 }
             }
 

@@ -86,6 +86,7 @@ public class Managers : MonoBehaviour
         s_instance._pool.CreatePool(Object.PassiveLightningFx, count: 30);
         s_instance._pool.CreatePool(Object.BossSnake, count: 1);
         s_instance._pool.CreatePool(Object.SwordWind, count: 30);
+        s_instance._pool.CreatePool(Object.BossSnakeBuff, count: 1);
     }
 
 }

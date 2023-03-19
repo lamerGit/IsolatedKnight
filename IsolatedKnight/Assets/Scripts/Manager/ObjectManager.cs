@@ -44,6 +44,8 @@ public class ObjectManager
 
     public GameObject SwordWind { get; private set; }
 
+    public GameObject BossSnakeBuff { get; private set; }
+
     public void Init()
     {
         GameObject p = Resources.Load<GameObject>($"Prefabs/Player");
@@ -113,6 +115,8 @@ public class ObjectManager
         SnakePath.name=snakePath.name;
 
         SwordWind= Resources.Load<GameObject>($"Prefabs/SwordWind");
+
+        BossSnakeBuff = Resources.Load<GameObject>($"Prefabs/Enemy_Boss_SnakeBuff");
 
     }
 }
