@@ -97,7 +97,7 @@ public class PassiveExpArrow : Poolable
         if (other.CompareTag("Enemy") && Managers.GameManager.State == GameState.Nomal)
         {
             
-            other.GetComponent<EnemyBase>().OnFixedDamage(Damage);
+            other.GetComponent<EnemyBase>().OnFixedDamage(Damage,DamageType.PassiveArrow);
             _count--;
 
             if (_count > 0)

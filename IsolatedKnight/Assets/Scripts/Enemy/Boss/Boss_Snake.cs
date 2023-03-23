@@ -27,6 +27,7 @@ public class Boss_Snake : EnemyBase
             {
                 _animator.SetTrigger("Skill");
                 StateClean();
+                _agent.isStopped = true;
                 _agent.speed = _agent.speed + 0.5f;
                 _currentSkillCoolTime = 0.0f;
             }
@@ -78,6 +79,11 @@ public class Boss_Snake : EnemyBase
             if(CurrentSkillCoolTime<_skillCoolTime && _state==EnemyState.Chase)
             {
                 CurrentSkillCoolTime += Time.deltaTime * _skillRecovery;
+            }
+
+            if(_animator.GetCurrentAnimatorStateInfo(0).IsName("Skill") && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime>0.9f)
+            {
+                _agent.isStopped = false;
             }
         }
 

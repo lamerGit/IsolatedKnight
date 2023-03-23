@@ -152,6 +152,35 @@ namespace Data
     }
     #endregion
 
+
+    #region SkelKnight
+    [Serializable]
+    public class SkelKnight
+    {
+        public int level;
+        public int maxHp;
+        public float speed;
+        public float exp;
+    }
+
+    [Serializable]
+    public class SkelKnightLoader : ILoader<int, SkelKnight>
+    {
+        public List<SkelKnight> skelKnights = new List<SkelKnight>();
+
+        public Dictionary<int, SkelKnight> MakeDict()
+        {
+            Dictionary<int, SkelKnight> dict = new Dictionary<int, SkelKnight>();
+            foreach (SkelKnight skelKnight in skelKnights)
+            {
+                dict.Add(skelKnight.level, skelKnight);
+            }
+            return dict;
+
+        }
+    }
+    #endregion
+
     #region Partner
     [Serializable]
     public class Partner

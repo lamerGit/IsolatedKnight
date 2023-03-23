@@ -95,12 +95,12 @@ public class OnePointSkill : Poolable
 
             EnemyBase e = other.GetComponent<EnemyBase>();
 
-            e.OnSkillDamge(Damage);
+            e.OnSkillDamge(Damage,DamageType.SkillOnePoint);
 
             if(Managers.GameManager.OnePointSkillTier3HpAttack)
             {
                 int extraDamage = (int)(e.GetMaxHp() * 0.1f);
-                e.OnExtraSkillDamage(extraDamage);
+                e.OnExtraSkillDamage(extraDamage,DamageType.SkillOnePoint);
             }
 
             

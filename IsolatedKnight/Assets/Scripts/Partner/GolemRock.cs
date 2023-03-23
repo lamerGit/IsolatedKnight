@@ -99,7 +99,7 @@ public class GolemRock : Poolable
         if (other.CompareTag("Enemy") && Managers.GameManager.State == GameState.Nomal)
         {
             
-            other.GetComponent<EnemyBase>().OnPartnerDamage(Damage);
+            other.GetComponent<EnemyBase>().OnPartnerDamage(Damage, DamageType.PartnerGolem);
             _count--;
 
             if (_count > 0)
@@ -158,7 +158,7 @@ public class GolemRock : Poolable
             {
                 for (int i = 0; i < colliders.Length; i++)
                 {
-                    colliders[i].GetComponent<EnemyBase>().OnPartnerDamage(Damage);
+                    colliders[i].GetComponent<EnemyBase>().OnPartnerDamage(Damage,DamageType.PartnerGolem);
                 }
             }
 

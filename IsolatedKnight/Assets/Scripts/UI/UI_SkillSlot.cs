@@ -85,6 +85,9 @@ public class UI_SkillSlot : MonoBehaviour
 
             if(_currentSkillColTime== SkillColTime)
             {
+                if (!gameObject.activeSelf)
+                    return;
+
                 _onOffFx.SetActive(true);
                 switch (SkillType)
                 {
@@ -288,7 +291,7 @@ public class UI_SkillSlot : MonoBehaviour
                 if (InSightAngle(playerTransfrom, colliders[i].transform.position))
                 {
                     EnemyBase e = colliders[i].GetComponent<EnemyBase>();
-                    e.OnSkillDamge(_skillDamage);
+                    e.OnSkillDamge(_skillDamage,DamageType.SkillMultiPoint);
                     if(Managers.GameManager.SkillMutiPointTier2Slow)
                     {
                         e.EnemySlow(stack: 2);

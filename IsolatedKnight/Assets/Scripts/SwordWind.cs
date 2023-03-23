@@ -93,7 +93,7 @@ public class SwordWind : Poolable
     {
         if (other.CompareTag("Enemy") && Managers.GameManager.State == GameState.Nomal)
         {
-            other.GetComponent<EnemyBase>().OnExtraDamage(Damage);
+            other.GetComponent<EnemyBase>().OnExtraDamage(Damage, DamageType.Touch);
             
 
         }

@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager 
+public class GameManager
 {
     GameState _state = GameState.Nomal;
-    public GameState State { get { return _state; } 
+    public GameState State { get { return _state; }
         set { _state = value;
             StateChange?.Invoke();
         } }
@@ -17,9 +17,24 @@ public class GameManager
 
     public int LevelUpStack { get; set; } = 0;
 
-    public int BossRewardStack { get; set;} = 0;
+    public int BossRewardStack { get; set; } = 0;
 
     public int ExtraFixedDamage { get; set; } = 0;
+
+    public Dictionary<DamageType, int> DamageCheck { get; private set; } = new Dictionary<DamageType, int>()
+    { { DamageType.Touch, 0 },
+    { DamageType.PartnerDragon, 0 },
+    { DamageType.PartnerGolem, 0 },
+    { DamageType.PartnerGost, 0 },
+    { DamageType.SkillOnePoint, 0 },
+    { DamageType.SkillMultiPoint, 0 },
+    { DamageType.PassiveArrow, 0 },
+    { DamageType.PassiveThunder, 0 },
+    { DamageType.PassiveFire, 0 },
+    { DamageType.PassiveDefence, 0 },
+    { DamageType.SwordWind, 0 }};
+
+
 
     #region Touch
     public int TouchDamageTier { get; set; } = 0;
@@ -142,7 +157,7 @@ public class GameManager
 
     public bool PassiveThunderTier1ThunderOn { get; set;} = false;
 
-    public int PassiveThunderCount { get;set; } = 1;
+    public int PassiveThunderCount { get;set; } = 5;
 
     public bool PassiveThunderTier3CoolTimeRecovery { get;set; } = false;
 

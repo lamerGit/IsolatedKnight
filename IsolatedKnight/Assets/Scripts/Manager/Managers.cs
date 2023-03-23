@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Managers : MonoBehaviour
 {
@@ -37,8 +39,23 @@ public class Managers : MonoBehaviour
     {
         Canvas=FindObjectOfType<Canvas>();
 
-        Init();
+        
 
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        Init();
     }
 
     static void Init()
@@ -52,7 +69,7 @@ public class Managers : MonoBehaviour
                 go.AddComponent<Managers>();
             }
 
-            DontDestroyOnLoad(go);
+            //DontDestroyOnLoad(go);
             s_instance=go.GetComponent<Managers>();
 
             s_instance._data.Init();
@@ -69,12 +86,14 @@ public class Managers : MonoBehaviour
 
     void GameScenInit()
     {
+        Canvas = FindObjectOfType<Canvas>();
         s_instance._uiManager.GameScenInit();
         s_instance._obj.Init();
         s_instance._pool.Init();
         s_instance._pool.CreatePool(Object.Skel, count: 30);
         s_instance._pool.CreatePool(Object.SkelDefence, count: 30);
         s_instance._pool.CreatePool(Object.SkelSpeed, count: 30);
+        s_instance._pool.CreatePool(Object.SkelKnight, count: 30);
         s_instance._pool.CreatePool(Object.DamageText, count: 30);
         s_instance._pool.CreatePool(Object.TouchAttackFx, count: 30);
         s_instance._pool.CreatePool(Object.DragonBreath, count: 30);
@@ -87,6 +106,14 @@ public class Managers : MonoBehaviour
         s_instance._pool.CreatePool(Object.BossSnake, count: 1);
         s_instance._pool.CreatePool(Object.SwordWind, count: 30);
         s_instance._pool.CreatePool(Object.BossSnakeBuff, count: 1);
+        s_instance._pool.CreatePool(Object.WolfPath, count: 1);
+        s_instance._pool.CreatePool(Object.BossWolf, count: 1);
+        s_instance._pool.CreatePool(Object.BossWolfBuff, count: 1);
+        s_instance._pool.CreatePool(Object.BossBloom, count: 1);
+        s_instance._pool.CreatePool(Object.BossBloomBuff, count: 1);
+        s_instance._pool.CreatePool(Object.BloomBullet, count: 30);
+        s_instance._pool.CreatePool(Object.BossReaper, count: 1);
+
     }
 
 }

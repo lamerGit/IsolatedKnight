@@ -73,7 +73,9 @@ public class PartnerGolem : MonoBehaviour
         {
             for (int i = 0; i < 1; i++)
             {
-                transform.LookAt(colliders[i].gameObject.transform.position);
+                int r=Random.Range(0, colliders.Length);
+
+                transform.LookAt(colliders[r].gameObject.transform.position);
                 _animator.SetTrigger("Attack");
 
                 Poolable bullet = Managers.Pool.Pop(Managers.Object.GolemRock);
@@ -81,7 +83,7 @@ public class PartnerGolem : MonoBehaviour
                 bullet.transform.position = _hand.transform.position;
                 bullet.Spawn(_hand);
 
-                Vector3 dir = (colliders[i].transform.position - _hand.transform.position).normalized;
+                Vector3 dir = (colliders[r].transform.position - _hand.transform.position).normalized;
                 GolemRock component = bullet.GetComponent<GolemRock>();
 
                 dir.y += 0.01f;

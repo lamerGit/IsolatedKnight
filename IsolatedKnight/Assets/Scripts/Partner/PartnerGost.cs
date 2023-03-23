@@ -75,7 +75,7 @@ public class PartnerGost : MonoBehaviour
                 e.EnemySlow(stack:2);
                 if (Managers.GameManager.PartnerGostTier2Slow)
                 {
-                    e.OnPartnerDamage(AttackDamge);
+                    e.OnPartnerDamage(AttackDamge,DamageType.PartnerGost);
                 }
                 if(Managers.GameManager.PartnerGostTier3Slow)
                 {

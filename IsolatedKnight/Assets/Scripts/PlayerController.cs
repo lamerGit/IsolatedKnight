@@ -34,9 +34,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Managers.GameManager.State == GameState.Nomal)
         {
-            MouseRay(Mouse.current.position.ReadValue()); // pc에서 할때 주석풀기
+            //MouseRay(Mouse.current.position.ReadValue()); // pc에서 할때 주석풀기
 
-            //MouseRay(Touchscreen.current.position.ReadValue()); // 핸드폰에서 할때 주석풀기
+            MouseRay(Touchscreen.current.position.ReadValue()); // 핸드폰에서 할때 주석풀기
         }
     }
 
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
             if (myPlayer.TouchPossibleCheck && myPlayer.StaminaCheck)
             {
                 
-                e.GetComponent<EnemyBase>().OnTouchDamage(myPlayer.TouchDamage);
+                e.GetComponent<EnemyBase>().OnTouchDamage(myPlayer.TouchDamage,DamageType.Touch);
                 myPlayer.AttackAnimation();
                 myPlayer.ResetTouchSpeed();
 

@@ -11,6 +11,7 @@ public class ObjectManager
     public GameObject Skel { get; private set; }
     public GameObject SkelDefence { get; private set; }
     public GameObject SkelSpeed { get; private set; }
+    public GameObject SkelKnight { get; private set; }
 
     public GameObject DamageText { get;private set; }
     public GameObject TouchAttackFx { get; private set; }
@@ -46,6 +47,25 @@ public class ObjectManager
 
     public GameObject BossSnakeBuff { get; private set; }
 
+    public GameObject BossWolf { get; private set; }
+
+    public GameObject WolfPath { get; private set; }
+
+    public GameObject BossWolfBuff { get; private set; }
+
+    public GameObject BossZone2 { get; private set; }
+
+    public GameObject BossBloom { get; private set; }
+
+    public GameObject BloomBullet { get; private set; }
+
+    public GameObject BossBloomBuff { get; private set; }
+
+    public GameObject BossReaper { get; private set; }
+    public GameObject ReaperPath { get; private set; }
+
+    public EnemySpawnerGroup EnemySpawnerGroup { get; private set; }
+
     public void Init()
     {
         GameObject p = Resources.Load<GameObject>($"Prefabs/Player");
@@ -57,8 +77,9 @@ public class ObjectManager
         Skel = Resources.Load<GameObject>($"Prefabs/Enemy_Skel_Slave");
         SkelDefence = Resources.Load<GameObject>($"Prefabs/Enemy_Skel_Soldier_Defence");
         SkelSpeed = Resources.Load<GameObject>($"Prefabs/Enemy_Skel_Soldier_Speed");
+        SkelKnight = Resources.Load<GameObject>($"Prefabs/Enemy_Skel_Knight");
 
-        DamageText =Resources.Load<GameObject>($"Prefabs/DamageText");
+        DamageText = Resources.Load<GameObject>($"Prefabs/DamageText");
         TouchAttackFx=Resources.Load<GameObject>($"Prefabs/TouchHit");
         
         GameObject partnerD= Resources.Load<GameObject>($"Prefabs/Partner_Dragon");
@@ -117,6 +138,37 @@ public class ObjectManager
         SwordWind= Resources.Load<GameObject>($"Prefabs/SwordWind");
 
         BossSnakeBuff = Resources.Load<GameObject>($"Prefabs/Enemy_Boss_SnakeBuff");
+
+        BossWolf = Resources.Load<GameObject>($"Prefabs/Enemy_Boss_Wolf");
+
+        GameObject wolfPath= Resources.Load<GameObject>($"Prefabs/WolfPath");
+        WolfPath = Object.Instantiate(wolfPath);
+        WolfPath.name=wolfPath.name;
+
+        BossWolfBuff = Resources.Load<GameObject>($"Prefabs/Enemy_Boss_WolfBuff");
+
+        GameObject bossZone2 = Resources.Load<GameObject>($"Prefabs/BossZone2");
+        BossZone2= Object.Instantiate(bossZone2);
+        BossZone2.name=bossZone2.name;
+
+        BossBloom = Resources.Load<GameObject>($"Prefabs/Enemy_Boss_Bloom");
+
+        BloomBullet = Resources.Load<GameObject>($"Prefabs/BloomBullet");
+
+        BossBloomBuff = Resources.Load<GameObject>($"Prefabs/Enemy_Boss_BloomBuff");
+
+        GameObject reaperPath= Resources.Load<GameObject>($"Prefabs/ReaperPath");
+        ReaperPath=Object.Instantiate(reaperPath);
+        ReaperPath.name=reaperPath.name;
+
+        BossReaper = Resources.Load<GameObject>($"Prefabs/Enemy_Boss_Reaper");
+
+        GameObject enemySpawnerGroup = Resources.Load<GameObject>($"Prefabs/SpawnerGroup");
+        GameObject InstSpawnerGroup=Object.Instantiate(enemySpawnerGroup);
+        InstSpawnerGroup.name=enemySpawnerGroup.name;
+
+        EnemySpawnerGroup=InstSpawnerGroup.GetComponent<EnemySpawnerGroup>();
+        EnemySpawnerGroup.SpawnerOff();
 
     }
 }

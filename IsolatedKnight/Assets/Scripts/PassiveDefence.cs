@@ -70,7 +70,7 @@ public class PassiveDefence : MonoBehaviour
             for (int i = 0; i < colliders.Length; i++)
             {
                 EnemyBase e = colliders[i].GetComponent<EnemyBase>();
-                e.OnFixedDamage(totalDamage);
+                e.OnFixedDamage(totalDamage,DamageType.PassiveDefence);
 
             }
             CurrentAttackTimer = 0.0f;

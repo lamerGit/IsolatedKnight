@@ -274,7 +274,7 @@ public class UI_LevelUpButton : MonoBehaviour
                 Managers.GameManager.PassiveThunderTier1ThunderOn = true;
                 break;
             case 1:
-                Managers.GameManager.PassiveThunderCount = 3;
+                Managers.GameManager.PassiveThunderCount = 15;
                 break;
             case 2:
                 Managers.GameManager.PassiveThunderTier3CoolTimeRecovery = true;

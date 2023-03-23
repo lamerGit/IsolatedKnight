@@ -40,9 +40,11 @@ public class EnemyBase : Poolable
     protected int _fireStack = 0;
 
     float _currentFireTick = 0.0f;
-    float _fireTick = 1.0f;
+    float _fireTick = 0.5f;
 
     protected float _fireTranRange = 5.0f;
+
+    protected bool _bullet = false;
 
     float CurrentFireTick
     {
@@ -54,7 +56,7 @@ public class EnemyBase : Poolable
             {
                 int totalDamage = (Managers.Object.MyPlayer.Fire+Managers.GameManager.ExtraFixedDamage)*_fireStack;
 
-                OnExtraFixedDamage(totalDamage);
+                OnExtraFixedDamage(totalDamage,DamageType.PassiveFire);
                 _currentFireTick = 0.0f;
             
             
@@ -79,12 +81,15 @@ public class EnemyBase : Poolable
         }
     }
 
-    float CurrentSpeedDownTimer
+    protected virtual float CurrentSpeedDownTimer
     {
         get { return _currentSpeedDownTimer; }
         set { _currentSpeedDownTimer = Mathf.Clamp(value,0.0f,_SpeedDownTimer);
         
             if(_currentSpeedDownTimer == _SpeedDownTimer ) {
+
+                if (_agent == null)
+                    return;
 
                 _agent.speed =_agent.speed+ _speedDownStack * _speedDownPoint;
                 _speedDownStack = 0;
@@ -101,7 +106,7 @@ public class EnemyBase : Poolable
         set { _hp = value; }
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
@@ -118,7 +123,7 @@ public class EnemyBase : Poolable
     {
         if (Managers.GameManager.State == GameState.Nomal)
         {
-            if (CurrentSpeedDownTimer < _SpeedDownTimer)
+            if (CurrentSpeedDownTimer < _SpeedDownTimer && _speedDownStack>0)
             {
                 CurrentSpeedDownTimer += Time.deltaTime;
             }
@@ -132,6 +137,11 @@ public class EnemyBase : Poolable
             {
                 CurrentFireTick += Time.deltaTime;
             }
+        }
+
+        if (!_bullet && _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f)
+        {
+            GameOver();
         }
     }
 
@@ -167,13 +177,24 @@ public class EnemyBase : Poolable
         
     }
 
-    public void OnFixedDamage(int damage)
+    public void OnFixedDamage(int damage,DamageType damageType)
     {
         int totaldamage = damage + Managers.Object.MyPlayer.FixedDamage+Managers.GameManager.ExtraFixedDamage;
 
         if(totaldamage < 0) {
         totaldamage = 0;
         }
+
+        int damageCheck = totaldamage;
+        if (Hp - totaldamage < 0)
+        {
+            damageCheck = Hp - totaldamage;
+            damageCheck += totaldamage;
+
+        }
+
+        Managers.GameManager.DamageCheck[damageType] += damageCheck;
+        //Debug.Log(Managers.GameManager.DamageCheck[damageType]);
 
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(totaldamage, transform);
@@ -182,10 +203,10 @@ public class EnemyBase : Poolable
 
         FireCheck();
 
-        Debug.Log(Hp);
+        //Debug.Log(Hp);
     }
 
-    public void OnExtraFixedDamage(int damage)
+    public void OnExtraFixedDamage(int damage,DamageType damageType)
     {
         int totaldamage = damage;
 
@@ -194,15 +215,26 @@ public class EnemyBase : Poolable
             totaldamage = 0;
         }
 
+        int damageCheck = totaldamage;
+        if (Hp - totaldamage < 0)
+        {
+            damageCheck = Hp - totaldamage;
+            damageCheck += totaldamage;
+
+        }
+
+        Managers.GameManager.DamageCheck[damageType] += damageCheck;
+        //Debug.Log(Managers.GameManager.DamageCheck[damageType]);
+
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(totaldamage, transform);
         StartCoroutine(HitMaterial());
         Hp -= totaldamage;
 
-        Debug.Log(Hp);
+        //Debug.Log(Hp);
     }
 
-    public void OnSkillDamge(int damage)
+    public void OnSkillDamge(int damage,DamageType damageType)
     {
         int totaldamage = damage + Managers.Object.MyPlayer.SkillDamage+Managers.GameManager.ExtraSkillDamage;
 
@@ -211,16 +243,27 @@ public class EnemyBase : Poolable
             totaldamage = 0;
         }
 
+        int damageCheck = totaldamage;
+        if (Hp - totaldamage < 0)
+        {
+            damageCheck = Hp - totaldamage;
+            damageCheck += totaldamage;
+
+        }
+
+        Managers.GameManager.DamageCheck[damageType] += damageCheck;
+        //Debug.Log(Managers.GameManager.DamageCheck[damageType]);
+
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(totaldamage, transform);
         StartCoroutine(HitMaterial());
         Hp -= totaldamage;
 
         FireCheck();
-        Debug.Log(Hp);
+        //Debug.Log(Hp);
     }
 
-    public void OnExtraSkillDamage(int damage)
+    public void OnExtraSkillDamage(int damage,DamageType damageType)
     {
         int totaldamage = damage;
 
@@ -229,13 +272,23 @@ public class EnemyBase : Poolable
             totaldamage = 0;
         }
 
+        int damageCheck = totaldamage;
+        if (Hp - totaldamage < 0)
+        {
+            damageCheck = Hp - totaldamage;
+            damageCheck += totaldamage;
+
+        }
+
+        Managers.GameManager.DamageCheck[damageType] += damageCheck;
+        //Debug.Log(Managers.GameManager.DamageCheck[damageType]);
 
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(totaldamage, transform);
         StartCoroutine(HitMaterial());
         Hp -= totaldamage;
 
-        Debug.Log(Hp);
+        //Debug.Log(Hp);
     }
 
 
@@ -243,7 +296,7 @@ public class EnemyBase : Poolable
     /// 파트너에게 공격당했을때 사용하는 함수
     /// </summary>
     /// <param name="damage"></param>
-    public void OnPartnerDamage(int damage)
+    public void OnPartnerDamage(int damage,DamageType damageType)
     {
         int totaldamage=damage + Managers.Object.MyPlayer.PartnerDamage + Managers.GameManager.ExtraPartnerDamage;
 
@@ -251,6 +304,17 @@ public class EnemyBase : Poolable
         {
             totaldamage = 0;
         }
+
+        int damageCheck = totaldamage;
+        if (Hp - totaldamage < 0)
+        {
+            damageCheck = Hp - totaldamage;
+            damageCheck += totaldamage;
+
+        }
+
+        Managers.GameManager.DamageCheck[damageType] += damageCheck;
+        //Debug.Log(Managers.GameManager.DamageCheck[damageType]);
 
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(totaldamage, transform);
@@ -260,13 +324,13 @@ public class EnemyBase : Poolable
         if(Managers.GameManager.PartnerBuffTier3ExtraAttack)
         {
             int extraDamage = (int)(totaldamage * 0.3f);
-            OnExtraPartnerDamage(extraDamage);
+            OnExtraPartnerDamage(extraDamage,damageType);
         }
         FireCheck();
-        Debug.Log(Hp);
+        //Debug.Log(Hp);
     }
 
-    public void OnExtraPartnerDamage(int damage)
+    public void OnExtraPartnerDamage(int damage,DamageType damageType)
     {
         int totaldamage = damage;
 
@@ -275,12 +339,23 @@ public class EnemyBase : Poolable
             totaldamage = 0;
         }
 
+        int damageCheck = totaldamage;
+        if (Hp - totaldamage < 0)
+        {
+            damageCheck = Hp - totaldamage;
+            damageCheck += totaldamage;
+
+        }
+
+        Managers.GameManager.DamageCheck[damageType] += damageCheck;
+        //Debug.Log(Managers.GameManager.DamageCheck[damageType]);
+
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(totaldamage, transform);
         StartCoroutine(HitMaterial());
         Hp -= totaldamage;
 
-        Debug.Log(Hp);
+        //Debug.Log(Hp);
     }
 
 
@@ -288,7 +363,7 @@ public class EnemyBase : Poolable
     /// 터치로 공격당했을때 사용하는 함수
     /// </summary>
     /// <param name="damage">받는 데미지</param>
-    public void OnTouchDamage(int damage)
+    public void OnTouchDamage(int damage,DamageType damageType)
     {
         int totaldamage = damage + Managers.GameManager.ExtraTouchDamage;
 
@@ -296,6 +371,19 @@ public class EnemyBase : Poolable
         {
             totaldamage = 0;
         }
+
+        int damageCheck = totaldamage;
+        if (Hp - totaldamage < 0)
+        {
+            damageCheck = Hp - totaldamage;
+            damageCheck += totaldamage;
+            
+        }
+
+        Managers.GameManager.DamageCheck[damageType] += damageCheck;
+        //Debug.Log(Managers.GameManager.DamageCheck[damageType]);
+
+
 
         Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
         p.DamageTextSpawn(totaldamage, transform);
@@ -305,7 +393,7 @@ public class EnemyBase : Poolable
         Poolable fx = Managers.Pool.Pop(Managers.Object.TouchAttackFx);
         fx.Spawn(transform);
 
-        Debug.Log(Hp);
+        //Debug.Log(Hp);
 
         if (Managers.GameManager.TouchDamageTier2SpeedDown)
         {
@@ -322,7 +410,7 @@ public class EnemyBase : Poolable
                 {
                     if (colliders[i].gameObject != transform.gameObject)
                     {
-                        colliders[i].GetComponent<EnemyBase>().OnExtraDamage(totaldamage);
+                        colliders[i].GetComponent<EnemyBase>().OnExtraDamage(totaldamage,DamageType.Touch);
                     }
                 }
             }
@@ -335,10 +423,46 @@ public class EnemyBase : Poolable
 
         if(Managers.GameManager.HammerExtraAttackTier1ExtraAttackOn)
         {
-            OnFixedDamage(totaldamage);
+            OnFixedDamage(totaldamage, damageType);
         }
 
         FireCheck();
+    }
+
+    /// <summary>
+    /// 적이 추가데미지를 받을때 쓰는 함수
+    /// </summary>
+    /// <param name="damage">받는 데미지</param>
+    public void OnExtraDamage(int damage, DamageType damageType)
+    {
+        int totaldamage = damage;
+
+        if (totaldamage < 0)
+        {
+            totaldamage = 0;
+        }
+
+        int damageCheck = totaldamage;
+        if (Hp - totaldamage < 0)
+        {
+            damageCheck = Hp - totaldamage;
+            damageCheck += totaldamage;
+
+        }
+
+        Managers.GameManager.DamageCheck[damageType] += damageCheck;
+        //Debug.Log(Managers.GameManager.DamageCheck[damageType]);
+
+
+        Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
+        p.DamageTextSpawn(totaldamage, transform);
+        StartCoroutine(HitMaterial());
+        Hp -= totaldamage;
+
+        Poolable fx = Managers.Pool.Pop(Managers.Object.TouchAttackFx);
+        fx.Spawn(transform);
+
+        //Debug.Log(Hp);
     }
 
     private void FireCheck()
@@ -363,30 +487,7 @@ public class EnemyBase : Poolable
         }
     }
 
-    /// <summary>
-    /// 적이 추가데미지를 받을때 쓰는 함수
-    /// </summary>
-    /// <param name="damage">받는 데미지</param>
-    public void OnExtraDamage(int damage)
-    {
-        int totaldamage = damage;
-
-        if (totaldamage < 0)
-        {
-            totaldamage = 0;
-        }
-
-
-        Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
-        p.DamageTextSpawn(totaldamage, transform);
-        StartCoroutine(HitMaterial());
-        Hp -= totaldamage;
-
-        Poolable fx = Managers.Pool.Pop(Managers.Object.TouchAttackFx);
-        fx.Spawn(transform);
-
-        Debug.Log(Hp);
-    }
+    
 
     public void EnemyFire()
     {
@@ -401,14 +502,14 @@ public class EnemyBase : Poolable
         CurrentFireTimer = 0.0f;
     }
 
-    public void EnemySlow(int stack=1)
+    public virtual void EnemySlow(int stack=1)
     {
         _speedDownStack+=stack;
         CurrentSpeedDownTimer = 0.0f;
         _agent.speed =_agent.speed- _speedDownPoint*stack;
     }
 
-    IEnumerator HitMaterial()
+    protected virtual IEnumerator HitMaterial()
     {
         _skinnedMeshRenderer.material.color = Color.red;
         yield return new WaitForSeconds(0.2f);
@@ -428,6 +529,20 @@ public class EnemyBase : Poolable
         CurrentSpeedDownTimer = _SpeedDownTimer;
     }
 
+    public void OnAttack()
+    {
+        _animator.SetTrigger("Attack");
+    }
+
+    void GameOver()
+    {
+        Managers.Object.MyPlayer.OnDie();
+    }
+
+    public bool IsBullet()
+    {
+        return _bullet;
+    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

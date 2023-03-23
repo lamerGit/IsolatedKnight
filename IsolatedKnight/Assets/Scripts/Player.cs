@@ -117,10 +117,12 @@ public class Player : MonoBehaviour
                         if (count < 1)
                             break;
 
-                        EnemyBase e = colliders[i].GetComponent<EnemyBase>();
+                        int r=Random.Range(0, colliders.Length);
+
+                        EnemyBase e = colliders[r].GetComponent<EnemyBase>();
                         Poolable p = Managers.Pool.Pop(Managers.Object.PassiveLightningFx);
                         p.Spawn(e.transform);
-                        e.OnFixedDamage(totalDamage);
+                        e.OnFixedDamage(totalDamage,DamageType.PassiveThunder);
                         count--;
 
                         if(Managers.GameManager.PassiveThunderTier3CoolTimeRecovery)
@@ -129,7 +131,7 @@ public class Player : MonoBehaviour
 
                             for(int skillIndex=0; skillIndex < index; skillIndex++)
                             {
-                                Managers.UIManager.SkillSlotGroup.SlotList[skillIndex].CurrentSkillColTime += 0.2f;
+                                Managers.UIManager.SkillSlotGroup.SlotList[skillIndex].CurrentSkillColTime += 0.05f;
                             }
                         }
                     }
@@ -471,6 +473,11 @@ public class Player : MonoBehaviour
                 CurrentLightningTimer += Time.deltaTime;
             }
         }
+
+        if(_animator.GetCurrentAnimatorStateInfo(0).IsName("Die") && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98f)
+        {
+            OnGameSetUI();
+        }
         
     }
 
@@ -512,7 +519,7 @@ public class Player : MonoBehaviour
     public void ExpUp(float exp)
     {
         CurrentExp += exp+(exp*Managers.GameManager.ExtraExpPersent);
-        Debug.Log(exp + (exp * Managers.GameManager.ExtraExpPersent));
+        //Debug.Log(exp + (exp * Managers.GameManager.ExtraExpPersent));
     }
 
     void AutoAttack()
@@ -526,11 +533,11 @@ public class Player : MonoBehaviour
                 
                 if (Managers.GameManager.TouchBuffTier3AutoAttackBuff)
                 {
-                    colliders[i].GetComponent<EnemyBase>().OnTouchDamage(TouchDamage);
+                    colliders[i].GetComponent<EnemyBase>().OnTouchDamage(TouchDamage, DamageType.Touch);
                 }
                 else
                 {
-                    colliders[i].GetComponent<EnemyBase>().OnExtraDamage(TouchDamage);
+                    colliders[i].GetComponent<EnemyBase>().OnExtraDamage(TouchDamage, DamageType.Touch);
                 }
             }
 
@@ -552,14 +559,15 @@ public class Player : MonoBehaviour
         {
             for (int i = 0; i < 1; i++)
             {
+                int r=Random.Range(0, colliders.Length);
 
                 Poolable bullet = Managers.Pool.Pop(Managers.Object.ExpAllow);
 
                 bullet.transform.position = AttackPoint.transform.position;
                 bullet.Spawn(AttackPoint.transform);
 
-                Vector3 dir = (colliders[i].transform.position - AttackPoint.transform.position).normalized;
-                bullet.transform.LookAt(colliders[i].transform.position);
+                Vector3 dir = (colliders[r].transform.position - AttackPoint.transform.position).normalized;
+                bullet.transform.LookAt(colliders[r].transform.position);
                 PassiveExpArrow component = bullet.GetComponent<PassiveExpArrow>();
 
                 dir.y += 0.01f;
@@ -581,9 +589,9 @@ public class Player : MonoBehaviour
                     left.Spawn(AttackPoint.transform);
                     right.Spawn(AttackPoint.transform);
 
-                    dir = (colliders[i].transform.position - AttackPoint.transform.position).normalized;
-                    left.transform.LookAt(colliders[i].transform.position);
-                    right.transform.LookAt(colliders[i].transform.position);
+                    dir = (colliders[r].transform.position - AttackPoint.transform.position).normalized;
+                    left.transform.LookAt(colliders[r].transform.position);
+                    right.transform.LookAt(colliders[r].transform.position);
 
                     PassiveExpArrow leftComponent = left.GetComponent<PassiveExpArrow>();
                     PassiveExpArrow rightComponent = right.GetComponent<PassiveExpArrow>();
@@ -623,6 +631,35 @@ public class Player : MonoBehaviour
         }
 
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Enemy"))
+        {
+            EnemyBase e= other.GetComponent<EnemyBase>();
+            if(e.IsBullet())
+            {
+                OnDie();
+            }else
+            {
+                e.OnAttack();
+            }
+
+            Managers.GameManager.State = GameState.PlayerDie;
+        }
+        
+    }
+
+    public void OnDie()
+    {
+        _animator.SetTrigger("Die");
+       
+    }
+
+    public void OnGameSetUI()
+    {
+        Managers.UIManager.GameSetUI.Open();
     }
 
 #if UNITY_EDITOR

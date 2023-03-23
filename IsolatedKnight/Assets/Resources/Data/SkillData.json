@@ -3,12 +3,12 @@
     {
       "type": "1",
       "skillColTime": "60.0",
-      "skillDamage": "50"
+      "skillDamage": "150"
     },
     {
       "type": "2",
       "skillColTime": "30.0",
-      "skillDamage": "0"
+      "skillDamage": "10"
     },
     {
       "type": "3",

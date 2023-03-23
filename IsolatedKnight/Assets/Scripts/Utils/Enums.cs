@@ -64,7 +64,8 @@ public enum SpawnerType
 {
     Nomal=0,
     Defence,
-    Speed
+    Speed,
+    Knight
 }
 
 public enum BossType
@@ -112,4 +113,19 @@ public enum WeaponType
     Hand
 
 
+}
+
+public enum DamageType
+{
+    Touch=0,
+    PartnerDragon,
+    PartnerGolem,
+    PartnerGost,
+    SkillOnePoint,
+    SkillMultiPoint,
+    PassiveArrow,
+    PassiveThunder,
+    PassiveFire,
+    PassiveDefence,
+    SwordWind
 }

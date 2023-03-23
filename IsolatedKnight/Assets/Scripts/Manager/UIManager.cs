@@ -16,6 +16,10 @@ public class UIManager
 
     public UI_BossRewardButtonGroup BossRewardButtonGroup { get; private set; }
 
+    public GameObject BlackOutUI { get; private set; }
+
+    public UI_GameSet GameSetUI { get; private set; }
+
     //게임 씬일때만 나타나는 UI
     public void GameScenInit()
     {
@@ -58,5 +62,15 @@ public class UIManager
         BossRewardButtonGroup=InstBossRewardUI.GetComponent<UI_BossRewardButtonGroup>();
         BossRewardButtonGroup.Close();
 
+        GameObject blackOutUI= Resources.Load<GameObject>($"Prefabs/BlackOutUI");
+        BlackOutUI= Object.Instantiate(blackOutUI, Managers.Instance.Canvas.transform);
+        BlackOutUI.gameObject.SetActive(false);
+
+        GameObject gameSetUI= Resources.Load<GameObject>($"Prefabs/GameSetUI");
+        GameObject InstGameSetUI= Object.Instantiate(gameSetUI, Managers.Instance.Canvas.transform);
+        InstGameSetUI.name=gameSetUI.name;
+
+        GameSetUI = InstGameSetUI.GetComponent<UI_GameSet>();
+        GameSetUI.Close();
     }
 }

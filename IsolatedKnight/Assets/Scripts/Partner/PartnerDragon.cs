@@ -71,7 +71,9 @@ public class PartnerDragon : MonoBehaviour
         {
             for (int i = 0; i < 1; i++)
             {
-                transform.LookAt(colliders[i].gameObject.transform.position);
+                int r=Random.Range(0, colliders.Length);
+
+                transform.LookAt(colliders[r].gameObject.transform.position);
                 _animator.SetTrigger("Attack");
 
                 Poolable bullet = Managers.Pool.Pop(Managers.Object.DragonBreath);
@@ -79,7 +81,7 @@ public class PartnerDragon : MonoBehaviour
                 bullet.transform.position=_head.transform.position;
                 bullet.Spawn(_head);
 
-                Vector3 dir = (colliders[i].transform.position - _head.transform.position).normalized;
+                Vector3 dir = (colliders[r].transform.position - _head.transform.position).normalized;
                 DragonBreath component= bullet.GetComponent<DragonBreath>();
 
                 //component.Rigid.transform.LookAt(colliders[i].transform.position);

@@ -2,10 +2,10 @@
   "fixeds": [
     {
       "type": "0",
-      "arrow": "10",
+      "arrow": "5",
       "defence": "10",
-      "fire": "1",
-      "thunder": "5"
+      "fire": "3",
+      "thunder": "20"
     }
   ]
 } 

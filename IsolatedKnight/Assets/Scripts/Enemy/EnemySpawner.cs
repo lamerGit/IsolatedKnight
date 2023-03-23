@@ -51,9 +51,13 @@ public class EnemySpawner : MonoBehaviour
                 Poolable tempSpeed = Managers.Pool.Pop(Managers.Object.SkelSpeed);
                 tempSpeed.Spawn(transform);
                 break;
+            case SpawnerType.Knight:
+                Poolable tempKnight = Managers.Pool.Pop(Managers.Object.SkelKnight);
+                tempKnight.Spawn(transform);
+                break;
         }
 
-        
+
     }
 
 }

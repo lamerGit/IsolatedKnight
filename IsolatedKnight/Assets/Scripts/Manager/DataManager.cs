@@ -14,6 +14,7 @@ public class DataManager
    public Dictionary<int, Data.Skel> SkelDict { get;private set; }=new Dictionary<int, Data.Skel>();
    public Dictionary<int, Data.SkelDefence> SkelDefenceDict { get;private set; }=new Dictionary<int, Data.SkelDefence>();
    public Dictionary<int, Data.SkelSpeed> SkelSpeedDict { get;private set; }=new Dictionary<int, Data.SkelSpeed>();
+   public Dictionary<int, Data.SkelKnight> SkelKnightDict { get;private set; }=new Dictionary<int, Data.SkelKnight>();
 
    public Dictionary<int, Data.Partner> PartnerDict { get;private set; }=new Dictionary<int, Data.Partner>();
    public Dictionary<int, Data.Skill> SkillDict { get;private set; }=new Dictionary<int, Data.Skill>();
@@ -27,7 +28,8 @@ public class DataManager
         WeaponDict = LoadJson<Data.WeaponLoader, int, Data.Weapon>("WeaponData").MakeDict(); 
         SkelDict = LoadJson<Data.SkelLoader, int, Data.Skel>("SkelData").MakeDict();
         SkelDefenceDict = LoadJson<Data.SkelDefenceLoader, int, Data.SkelDefence>("SkelDefenceData").MakeDict();
-        SkelSpeedDict = LoadJson<Data.SkelSpeedLoader, int, Data.SkelSpeed>("SkelSpeedData").MakeDict(); 
+        SkelSpeedDict = LoadJson<Data.SkelSpeedLoader, int, Data.SkelSpeed>("SkelSpeedData").MakeDict();
+        SkelKnightDict = LoadJson<Data.SkelKnightLoader, int, Data.SkelKnight>("SkelKnightData").MakeDict(); 
         PartnerDict = LoadJson<Data.PartnerLoader, int, Data.Partner>("PartnerData").MakeDict();
         SkillDict = LoadJson<Data.SkillLoader, int, Data.Skill>("SkillData").MakeDict(); 
         FixedDict = LoadJson<Data.FixedLoader, int, Data.Fixed>("FixedData").MakeDict();
