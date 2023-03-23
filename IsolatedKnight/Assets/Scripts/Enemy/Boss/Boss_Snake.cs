@@ -188,6 +188,7 @@ public class Boss_Snake : EnemyBase
         _skinnedMeshRenderer.material.color = Color.white;
         _speedDownStack = 0;
         _fireStack = 0;
+        CurrentFireTick = 0;
         _stateFireFx.Stop();
 
 

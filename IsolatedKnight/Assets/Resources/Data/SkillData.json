@@ -2,22 +2,22 @@
   "skills": [
     {
       "type": "1",
-      "skillColTime": "60.0",
-      "skillDamage": "150"
+      "skillColTime": "70.0",
+      "skillDamage": "200"
     },
     {
       "type": "2",
-      "skillColTime": "30.0",
-      "skillDamage": "10"
+      "skillColTime": "40.0",
+      "skillDamage": "20"
     },
     {
       "type": "3",
-      "skillColTime": "80.0",
+      "skillColTime": "100.0",
       "skillDamage": "0"
     },
     {
       "type": "4",
-      "skillColTime": "120.0",
+      "skillColTime": "130.0",
       "skillDamage": "0"
     }
   ]

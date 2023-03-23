@@ -69,7 +69,7 @@ public class UI_SkillSlot : MonoBehaviour
                     _touchBuffTier3Check = false;
                 }
 
-                Debug.Log(Managers.GameManager.ExtraTouchDamage);
+                //Debug.Log(Managers.GameManager.ExtraTouchDamage);
 
             }
 
@@ -213,19 +213,19 @@ public class UI_SkillSlot : MonoBehaviour
                         break;
                     case SkillType.OnePoint:
                         OnePointSkill();
-                        Debug.Log("스킬1");
+                        //Debug.Log("스킬1");
                         break;
                     case SkillType.MultiPoint:
                         MultiPointSkill();
-                        Debug.Log("스킬2");
+                        //Debug.Log("스킬2");
                         break;
                     case SkillType.TouchBuff:
                         TouchBuffSkill();
-                        Debug.Log("스킬3");
+                        //Debug.Log("스킬3");
                         break;
                     case SkillType.Buff:
                         SkillBuffSkill();
-                        Debug.Log("스킬4");
+                        //Debug.Log("스킬4");
                         break;
                 }
                 if(Managers.GameManager.StickRandomSkillTier1RandomOn)
@@ -313,7 +313,7 @@ public class UI_SkillSlot : MonoBehaviour
     {
         Managers.Object.MyPlayer.TouchBuffReadyFx.Play();
 
-        Debug.Log("버프시작");
+        //Debug.Log("버프시작");
         CurrentTouchBuffTimer = 0.0f;
 
         if (!_touchBuffTier1Check)
@@ -340,7 +340,7 @@ public class UI_SkillSlot : MonoBehaviour
             _touchBuffTier3Check = true;
         }
 
-        Debug.Log(Managers.GameManager.ExtraTouchDamage);
+        //Debug.Log(Managers.GameManager.ExtraTouchDamage);
 
 
     }

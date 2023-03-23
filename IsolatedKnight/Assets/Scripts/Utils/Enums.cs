@@ -129,3 +129,9 @@ public enum DamageType
     PassiveDefence,
     SwordWind
 }
+
+public enum GameScene
+{
+    Lobby=0,
+    GameScene
+}

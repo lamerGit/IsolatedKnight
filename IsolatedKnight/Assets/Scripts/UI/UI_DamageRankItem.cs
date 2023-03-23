@@ -33,7 +33,7 @@ public class UI_DamageRankItem : MonoBehaviour
         while(_startPoint< damage)
         {
             _gauge.fillAmount = _startPoint / maxDamage;
-            _startPoint += Time.deltaTime * 1000.0f;
+            _startPoint += Time.deltaTime * damage;
 
             yield return _timer;
         }

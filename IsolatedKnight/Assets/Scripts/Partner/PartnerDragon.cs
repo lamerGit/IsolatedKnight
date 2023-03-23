@@ -121,7 +121,7 @@ public class PartnerDragon : MonoBehaviour
                 }
 
 
-                Debug.Log("공격");
+                //Debug.Log("공격");
             }
             CurrentAttackTimer = 0.0f;
 
@@ -146,8 +146,8 @@ public class PartnerDragon : MonoBehaviour
         AttackSpeed = partner.attackSpeed;
         _attackDamage = partner.attackDamage;
 
-        Debug.Log(AttackSpeed);
-        Debug.Log(_attackDamage);
+        //Debug.Log(AttackSpeed);
+       // Debug.Log(_attackDamage);
     }
 
     public void DeSpawn()

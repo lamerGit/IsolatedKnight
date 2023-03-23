@@ -2,7 +2,7 @@
   "bosss": [
     {
       "type": "0",
-      "maxHp": "1800",
+      "maxHp": "5200",
       "speed": "3.0",
       "skillCoolTime": "5.0",
       "skillRecovery": "1.0",
@@ -10,7 +10,7 @@
     },
     {
       "type": "1",
-      "maxHp": "3600",
+      "maxHp": "12400",
       "speed": "4.0",
       "skillCoolTime": "3.0",
       "skillRecovery": "1.0",
@@ -18,39 +18,39 @@
     },
     {
       "type": "2",
-      "maxHp": "1600",
-      "speed": "5.5",
+      "maxHp": "4400",
+      "speed": "4.5",
       "skillCoolTime": "15.0",
       "skillRecovery": "1.0",
       "exp": "800.0"
     },
     {
       "type": "3",
-      "maxHp": "3200",
-      "speed": "6.5",
+      "maxHp": "10800",
+      "speed": "5.5",
       "skillCoolTime": "12.0",
       "skillRecovery": "1.0",
       "exp": "1600.0"
     },
     {
       "type": "4",
-      "maxHp": "1200",
+      "maxHp": "2800",
       "speed": "0.0",
-      "skillCoolTime": "8.0",
+      "skillCoolTime": "10.0",
       "skillRecovery": "1.0",
       "exp": "800.0"
     },
     {
       "type": "5",
-      "maxHp": "2400",
+      "maxHp": "7600",
       "speed": "0.0",
-      "skillCoolTime": "6.0",
+      "skillCoolTime": "8.0",
       "skillRecovery": "1.0",
       "exp": "1600.0"
     },
     {
       "type": "6",
-      "maxHp": "10000",
+      "maxHp": "80000",
       "speed": "0.0",
       "skillCoolTime": "10.0",
       "skillRecovery": "1.0",

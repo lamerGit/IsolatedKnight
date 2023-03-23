@@ -139,7 +139,7 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
 
         for(int i=options.Count-1; i>-1; i--)
         {
-            int randIndex = Random.Range(0, i);
+            int randIndex = Random.Range(0, i + 1);
 
             (options[randIndex], options[i]) = (options[i], options[randIndex]);
 

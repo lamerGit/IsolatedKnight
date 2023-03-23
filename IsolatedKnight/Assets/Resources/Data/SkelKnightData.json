@@ -2,93 +2,93 @@
   "skelKnights": [
     {
       "level": "0",
-      "maxHp": "60",
-      "speed": "4.0",
-      "exp": "160.0"
+      "maxHp": "100",
+      "speed": "4.2",
+      "exp": "160"
     },
     {
       "level": "1",
-      "maxHp": "100",
-      "speed": "4.0",
-      "exp": "180.0"
+      "maxHp": "170",
+      "speed": "4.2",
+      "exp": "180"
     },
     {
       "level": "2",
-      "maxHp": "140",
-      "speed": "4.1",
-      "exp": "200.0"
+      "maxHp": "240",
+      "speed": "4.2",
+      "exp": "200"
     },
     {
       "level": "3",
-      "maxHp": "180",
-      "speed": "4.1",
-      "exp": "220.0"
+      "maxHp": "310",
+      "speed": "4.2",
+      "exp": "220"
     },
     {
       "level": "4",
-      "maxHp": "220",
-      "speed": "4.1",
-      "exp": "240.0"
+      "maxHp": "660",
+      "speed": "4.3",
+      "exp": "240"
     },
     {
       "level": "5",
-      "maxHp": "260",
-      "speed": "4.2",
-      "exp": "260.0"
+      "maxHp": "800",
+      "speed": "4.3",
+      "exp": "260"
     },
     {
       "level": "6",
-      "maxHp": "300",
-      "speed": "4.2",
-      "exp": "280.0"
+      "maxHp": "939",
+      "speed": "4.3",
+      "exp": "280"
     },
     {
       "level": "7",
-      "maxHp": "340",
-      "speed": "4.2",
-      "exp": "300.0"
+      "maxHp": "1569",
+      "speed": "4.4",
+      "exp": "300"
     },
     {
       "level": "8",
-      "maxHp": "380",
-      "speed": "4.3",
-      "exp": "320.0"
+      "maxHp": "1779",
+      "speed": "4.4",
+      "exp": "320"
     },
     {
       "level": "9",
-      "maxHp": "420",
-      "speed": "4.3",
-      "exp": "340.0"
+      "maxHp": "1990",
+      "speed": "4.4",
+      "exp": "340"
     },
     {
       "level": "10",
-      "maxHp": "460",
-      "speed": "4.3",
-      "exp": "360.0"
+      "maxHp": "2900",
+      "speed": "4.5",
+      "exp": "360"
     },
     {
       "level": "11",
-      "maxHp": "500",
-      "speed": "4.4",
-      "exp": "380.0"
+      "maxHp": "3180",
+      "speed": "4.5",
+      "exp": "380"
     },
     {
       "level": "12",
-      "maxHp": "540",
-      "speed": "4.4",
-      "exp": "400.0"
+      "maxHp": "3459",
+      "speed": "4.5",
+      "exp": "400"
     },
     {
       "level": "13",
-      "maxHp": "580",
-      "speed": "4.4",
-      "exp": "420.0"
+      "maxHp": "4650",
+      "speed": "4.6",
+      "exp": "420"
     },
     {
       "level": "14",
-      "maxHp": "620",
-      "speed": "4.5",
-      "exp": "440.0"
+      "maxHp": "5000",
+      "speed": "4.6",
+      "exp": "440"
     }
   ]
-} 
+}

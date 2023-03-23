@@ -94,7 +94,7 @@ public class PartnerGolem : MonoBehaviour
                 component.Speed = _bulletSpeed;
 
 
-                Debug.Log("공격");
+                //Debug.Log("공격");
             }
             CurrentAttackTimer = 0.0f;
 
@@ -119,8 +119,8 @@ public class PartnerGolem : MonoBehaviour
         AttackSpeed = partner.attackSpeed;
         AttackDamge = partner.attackDamage;
 
-        Debug.Log(AttackSpeed);
-        Debug.Log(AttackDamge);
+        //Debug.Log(AttackSpeed);
+        //Debug.Log(AttackDamge);
     }
 
     public void DeSpawn()

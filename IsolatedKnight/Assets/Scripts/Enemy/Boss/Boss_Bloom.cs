@@ -89,6 +89,7 @@ public class Boss_Bloom : EnemyBase
             {
                
                 _agent.isStopped = false;
+                _agent.speed = 0.0f;
             }
         }
 
@@ -183,6 +184,7 @@ public class Boss_Bloom : EnemyBase
         _skinnedMeshRenderer.material.color = Color.white;
         _speedDownStack = 0;
         _fireStack = 0;
+        CurrentFireTick = 0;
         _stateFireFx.Stop();
 
 

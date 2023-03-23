@@ -106,8 +106,8 @@ public class PartnerGost : MonoBehaviour
         AttackSpeed = partner.attackSpeed;
         AttackDamge = partner.attackDamage;
 
-        Debug.Log(AttackSpeed);
-        Debug.Log(AttackDamge);
+        //Debug.Log(AttackSpeed);
+        //Debug.Log(AttackDamge);
     }
 
     public void DeSpawn()

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class EnemyBase : Poolable
 {
-    
+    [SerializeField]
     protected int _hp;
     protected int _maxHp;
     protected float _exp;
@@ -40,13 +40,13 @@ public class EnemyBase : Poolable
     protected int _fireStack = 0;
 
     float _currentFireTick = 0.0f;
-    float _fireTick = 0.5f;
+    float _fireTick = 0.8f;
 
     protected float _fireTranRange = 5.0f;
 
     protected bool _bullet = false;
 
-    float CurrentFireTick
+    protected float CurrentFireTick
     {
         get { return _currentFireTick; }
         set

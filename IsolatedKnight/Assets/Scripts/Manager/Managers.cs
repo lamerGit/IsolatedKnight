@@ -39,24 +39,10 @@ public class Managers : MonoBehaviour
     {
         Canvas=FindObjectOfType<Canvas>();
 
-        
 
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
-    {
         Init();
     }
+
 
     static void Init()
     {

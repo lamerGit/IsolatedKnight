@@ -139,7 +139,7 @@ public class Boss_Reaper : EnemyBase
         }
 
         Managers.GameManager.State = GameState.PlayerDie;
-        Managers.UIManager.GameSetUI.Open();
+        Managers.UIManager.GameSetUI.Open(true);
 
         StartCoroutine(ReturnSkel());
     }
@@ -186,6 +186,7 @@ public class Boss_Reaper : EnemyBase
         _skinnedMeshRenderer.material.color = Color.white;
         _speedDownStack = 0;
         _fireStack = 0;
+        CurrentFireTick = 0;
         _stateFireFx.Stop();
 
 

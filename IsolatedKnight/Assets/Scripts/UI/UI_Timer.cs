@@ -33,7 +33,7 @@ public class UI_Timer : MonoBehaviour
                         list.Add(BossType.Bloom);
                         for (int i = list.Count - 1; i > -1; i--)
                         {
-                            int randIndex = Random.Range(0, i);
+                            int randIndex = Random.Range(0, i+1);
 
                             (list[randIndex], list[i]) = (list[i], list[randIndex]);
 
@@ -51,7 +51,7 @@ public class UI_Timer : MonoBehaviour
                         listBuff.Add(BossType.BloomBuff);
                         for (int i = listBuff.Count - 1; i > -1; i--)
                         {
-                            int randIndex = Random.Range(0, i);
+                            int randIndex = Random.Range(0, i+1);
 
                             (listBuff[randIndex], listBuff[i]) = (listBuff[i], listBuff[randIndex]);
 

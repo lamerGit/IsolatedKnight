@@ -82,6 +82,7 @@ public class BloomBullet : EnemyBase
         Rigid.useGravity= true;
         _collider.isTrigger = false;
         gameObject.layer = LayerMask.GetMask("Default");
+        gameObject.tag = "Untagged";
         Rigid.velocity = Vector3.zero;
 
         if (Managers.GameManager.SynergyDefenceFireTier1FireTrans && _fireStack > 0)
@@ -105,6 +106,7 @@ public class BloomBullet : EnemyBase
 
     public override void BossSpawn(Transform t, BossType bossType)
     {
+        gameObject.tag = "Enemy";
         gameObject.layer = 6;
         _collider.isTrigger = true;
 
@@ -113,7 +115,7 @@ public class BloomBullet : EnemyBase
         Boss boss = null;
         Managers.Data.BossDict.TryGetValue((int)bossType, out boss);
 
-        _maxHp = (int)(boss.maxHp*0.1f);
+        _maxHp = (int)(boss.maxHp*0.01f);
         Hp = _maxHp;
         //_agent.speed = boss.speed + Managers.GameManager.ExtraEnemySpeed;
         //_exp = boss.exp;
@@ -129,6 +131,7 @@ public class BloomBullet : EnemyBase
         //_skinnedMeshRenderer.material.color = Color.white;
         _speedDownStack = 0;
         _fireStack = 0;
+        CurrentFireTick = 0;
         _stateFireFx.Stop();
 
     }
