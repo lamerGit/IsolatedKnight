@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     Animator _animator;
 
     float _currentAutoAttackTimer = 0.0f;
-    float _AutoAttackTimer = 5.0f;
+    float _AutoAttackTimer = 2.0f;
     float _AutoAttackRange = 60.0f;
 
     float _expAttackRange = 60.0f;
@@ -420,6 +420,8 @@ public class Player : MonoBehaviour
         Fixed f = null;
         Managers.Data.FixedDict.TryGetValue(0,out f);
 
+        
+
         // 무기데이터 파싱
         EquipWeaponType = (WeaponType)weapon.type;
         TouchDamage = weapon.touchDamage;
@@ -435,6 +437,30 @@ public class Player : MonoBehaviour
         FixedDamage = stat.fixedDamage;
         _expAmount=stat.expAmount;
         _goldAmount=stat.goldAmount;
+
+        // 로비에서 얻은 증가량 계산
+        PowerUp powerUp = null;
+        Managers.Data.PowerUpDict.TryGetValue(1, out powerUp);
+
+        int touchDamageIncrement = powerUp.touchDamageIncrement * GameDataManager.Instance.Power_TouchDamageTier;
+        float touchSpeedIncrement = powerUp.touchSpeedIncrement * GameDataManager.Instance.Power_TouchSpeedTier;
+        int maxStaminaIncrement = powerUp.maxStaminaIncrement * GameDataManager.Instance.Power_MaxStaminaTier;
+        int skillDamageIncrement = powerUp.skillDamageIncrement * GameDataManager.Instance.Power_SkillDamageTier;
+        float skillCoolTimeRecoveryIncrement = powerUp.skillCooltimeRecoveryIncrement * GameDataManager.Instance.Power_SkillCoolTimeRecoveryTier;
+        int partnerDamageIncrement = powerUp.partnerDamageIncrement * GameDataManager.Instance.Power_PartnerDamageTier;
+        int fixedDamageIncrement = powerUp.fixedDamageIncrement * GameDataManager.Instance.Power_FixedDamageTier;
+        float expIncrement = powerUp.expIncrement * GameDataManager.Instance.Power_ExpUpTier;
+        float goldIncrement = powerUp.goldIncrement * GameDataManager.Instance.Power_GoldUpTier;
+
+        TouchDamage += touchDamageIncrement;
+        TouchSpeed -= TouchSpeed * touchSpeedIncrement;
+        MaxStamina += maxStaminaIncrement;
+        _skillDamage += skillDamageIncrement;
+        SkillRecoverySpeed += skillCoolTimeRecoveryIncrement;
+        _partnerDamage += partnerDamageIncrement;
+        FixedDamage += fixedDamageIncrement;
+        _expAmount += expIncrement;
+        _goldAmount += goldIncrement;
 
         // 고정데미지 데이터 파싱
         _arrow = f.arrow;
@@ -545,14 +571,14 @@ public class Player : MonoBehaviour
         {
             for (int i = 0; i < 1; i++)
             {
-                
+                int r=Random.Range(0, colliders.Length);
                 if (Managers.GameManager.TouchBuffTier3AutoAttackBuff)
                 {
-                    colliders[i].GetComponent<EnemyBase>().OnTouchDamage(TouchDamage, DamageType.Touch);
+                    colliders[r].GetComponent<EnemyBase>().OnTouchDamage(TouchDamage, DamageType.Touch);
                 }
                 else
                 {
-                    colliders[i].GetComponent<EnemyBase>().OnExtraDamage(TouchDamage, DamageType.Touch);
+                    colliders[r].GetComponent<EnemyBase>().OnExtraDamage(TouchDamage, DamageType.Touch);
                 }
             }
 

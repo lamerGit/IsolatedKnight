@@ -127,7 +127,7 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
             options.Add(LevelUpOption.ThunderArrow);
         }
 
-        if(Managers.GameManager.StaminaTier>2 && Managers.GameManager.PartnerDragonTier>2 && Managers.GameManager.SynergyWaringDragonTier<1)
+        if(Managers.GameManager.StaminaTier>0 && Managers.GameManager.PartnerDragonTier>1 && Managers.GameManager.SynergyWaringDragonTier<1)
         {
             options.Add(LevelUpOption.WaringDragon);
         }

@@ -17,4 +17,12 @@ public class SaveData
     public int Power_FixedDamageTier;
     public int Power_ExpUpTier;
     public int Power_GoldUpTier;
+
+    public int EquipWeapon;
+
+    public bool SwordOpen;
+    public bool AxeOpen;
+    public bool HammerOpen;
+    public bool StickOpen;
+    public bool HandOpen;
 }

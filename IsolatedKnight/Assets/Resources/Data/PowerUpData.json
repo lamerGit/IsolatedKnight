@@ -1,0 +1,16 @@
+{
+  "powerUps": [
+    {
+      "Type": "1",
+      "touchDamageIncrement": "2",
+      "touchSpeedIncrement": "0.1",
+      "maxStaminaIncrement":  "10",
+      "skillDamageIncrement": "5",
+      "skillCooltimeRecoveryIncrement": "0.2",
+      "partnerDamageIncrement": "3",
+      "fixedDamageIncrement": "1",
+      "expIncrement": "0.5",
+      "goldIncrement": "0.5"
+    }
+  ]
+} 

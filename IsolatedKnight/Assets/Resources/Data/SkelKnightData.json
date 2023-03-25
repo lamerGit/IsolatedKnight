@@ -3,91 +3,91 @@
     {
       "level": "0",
       "maxHp": "100",
-      "speed": "4.2",
+      "speed": "3.7",
       "exp": "160"
     },
     {
       "level": "1",
       "maxHp": "170",
-      "speed": "4.2",
+      "speed": "3.5",
       "exp": "180"
     },
     {
       "level": "2",
       "maxHp": "240",
-      "speed": "4.2",
+      "speed": "3.5",
       "exp": "200"
     },
     {
       "level": "3",
       "maxHp": "310",
-      "speed": "4.2",
+      "speed": "3.5",
       "exp": "220"
     },
     {
       "level": "4",
       "maxHp": "660",
-      "speed": "4.3",
+      "speed": "3.5",
       "exp": "240"
     },
     {
       "level": "5",
       "maxHp": "800",
-      "speed": "4.3",
+      "speed": "3.5",
       "exp": "260"
     },
     {
       "level": "6",
       "maxHp": "939",
-      "speed": "4.3",
+      "speed": "3.5",
       "exp": "280"
     },
     {
       "level": "7",
       "maxHp": "1569",
-      "speed": "4.4",
+      "speed": "3.5",
       "exp": "300"
     },
     {
       "level": "8",
       "maxHp": "1779",
-      "speed": "4.4",
+      "speed": "3.5",
       "exp": "320"
     },
     {
       "level": "9",
       "maxHp": "1990",
-      "speed": "4.4",
+      "speed": "3.5",
       "exp": "340"
     },
     {
       "level": "10",
       "maxHp": "2900",
-      "speed": "4.5",
+      "speed": "3.5",
       "exp": "360"
     },
     {
       "level": "11",
       "maxHp": "3180",
-      "speed": "4.5",
+      "speed": "3.5",
       "exp": "380"
     },
     {
       "level": "12",
       "maxHp": "3459",
-      "speed": "4.5",
+      "speed": "3.5",
       "exp": "400"
     },
     {
       "level": "13",
       "maxHp": "4650",
-      "speed": "4.6",
+      "speed": "3.6",
       "exp": "420"
     },
     {
       "level": "14",
       "maxHp": "5000",
-      "speed": "4.6",
+      "speed": "3.6",
       "exp": "440"
     }
   ]

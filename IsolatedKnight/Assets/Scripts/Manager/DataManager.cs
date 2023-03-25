@@ -20,6 +20,7 @@ public class DataManager
    public Dictionary<int, Data.Skill> SkillDict { get;private set; }=new Dictionary<int, Data.Skill>();
    public Dictionary<int, Data.Fixed> FixedDict { get;private set; }=new Dictionary<int, Data.Fixed>();
    public Dictionary<int, Data.Boss> BossDict { get;private set; }=new Dictionary<int, Data.Boss>();
+   public Dictionary<int, Data.PowerUp> PowerUpDict { get;private set; }=new Dictionary<int, Data.PowerUp>();
 
 
     public void Init()
@@ -33,7 +34,8 @@ public class DataManager
         PartnerDict = LoadJson<Data.PartnerLoader, int, Data.Partner>("PartnerData").MakeDict();
         SkillDict = LoadJson<Data.SkillLoader, int, Data.Skill>("SkillData").MakeDict(); 
         FixedDict = LoadJson<Data.FixedLoader, int, Data.Fixed>("FixedData").MakeDict();
-        BossDict = LoadJson<Data.BossLoader, int, Data.Boss>("BossData").MakeDict(); 
+        BossDict = LoadJson<Data.BossLoader, int, Data.Boss>("BossData").MakeDict();
+        PowerUpDict = LoadJson<Data.PowerUpLoader, int, Data.PowerUp>("PowerUpData").MakeDict(); 
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

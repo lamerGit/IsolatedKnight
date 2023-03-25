@@ -71,6 +71,7 @@ public class PassiveDefence : MonoBehaviour
             {
                 EnemyBase e = colliders[i].GetComponent<EnemyBase>();
                 e.OnFixedDamage(totalDamage,DamageType.PassiveDefence);
+                e.EnemySlow();
 
             }
             CurrentAttackTimer = 0.0f;

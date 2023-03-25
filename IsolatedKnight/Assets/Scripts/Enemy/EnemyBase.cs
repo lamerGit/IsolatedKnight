@@ -54,7 +54,7 @@ public class EnemyBase : Poolable
             _currentFireTick = Mathf.Clamp(value, 0.0f, _fireTick);
             if (_currentFireTick == _fireTick && Hp!=0)
             {
-                int totalDamage = (Managers.Object.MyPlayer.Fire+Managers.GameManager.ExtraFixedDamage)*_fireStack;
+                int totalDamage = (Managers.Object.MyPlayer.Fire+ Managers.Object.MyPlayer.FixedDamage + Managers.GameManager.ExtraFixedDamage)*_fireStack;
 
                 OnExtraFixedDamage(totalDamage,DamageType.PassiveFire);
                 _currentFireTick = 0.0f;
@@ -210,6 +210,7 @@ public class EnemyBase : Poolable
     {
         int totaldamage = damage;
 
+        
         if (totaldamage < 0)
         {
             totaldamage = 0;

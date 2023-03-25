@@ -4,15 +4,15 @@
       "type": "0",
       "maxHp": "5200",
       "speed": "3.0",
-      "skillCoolTime": "5.0",
+      "skillCoolTime": "10.0",
       "skillRecovery": "1.0",
       "exp": "800.0"
     },
     {
       "type": "1",
       "maxHp": "12400",
-      "speed": "4.0",
-      "skillCoolTime": "3.0",
+      "speed": "3.0",
+      "skillCoolTime": "9.0",
       "skillRecovery": "1.0",
       "exp": "1600.0"
     },

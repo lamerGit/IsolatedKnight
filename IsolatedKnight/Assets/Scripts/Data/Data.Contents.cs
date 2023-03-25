@@ -293,4 +293,39 @@ namespace Data
         }
     }
     #endregion
+
+    #region PowerUp
+    [Serializable]
+    public class PowerUp
+    {
+        public int type;
+        public int touchDamageIncrement;
+        public float touchSpeedIncrement;
+        public int maxStaminaIncrement;
+        public int skillDamageIncrement;
+        public float skillCooltimeRecoveryIncrement;
+        public int partnerDamageIncrement;
+        public int fixedDamageIncrement;
+        public float expIncrement;
+        public float goldIncrement;
+
+    }
+
+    [Serializable]
+    public class PowerUpLoader : ILoader<int, PowerUp>
+    {
+        public List<PowerUp> powerUps = new List<PowerUp>();
+
+        public Dictionary<int, PowerUp> MakeDict()
+        {
+            Dictionary<int, PowerUp> dict = new Dictionary<int, PowerUp>();
+            foreach (PowerUp powerUp in powerUps)
+            {
+                dict.Add(powerUp.type, powerUp);
+            }
+            return dict;
+
+        }
+    }
+    #endregion
 }
