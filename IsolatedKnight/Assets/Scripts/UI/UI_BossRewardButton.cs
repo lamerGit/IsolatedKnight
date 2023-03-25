@@ -103,6 +103,7 @@ public class UI_BossRewardButton : MonoBehaviour
 
     private void OnButton()
     {
+        UI_ClickSound.Instance.ClickPlay();
         switch (Option)
         {
             case BossRewardOption.None:

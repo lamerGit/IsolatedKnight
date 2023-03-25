@@ -31,6 +31,7 @@ public class Boss_Bloom : EnemyBase
             _currentSkillCoolTime = Mathf.Clamp(value, 0.0f, _skillCoolTime);
             if (_currentSkillCoolTime == _skillCoolTime)
             {
+                _myAudio.Play();
                 _animator.SetTrigger("Skill");
                 if (_type == BossType.Bloom)
                 {
@@ -121,6 +122,9 @@ public class Boss_Bloom : EnemyBase
 
     private void Die()
     {
+        if (_state == EnemyState.Die)
+            return;
+
         _state = EnemyState.Die;
         //_agent.ResetPath();
         _agent.enabled = false;

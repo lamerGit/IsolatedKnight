@@ -13,8 +13,12 @@ public class UI_GameSet : MonoBehaviour
     Button _tryAgeinButton;
     Button _robbyButton;
 
+    AudioSource _audioSource;
+
     private void Awake()
     {
+        _audioSource = GetComponent<AudioSource>();
+
         _damageRank = transform.Find("Scroll View").GetComponent<UI_DamageRank>();
         _gameSetText=transform.Find("GameSetText").GetComponent<TextMeshProUGUI>();
 
@@ -27,7 +31,11 @@ public class UI_GameSet : MonoBehaviour
 
     public void Open(bool win)
     {
+        if (gameObject.activeSelf)
+            return;
+      
         gameObject.SetActive(true);
+        
         _damageRank.Open();
 
         if(win)
@@ -38,6 +46,7 @@ public class UI_GameSet : MonoBehaviour
         {
             _gameSetText.color = Color.red;
             _gameSetText.text = "Game Over";
+            _audioSource.Play();
         }
     }
 
@@ -48,11 +57,13 @@ public class UI_GameSet : MonoBehaviour
 
     void OnTryAgeinButton()
     {
+        UI_ClickSound.Instance.ClickPlay();
         SceneManager.LoadScene((int)GameScene.GameScene);
     }
 
     void OnRobbyButton()
     {
+        UI_ClickSound.Instance.ClickPlay();
         SceneManager.LoadScene((int)GameScene.Lobby);
     }
 }

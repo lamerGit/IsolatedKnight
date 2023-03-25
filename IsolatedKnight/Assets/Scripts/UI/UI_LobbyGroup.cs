@@ -39,6 +39,7 @@ public class UI_LobbyGroup : MonoBehaviour
 
     void OnStartButton()
     {
+        UI_ClickSound.Instance.ClickPlay();
         SceneManager.LoadScene((int)GameScene.GameScene);
     }
 

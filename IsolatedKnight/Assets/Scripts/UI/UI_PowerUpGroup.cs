@@ -31,7 +31,7 @@ public class UI_PowerUpGroup : MonoBehaviour
     {
         _exitButton = transform.Find("ExitButton").GetComponent<Button>();
 
-        _exitButton.onClick.AddListener(Close);
+        _exitButton.onClick.AddListener(CloseSound);
 
         _powerUpTouchDamage=transform.Find("Scroll View/Viewport/Content/PowerUpTouchDamage").GetComponent<UI_PowerUpItem>();
         _powerUpTouchSpeed = transform.Find("Scroll View/Viewport/Content/PowerUpTouchSpeed").GetComponent<UI_PowerUpItem>();
@@ -61,6 +61,7 @@ public class UI_PowerUpGroup : MonoBehaviour
 
     public void Open()
     {
+        UI_ClickSound.Instance.ClickPlay();
         gameObject.SetActive(true);
         _powerUpTouchDamage.ButtonSetting(_touchDamageBasePrice* (GameDataManager.Instance.Power_TouchDamageTier+1), GameDataManager.Instance.Power_TouchDamageTier, GameDataManager.maxTouchDamageTier);
         _powerUpTouchSpeed.ButtonSetting(_touchSpeedBasePrice * (GameDataManager.Instance.Power_TouchSpeedTier + 1), GameDataManager.Instance.Power_TouchSpeedTier, GameDataManager.maxTouchSpeedTier);
@@ -80,9 +81,17 @@ public class UI_PowerUpGroup : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    void CloseSound()
+    {
+        UI_ClickSound.Instance.ClickPlay();
+        gameObject.SetActive(false);
+    }
+
     void OnPowerUpTouchDamageButton()
-    {                                               //                                                                   //                              //
-        if(GameDataManager.Instance.PlayerGold- _powerUpTouchDamage.PriceValue>=0 && GameDataManager.Instance.Power_TouchDamageTier<GameDataManager.maxTouchDamageTier)
+    {
+        UI_ClickSound.Instance.ClickPlay();
+        //                                                                   //                              //
+        if (GameDataManager.Instance.PlayerGold- _powerUpTouchDamage.PriceValue>=0 && GameDataManager.Instance.Power_TouchDamageTier<GameDataManager.maxTouchDamageTier)
         {                                                     //
             GameDataManager.Instance.PlayerGold -= _powerUpTouchDamage.PriceValue;
                                            //
@@ -95,6 +104,7 @@ public class UI_PowerUpGroup : MonoBehaviour
     }
     void OnPowerUpTouchSpeedButton()
     {
+        UI_ClickSound.Instance.ClickPlay();
         if (GameDataManager.Instance.PlayerGold - _powerUpTouchSpeed.PriceValue >= 0 && GameDataManager.Instance.Power_TouchSpeedTier < GameDataManager.maxTouchSpeedTier)
         {
             GameDataManager.Instance.PlayerGold -= _powerUpTouchSpeed.PriceValue;
@@ -107,7 +117,8 @@ public class UI_PowerUpGroup : MonoBehaviour
     }
 
     void OnPowerUpMaxStaminaButton()
-    {                                               //                                                                   //                              //
+    {
+        UI_ClickSound.Instance.ClickPlay();                                      //                                                                   //                              //
         if (GameDataManager.Instance.PlayerGold - _powerUpMaxStamina.PriceValue >= 0 && GameDataManager.Instance.Power_MaxStaminaTier < GameDataManager.maxMaxStaminaTier)
         {                                                     //
             GameDataManager.Instance.PlayerGold -= _powerUpMaxStamina.PriceValue;
@@ -121,7 +132,8 @@ public class UI_PowerUpGroup : MonoBehaviour
     }
 
     void OnPowerUpSkillDamageButton()
-    {                                               //                                                                   //                              //
+    {
+        UI_ClickSound.Instance.ClickPlay();                                  //                                                                   //                              //
         if (GameDataManager.Instance.PlayerGold - _powerUpSkillDamage.PriceValue >= 0 && GameDataManager.Instance.Power_SkillDamageTier < GameDataManager.maxSkillDamageTier)
         {                                                     //
             GameDataManager.Instance.PlayerGold -= _powerUpSkillDamage.PriceValue;
@@ -135,7 +147,8 @@ public class UI_PowerUpGroup : MonoBehaviour
     }
 
     void OnPowerUpSkillRecoveryButton()
-    {                                               //                                                                   //                              //
+    {
+        UI_ClickSound.Instance.ClickPlay();                                 //                                                                   //                              //
         if (GameDataManager.Instance.PlayerGold - _powerUpSkillRecovery.PriceValue >= 0 && GameDataManager.Instance.Power_SkillCoolTimeRecoveryTier < GameDataManager.maxSkillCollTimeRecoveryTier)
         {                                                     //
             GameDataManager.Instance.PlayerGold -= _powerUpSkillRecovery.PriceValue;
@@ -149,7 +162,8 @@ public class UI_PowerUpGroup : MonoBehaviour
     }
 
     void OnPowerUpPartnerDamageButton()
-    {                                               //                                                                   //                              //
+    {
+        UI_ClickSound.Instance.ClickPlay();                                 //                                                                   //                              //
         if (GameDataManager.Instance.PlayerGold - _powerUpPartnerDamage.PriceValue >= 0 && GameDataManager.Instance.Power_PartnerDamageTier < GameDataManager.maxPartnerDamageTier)
         {                                                     //
             GameDataManager.Instance.PlayerGold -= _powerUpPartnerDamage.PriceValue;
@@ -163,7 +177,8 @@ public class UI_PowerUpGroup : MonoBehaviour
     }
 
     void OnPowerUpFixedDamageButton()
-    {                                               //                                                                   //                              //
+    {
+        UI_ClickSound.Instance.ClickPlay();                                  //                                                                   //                              //
         if (GameDataManager.Instance.PlayerGold - _powerUpFixedDamage.PriceValue >= 0 && GameDataManager.Instance.Power_FixedDamageTier < GameDataManager.maxFixedDamageTier)
         {                                                     //
             GameDataManager.Instance.PlayerGold -= _powerUpFixedDamage.PriceValue;
@@ -177,7 +192,8 @@ public class UI_PowerUpGroup : MonoBehaviour
     }
 
     void OnPowerUpExpUpButton()
-    {                                               //                                                                   //                              //
+    {
+        UI_ClickSound.Instance.ClickPlay();                                       //                                                                   //                              //
         if (GameDataManager.Instance.PlayerGold - _powerUpExpUp.PriceValue >= 0 && GameDataManager.Instance.Power_ExpUpTier < GameDataManager.maxExpUpTier)
         {                                                     //
             GameDataManager.Instance.PlayerGold -= _powerUpExpUp.PriceValue;
@@ -191,7 +207,8 @@ public class UI_PowerUpGroup : MonoBehaviour
     }
 
     void OnPowerUpGoldUpButton()
-    {                                               //                                                                   //                              //
+    {
+        UI_ClickSound.Instance.ClickPlay();                                   //                                                                   //                              //
         if (GameDataManager.Instance.PlayerGold - _powerUpGoldUp.PriceValue >= 0 && GameDataManager.Instance.Power_GoldUpTier < GameDataManager.maxGoldUpTier)
         {                                                     //
             GameDataManager.Instance.PlayerGold -= _powerUpGoldUp.PriceValue;

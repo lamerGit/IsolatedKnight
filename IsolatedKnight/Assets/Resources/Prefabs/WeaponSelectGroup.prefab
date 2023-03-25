@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5931069026781854694}
+  - component: {fileID: 7660891502957895363}
   m_Layer: 5
   m_Name: Hand
   m_TagString: Untagged
@@ -35,11 +36,23 @@ RectTransform:
   m_Father: {fileID: 3408919048841325428}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -1525}
-  m_SizeDelta: {x: 300, y: 450}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7660891502957895363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664274666845870105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f904e03427cf83d45834eeeed981713e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3187500371617683725
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,6 +408,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3408919047970401456}
+  - component: {fileID: 7840778190530085344}
   m_Layer: 5
   m_Name: Sword
   m_TagString: Untagged
@@ -421,11 +435,23 @@ RectTransform:
   m_Father: {fileID: 3408919048841325428}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -325}
-  m_SizeDelta: {x: 300, y: 450}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7840778190530085344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3408919047970401459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f904e03427cf83d45834eeeed981713e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3408919047973316802
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3408919047973316803}
+  - component: {fileID: 7822735964240764241}
   m_Layer: 5
   m_Name: Stick
   m_TagString: Untagged
@@ -461,11 +488,23 @@ RectTransform:
   m_Father: {fileID: 3408919048841325428}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -925}
-  m_SizeDelta: {x: 300, y: 450}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7822735964240764241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3408919047973316802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f904e03427cf83d45834eeeed981713e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3408919047975455763
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,7 +1004,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3408919049098941456}
   m_HandleRect: {fileID: 3408919049098941459}
   m_Direction: 2
-  m_Value: 0.9999995
+  m_Value: 1.0000005
   m_Size: 0.8571429
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1144,6 +1183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd1d46d2952826479f426859eb26b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sword: {fileID: 0}
 --- !u!1 &3408919048397972299
 GameObject:
   m_ObjectHideFlags: 0
@@ -2033,7 +2073,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 899.99994}
+  m_AnchoredPosition: {x: 0, y: 900}
   m_SizeDelta: {x: 950, y: 1500}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3408919048815935834
@@ -2789,6 +2829,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3408919049140071911}
+  - component: {fileID: 570756377370728698}
   m_Layer: 5
   m_Name: Hammer
   m_TagString: Untagged
@@ -2815,11 +2856,23 @@ RectTransform:
   m_Father: {fileID: 3408919048841325428}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -925}
-  m_SizeDelta: {x: 300, y: 450}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &570756377370728698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3408919049140071910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f904e03427cf83d45834eeeed981713e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3408919049142664668
 GameObject:
   m_ObjectHideFlags: 0
@@ -3147,6 +3200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3408919049345467991}
+  - component: {fileID: 8644003142516014452}
   m_Layer: 5
   m_Name: Axe
   m_TagString: Untagged
@@ -3173,11 +3227,23 @@ RectTransform:
   m_Father: {fileID: 3408919048841325428}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -325}
-  m_SizeDelta: {x: 300, y: 450}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8644003142516014452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3408919049345467990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f904e03427cf83d45834eeeed981713e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3408919049436516570
 GameObject:
   m_ObjectHideFlags: 0

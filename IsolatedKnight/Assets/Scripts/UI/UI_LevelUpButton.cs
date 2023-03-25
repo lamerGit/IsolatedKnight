@@ -124,6 +124,7 @@ public class UI_LevelUpButton : MonoBehaviour
 
     void OnButton()
     {
+        UI_ClickSound.Instance.ClickPlay();
         switch (Option)
         {
             case LevelUpOption.None:
@@ -566,9 +567,11 @@ public class UI_LevelUpButton : MonoBehaviour
                 break;
             case 1:
                 Managers.GameManager.TouchBuffTier2AutoAttack = true;
+                Managers.GameManager.ExtraExpPersent += 0.2f;
                 break;
             case 2:
                 Managers.GameManager.TouchBuffTier3AutoAttackBuff = true;
+                Managers.GameManager.ExtraExpPersent += 0.2f;
                 break;
 
         }
@@ -589,7 +592,7 @@ public class UI_LevelUpButton : MonoBehaviour
             case 1:
                 Managers.GameManager.ExtraStaminaconsum += Managers.Object.MyPlayer.StaminaConsum * 0.2f;
                 Managers.GameManager.ExtraMaxStamina += (int)(Managers.Object.MyPlayer.MaxStamina * 0.5f);
-                Debug.Log(Managers.Object.MyPlayer.MaxStamina + Managers.GameManager.ExtraMaxStamina);
+                //Debug.Log(Managers.Object.MyPlayer.MaxStamina + Managers.GameManager.ExtraMaxStamina);
                 break;
             case 2:
                 Managers.GameManager.StaminaTier3Overload = true;

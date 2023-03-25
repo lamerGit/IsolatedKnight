@@ -22,7 +22,7 @@ public class GameDataManager : Singleton<GameDataManager>
     public int Power_ExpUpTier { get; set; }
     public int Power_GoldUpTier { get; set; }
 
-    public int EquipWeapon { get; set; }
+    public WeaponType EquipWeapon { get; set; }
 
     public bool SwordOpen { get; set; }
     public bool AxeOpen { get; set; }
@@ -74,7 +74,7 @@ public class GameDataManager : Singleton<GameDataManager>
             Power_FixedDamageTier = saveData.Power_FixedDamageTier;
             Power_ExpUpTier = saveData.Power_ExpUpTier;
             Power_GoldUpTier = saveData.Power_GoldUpTier;
-            EquipWeapon = saveData.EquipWeapon;
+            EquipWeapon = (WeaponType)saveData.EquipWeapon;
             SwordOpen = saveData.SwordOpen;
             AxeOpen = saveData.AxeOpen;
             HammerOpen = saveData.HammerOpen;
@@ -97,7 +97,7 @@ public class GameDataManager : Singleton<GameDataManager>
             Power_FixedDamageTier = 0;
             Power_ExpUpTier = 0;
             Power_GoldUpTier = 0;
-            EquipWeapon = 0;
+            EquipWeapon = WeaponType.Sword;
             SwordOpen = true;
             AxeOpen = false;
             HammerOpen = false;
@@ -116,7 +116,7 @@ public class GameDataManager : Singleton<GameDataManager>
             saveData.Power_FixedDamageTier= Power_FixedDamageTier;
             saveData.Power_ExpUpTier= Power_ExpUpTier;
             saveData.Power_GoldUpTier= Power_GoldUpTier;
-            saveData.EquipWeapon= EquipWeapon;
+            saveData.EquipWeapon= (int)EquipWeapon;
             saveData.SwordOpen= SwordOpen;
             saveData.AxeOpen= AxeOpen;
             saveData.HammerOpen= HammerOpen;
@@ -154,7 +154,7 @@ public class GameDataManager : Singleton<GameDataManager>
         saveData.Power_FixedDamageTier = Power_FixedDamageTier;
         saveData.Power_ExpUpTier = Power_ExpUpTier;
         saveData.Power_GoldUpTier = Power_GoldUpTier;
-        saveData.EquipWeapon = EquipWeapon;
+        saveData.EquipWeapon = (int)EquipWeapon;
         saveData.SwordOpen = SwordOpen;
         saveData.AxeOpen = AxeOpen;
         saveData.HammerOpen = HammerOpen;

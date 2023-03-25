@@ -23,6 +23,9 @@ public class Enemy_Defence : EnemyBase
 
     private void Die()
     {
+        if (_state == EnemyState.Die)
+            return;
+
         _state = EnemyState.Die;
         //_agent.ResetPath();
         _agent.enabled = false;

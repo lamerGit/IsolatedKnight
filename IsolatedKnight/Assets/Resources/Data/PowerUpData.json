@@ -9,8 +9,8 @@
       "skillCooltimeRecoveryIncrement": "0.2",
       "partnerDamageIncrement": "3",
       "fixedDamageIncrement": "1",
-      "expIncrement": "0.5",
-      "goldIncrement": "0.5"
+      "expIncrement": "0.1",
+      "goldIncrement": "0.2"
     }
   ]
 } 

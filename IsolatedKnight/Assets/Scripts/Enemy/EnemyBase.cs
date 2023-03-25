@@ -14,6 +14,7 @@ public class EnemyBase : Poolable
     protected NavMeshAgent _agent;
     protected Animator _animator;
     protected Transform _target;
+    protected Light _light;
 
     protected EnemyState _state = EnemyState.Chase;
 
@@ -46,6 +47,8 @@ public class EnemyBase : Poolable
 
     protected bool _bullet = false;
 
+    protected AudioSource _myAudio;
+
     protected float CurrentFireTick
     {
         get { return _currentFireTick; }
@@ -74,6 +77,7 @@ public class EnemyBase : Poolable
             if (_currentFireTimer == _fireTimer)
             {
                 _stateFireFx.Stop();
+                _light.enabled = false;
                 _fireStack = 0;
             }
 
@@ -112,10 +116,16 @@ public class EnemyBase : Poolable
         _animator = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
         _skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        
 
         _stateFireFx=transform.Find("State_Fire").GetComponent<ParticleSystem>();
         _stateFireFx.Stop();
-        
+
+        _light = transform.Find("State_Fire").GetComponent<Light>();
+        _light.enabled = false;
+
+        _myAudio = GetComponent<AudioSource>();
+
         Managers.GameManager.StateChange += StateChange;
     }
 
@@ -179,6 +189,9 @@ public class EnemyBase : Poolable
 
     public void OnFixedDamage(int damage,DamageType damageType)
     {
+        EnemyHitSound.Instance.HitPlay();
+
+
         int totaldamage = damage + Managers.Object.MyPlayer.FixedDamage+Managers.GameManager.ExtraFixedDamage;
 
         if(totaldamage < 0) {
@@ -237,6 +250,8 @@ public class EnemyBase : Poolable
 
     public void OnSkillDamge(int damage,DamageType damageType)
     {
+        EnemyHitSound.Instance.HitPlay();
+
         int totaldamage = damage + Managers.Object.MyPlayer.SkillDamage+Managers.GameManager.ExtraSkillDamage;
 
         if (totaldamage < 0)
@@ -299,6 +314,8 @@ public class EnemyBase : Poolable
     /// <param name="damage"></param>
     public void OnPartnerDamage(int damage,DamageType damageType)
     {
+        EnemyHitSound.Instance.HitPlay();
+
         int totaldamage=damage + Managers.Object.MyPlayer.PartnerDamage + Managers.GameManager.ExtraPartnerDamage;
 
         if (totaldamage < 0)
@@ -366,6 +383,8 @@ public class EnemyBase : Poolable
     /// <param name="damage">받는 데미지</param>
     public void OnTouchDamage(int damage,DamageType damageType)
     {
+        EnemyHitSound.Instance.HitPlay();
+
         int totaldamage = damage + Managers.GameManager.ExtraTouchDamage;
 
         if (totaldamage < 0)
@@ -472,14 +491,18 @@ public class EnemyBase : Poolable
         {
             if (Managers.GameManager.PassiveFireTire3FireOn)
             {
+                float r = Random.Range(0.0f, 1.0f);
 
-                EnemyFire();
+                if (r < 0.71f)
+                {
+                    EnemyFire();
+                }
             }
             else
             {
                 float r = Random.Range(0.0f, 1.0f);
 
-                if (r < 0.51f)
+                if (r < 0.31f)
                 {
                     EnemyFire();
                 }
@@ -493,6 +516,7 @@ public class EnemyBase : Poolable
     public void EnemyFire()
     {
         _stateFireFx.Play();
+        _light.enabled = true;
         _fireStack ++;
 
         if(Managers.GameManager.PassiveFireTire2DoubleFire)
@@ -532,6 +556,7 @@ public class EnemyBase : Poolable
 
     public void OnAttack()
     {
+        _myAudio.Play();
         _animator.SetTrigger("Attack");
     }
 

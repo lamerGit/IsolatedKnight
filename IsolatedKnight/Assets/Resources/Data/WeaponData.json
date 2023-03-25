@@ -5,40 +5,40 @@
       "touchDamage": "10",
       "touchSpeed": "0.5",
       "staminaconsum": "10.0",
-      "partnerDamage": "10",
+      "partnerDamage": "15",
       "skillDamage": "10"
     },
     {
       "type": "1",
-      "touchDamage": "10",
-      "touchSpeed": "0.5",
-      "staminaconsum": "10.0",
-      "partnerDamage": "10",
-      "skillDamage": "10"
+      "touchDamage": "25",
+      "touchSpeed": "1.0",
+      "staminaconsum": "20.0",
+      "partnerDamage": "15",
+      "skillDamage": "1"
     },
     {
       "type": "2",
-      "touchDamage": "10",
-      "touchSpeed": "0.5",
-      "staminaconsum": "10.0",
-      "partnerDamage": "10",
+      "touchDamage": "15",
+      "touchSpeed": "0.8",
+      "staminaconsum": "15.0",
+      "partnerDamage": "15",
       "skillDamage": "10"
     },
     {
       "type": "3",
-      "touchDamage": "10",
+      "touchDamage": "5",
       "touchSpeed": "0.5",
-      "staminaconsum": "10.0",
-      "partnerDamage": "10",
-      "skillDamage": "10"
+      "staminaconsum": "15.0",
+      "partnerDamage": "5",
+      "skillDamage": "50"
     },
     {
       "type": "4",
-      "touchDamage": "10",
+      "touchDamage": "5",
       "touchSpeed": "0.5",
-      "staminaconsum": "10.0",
-      "partnerDamage": "10",
-      "skillDamage": "10"
+      "staminaconsum": "5.0",
+      "partnerDamage": "5",
+      "skillDamage": "5"
     }
   ]
 } 

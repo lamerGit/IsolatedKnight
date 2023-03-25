@@ -74,7 +74,7 @@ public class Boss_Wolf : EnemyBase
             if (_agent.remainingDistance < 1.0f && CurrentPathIndex < _pathMaxIndex - 1)
             {
                 CurrentPathIndex = _nextPathIndex;
-                Debug.Log(CurrentPathIndex);
+                //Debug.Log(CurrentPathIndex);
             }
 
             if (CurrentSkillCoolTime < _skillCoolTime && _state == EnemyState.Chase)
@@ -116,6 +116,9 @@ public class Boss_Wolf : EnemyBase
 
     private void Die()
     {
+        if (_state == EnemyState.Die)
+            return;
+
         _state = EnemyState.Die;
         //_agent.ResetPath();
         _agent.enabled = false;

@@ -56,7 +56,12 @@ public class Player : MonoBehaviour
     GameObject Hammer;
     GameObject Staff;
 
-    bool isDead = false;
+    bool _isDead = false;
+
+    bool _staminaTier3Overload = false;
+
+    AudioSource _playerDieAudio;
+    AudioSource _levelUpAudio;
     public WeaponType EquipWeaponType
     {
         get { return (WeaponType)_type; }
@@ -262,6 +267,8 @@ public class Player : MonoBehaviour
             float tempExp = 0.0f;
             if (_currentExp >= _maxExp)
             {
+                _levelUpAudio.Play();
+
                 tempExp = _currentExp - _maxExp;
                 _currentExp = 0;
                 _level++;
@@ -311,12 +318,12 @@ public class Player : MonoBehaviour
             Managers.UIManager.StaminaUI.AmountChange(_currentStamina, MaxStamina + Managers.GameManager.ExtraMaxStamina);
             if (_currentStamina == 0.0f )
             {
-                if (Managers.GameManager.StaminaTier3Overload && StaminaCheck)
+                if (Managers.GameManager.StaminaTier3Overload && StaminaCheck && !_staminaTier3Overload)
                 {
-                    _partnerDamage += 15;
-                    _skillDamage += 30;
-                    Debug.Log(_partnerDamage);
-                    Debug.Log(_skillDamage);
+                    _staminaTier3Overload = true;
+                    Managers.GameManager.ExtraSkillDamage += (int)(SkillDamage * 6.0f);
+                    Managers.GameManager.ExtraPartnerDamage += (int)(PartnerDamage * 3.0f);
+                    
                     
                 }
                 if(StaminaCheck)
@@ -339,12 +346,12 @@ public class Player : MonoBehaviour
 
             if( _currentStamina == MaxStamina + Managers.GameManager.ExtraMaxStamina )
             {
-                if (Managers.GameManager.StaminaTier3Overload && !StaminaCheck)
+                if (Managers.GameManager.StaminaTier3Overload && !StaminaCheck && _staminaTier3Overload)
                 {
-                    _partnerDamage -= 15;
-                    _skillDamage -= 30;
-                    Debug.Log(_partnerDamage);
-                    Debug.Log(_skillDamage);
+                    _staminaTier3Overload = false;
+                    Managers.GameManager.ExtraSkillDamage -= (int)(SkillDamage * 6.0f);
+                    Managers.GameManager.ExtraPartnerDamage -= (int)(PartnerDamage * 3.0f);
+                    
                     
                 }
 
@@ -383,6 +390,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        _playerDieAudio = GetComponent<AudioSource>();
+        _levelUpAudio=transform.Find("LevelUpSound").GetComponent<AudioSource>();
+
         _animator = GetComponent<Animator>();
         AttackPoint = transform.Find("AttackPoint").gameObject;
         OnePointSkillFx=transform.Find("OnePointSkillReadyFx").GetComponent<ParticleSystem>();
@@ -412,7 +422,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         Weapon weapon = null;
-        Managers.Data.WeaponDict.TryGetValue((int)WeaponType.Sword,out weapon);
+        Managers.Data.WeaponDict.TryGetValue((int)GameDataManager.Instance.EquipWeapon,out weapon);
 
         Stat stat = null;
         Managers.Data.StatDict.TryGetValue(1,out stat);
@@ -520,12 +530,12 @@ public class Player : MonoBehaviour
             if(r<0.5f)
             {
                 CurrentStamina -= StaminaConsum;
-                Debug.Log(CurrentStamina);
+                //Debug.Log(CurrentStamina);
 
             }
             else
             {
-                Debug.Log("스태미나 소모 없음");
+                //Debug.Log("스태미나 소모 없음");
             }
         }
         else
@@ -559,7 +569,7 @@ public class Player : MonoBehaviour
 
     public void ExpUp(float exp)
     {
-        CurrentExp += exp+(exp*Managers.GameManager.ExtraExpPersent);
+        CurrentExp += exp+(exp*_expAmount)+(exp*Managers.GameManager.ExtraExpPersent);
         //Debug.Log(exp + (exp * Managers.GameManager.ExtraExpPersent));
     }
 
@@ -694,10 +704,10 @@ public class Player : MonoBehaviour
 
     public void OnDie()
     {
-        if (isDead)
+        if (_isDead)
             return;
-
-        isDead = true;
+        _playerDieAudio.Play();
+        _isDead = true;
         _animator.SetTrigger("Die");
        
     }

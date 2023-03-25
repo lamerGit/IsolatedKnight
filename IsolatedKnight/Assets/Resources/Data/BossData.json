@@ -50,7 +50,7 @@
     },
     {
       "type": "6",
-      "maxHp": "80000",
+      "maxHp": "100000",
       "speed": "0.0",
       "skillCoolTime": "10.0",
       "skillRecovery": "1.0",
