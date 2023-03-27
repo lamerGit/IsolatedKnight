@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 349547896}
   - component: {fileID: 349547895}
   m_Layer: 0
-  m_Name: LobbyManager
+  m_Name: '@LobbyManagers'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -675,6 +675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f1786652b02a8147a609b9fac2f9da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioMixer: {fileID: 24100000, guid: 5c91ba2da379311479913e1915d5f3b0, type: 2}
 --- !u!4 &1000344996
 Transform:
   m_ObjectHideFlags: 0

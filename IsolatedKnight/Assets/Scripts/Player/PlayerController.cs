@@ -22,13 +22,22 @@ public class PlayerController : MonoBehaviour
     {
         _inputActions.Enable();
         _inputActions.Player.Click.performed += OnClick;
+        _inputActions.Player.Escape.performed += OnEscape;
     }
 
+   
     private void OnDisable()
     {
         _inputActions.Player.Click.performed -= OnClick;
+        _inputActions.Player.Escape.performed -= OnEscape;
         _inputActions.Disable();
     }
+
+    private void OnEscape(InputAction.CallbackContext obj)
+    {
+        Managers.UIManager.GameSceneOption.Open();
+    }
+
 
     private void OnClick(InputAction.CallbackContext obj)
     {

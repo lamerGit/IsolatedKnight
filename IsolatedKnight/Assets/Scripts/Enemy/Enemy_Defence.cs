@@ -33,6 +33,7 @@ public class Enemy_Defence : EnemyBase
         _collider.enabled = false;
 
         Managers.Object.MyPlayer.ExpUp(_exp);
+        Managers.Object.MyPlayer.GoldUp(1);
 
         if (Managers.GameManager.SynergyDefenceFireTier1FireTrans && _fireStack > 0)
         {

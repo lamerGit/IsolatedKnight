@@ -10,6 +10,8 @@ public class UI_BlackOut : MonoBehaviour
     {
         _rect = GetComponent<RectTransform>();
 
-        _rect.sizeDelta = new Vector2(Screen.width*2.0f, Screen.height*2.0f);
+        Camera camera = Camera.main;
+
+        _rect.sizeDelta = new Vector2(camera.pixelWidth, camera.pixelHeight);
     }
 }

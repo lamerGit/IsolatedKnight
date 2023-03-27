@@ -23,7 +23,7 @@ public class UI_PowerUpGroup : MonoBehaviour
     int _skillDamageBasePrice = 200;
     int _skillRecoveryBasePrice = 500;
     int _partnerDamageBasePrice = 200;
-    int _fixedDamageBasePrice = 500;
+    int _fixedDamageBasePrice = 1500;
     int _ExpUpBasePrice = 1000;
     int _GoldUpBasePrice = 1000;
 

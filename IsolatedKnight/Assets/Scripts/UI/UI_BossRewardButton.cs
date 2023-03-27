@@ -107,6 +107,7 @@ public class UI_BossRewardButton : MonoBehaviour
         switch (Option)
         {
             case BossRewardOption.None:
+                Managers.Object.MyPlayer.GoldUp(50);
                 break;
             case BossRewardOption.SwordWind:
                 SwordWindTierSelected();

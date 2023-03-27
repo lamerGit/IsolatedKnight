@@ -25,4 +25,7 @@ public class SaveData
     public bool HammerOpen;
     public bool StickOpen;
     public bool HandOpen;
+
+    public float BgmValue;
+    public float CfxValue;
 }

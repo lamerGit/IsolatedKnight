@@ -14,10 +14,16 @@ public class PartnerGolem : MonoBehaviour
 
     Animator _animator;
 
-    public Transform _hand;
+    Transform _hand;
 
     float _bulletSpeed = 20.0f;
 
+    float _attackSpeedTick = 1.0f;
+    float AttackSpeedTick
+    {
+        get { return _attackSpeedTick + Managers.GameManager.ExtraPartnerAttackSpeedTick; }
+        set { _attackSpeedTick = value; }
+    }
     public int AttackDamge
     {
         get { return _attackDamage; }
@@ -59,7 +65,7 @@ public class PartnerGolem : MonoBehaviour
         {
             if (CurrentAttackTimer < AttackSpeed)
             {
-                CurrentAttackTimer += Time.deltaTime;
+                CurrentAttackTimer += Time.deltaTime * AttackSpeedTick;
 
             }
         }
@@ -89,7 +95,7 @@ public class PartnerGolem : MonoBehaviour
                 dir.y += 0.01f;
                 component.Rigid.velocity = dir * _bulletSpeed;
 
-                component.Damage = AttackDamge+Managers.GameManager.ExtraGolemDamage;
+                component.Damage = AttackDamge;
                 component.Dir = dir;
                 component.Speed = _bulletSpeed;
 

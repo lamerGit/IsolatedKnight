@@ -62,6 +62,8 @@ public class Player : MonoBehaviour
 
     AudioSource _playerDieAudio;
     AudioSource _levelUpAudio;
+
+    int _currentGold = 0;
     public WeaponType EquipWeaponType
     {
         get { return (WeaponType)_type; }
@@ -484,6 +486,7 @@ public class Player : MonoBehaviour
         Managers.UIManager.ExpUI.AmountChange(_currentExp, _maxExp, _level);
 
         //Time.timeScale = 2.0f;
+        Managers.UIManager.GoldUI.GoldChange(0);
     }
 
     private void Update()
@@ -571,6 +574,13 @@ public class Player : MonoBehaviour
     {
         CurrentExp += exp+(exp*_expAmount)+(exp*Managers.GameManager.ExtraExpPersent);
         //Debug.Log(exp + (exp * Managers.GameManager.ExtraExpPersent));
+    }
+
+    public void GoldUp(int gold)
+    {
+        _currentGold += gold + (int)(gold * _goldAmount);
+
+        Managers.UIManager.GoldUI.GoldChange(_currentGold);
     }
 
     void AutoAttack()
@@ -706,6 +716,10 @@ public class Player : MonoBehaviour
     {
         if (_isDead)
             return;
+
+        BackGroundSound.Instance.BackGroundStop();
+        GameDataManager.Instance.PlayerGold = Mathf.Clamp(GameDataManager.Instance.PlayerGold + _currentGold, 0, GameDataManager.maxGold);
+        GameDataManager.Instance.SaveData();
         _playerDieAudio.Play();
         _isDead = true;
         _animator.SetTrigger("Die");

@@ -6,6 +6,10 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Boss_Reaper : EnemyBase
 {
+    AudioSource _dieAudioSource;
+
+    AudioSource _spawnAudio;
+
     float _skillCoolTime;
     float _skillRecovery;
 
@@ -35,7 +39,9 @@ public class Boss_Reaper : EnemyBase
                 
                 CurrentPathIndex++;
                 _currentSkillCoolTime = 0.0f;
-                
+
+                _spawnAudio.Play();
+
                 StartCoroutine(BlackOutOn());
             }
 
@@ -71,6 +77,14 @@ public class Boss_Reaper : EnemyBase
         }
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        _dieAudioSource=transform.Find("RepaerDieSound").GetComponent<AudioSource>();
+
+        _spawnAudio = transform.Find("SpawnSound").GetComponent<AudioSource>();
+    }
     protected override void Update()
     {
         base.Update();
@@ -118,6 +132,9 @@ public class Boss_Reaper : EnemyBase
         if (_state == EnemyState.Die)
             return;
 
+        BackGroundSound.Instance.BackGroundStop();
+        Managers.Object.MyPlayer.GoldUp(1000);
+        _dieAudioSource.Play();
         _state = EnemyState.Die;
         //_agent.ResetPath();
         _agent.enabled = false;
@@ -192,7 +209,7 @@ public class Boss_Reaper : EnemyBase
         CurrentFireTick = 0;
         _stateFireFx.Stop();
 
-
+        _spawnAudio.Play();
 
     }
 

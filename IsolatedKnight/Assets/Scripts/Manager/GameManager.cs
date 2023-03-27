@@ -70,12 +70,11 @@ public class GameManager
 
     #endregion
 
+    public float ExtraPartnerAttackSpeedTick { get; set;} = 0.0f;
 
     #region Dragon
 
     public int PartnerDragonTier { get; set;} = 0;
-
-    public float ExtraDragonAttackSpeed { get; set; } = 0.0f;
 
     public bool PartnerDragonTier2SpearShot { get;set; } = false;
 
@@ -86,8 +85,6 @@ public class GameManager
     #region Golem
 
     public int PartnerGolemTier { get; set; } = 0;
-
-    public int ExtraGolemDamage { get; set; } = 0;
 
     public bool PartnerGolemTier2Billia { get; set; } = false;
     public bool PartnerGolemTier3Explosion { get; set; } = false;  

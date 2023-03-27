@@ -128,6 +128,7 @@ public class UI_LevelUpButton : MonoBehaviour
         switch (Option)
         {
             case LevelUpOption.None:
+                Managers.Object.MyPlayer.GoldUp(50);
                 break;
             case LevelUpOption.TouchDamage:
                 TouchDamageTierSelected();
@@ -436,11 +437,11 @@ public class UI_LevelUpButton : MonoBehaviour
                 break;
             case 1:
                 Managers.GameManager.PartnerGolemTier2Billia = true;
-                Managers.GameManager.ExtraGolemDamage += (int)(Managers.Object.PartnerGolem.AttackDamge * 0.5f);
+                Managers.GameManager.ExtraPartnerDamage += (int)(Managers.Object.MyPlayer.PartnerDamage * 0.5f);
                 break;
             case 2:
                 Managers.GameManager.PartnerGolemTier3Explosion = true;
-                Managers.GameManager.ExtraGolemDamage += (int)(Managers.Object.PartnerGolem.AttackDamge * 0.5f);
+                Managers.GameManager.ExtraPartnerDamage += (int)(Managers.Object.MyPlayer.PartnerDamage * 0.5f);
                 break;
 
         }
@@ -493,12 +494,12 @@ public class UI_LevelUpButton : MonoBehaviour
                 Managers.Object.PartnerDragon.Spawn();
                 break;
             case 1:
-                Managers.GameManager.ExtraDragonAttackSpeed += Managers.Object.PartnerDragon.AttackSpeed * 0.3f;
+                Managers.GameManager.ExtraPartnerAttackSpeedTick += 0.3f;
                 Managers.Object.PartnerDragon.CurrentAttackTimer = 0.0f;
                 Managers.GameManager.PartnerDragonTier2SpearShot = true;
                 break;
             case 2:
-                Managers.GameManager.ExtraDragonAttackSpeed += Managers.Object.PartnerDragon.AttackSpeed * 0.5f;
+                Managers.GameManager.ExtraPartnerAttackSpeedTick += 0.5f;
                 Managers.Object.PartnerDragon.CurrentAttackTimer = 0.0f;
                 Managers.GameManager.PartnerDragonTier3MultiShot = true;
                 break;

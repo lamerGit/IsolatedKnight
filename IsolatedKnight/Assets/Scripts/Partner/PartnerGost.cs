@@ -13,6 +13,14 @@ public class PartnerGost : MonoBehaviour
 
     Animator _animator;
 
+    float _attackSpeedTick = 1.0f;
+
+    AudioSource _audioSoruce;
+    float AttackSpeedTick
+    {
+        get { return _attackSpeedTick + Managers.GameManager.ExtraPartnerAttackSpeedTick; }
+        set { _attackSpeedTick = value; }
+    }
     public int AttackDamge
     {
         get { return _attackDamage; }
@@ -45,7 +53,7 @@ public class PartnerGost : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-
+        _audioSoruce = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -54,7 +62,7 @@ public class PartnerGost : MonoBehaviour
         {
             if (CurrentAttackTimer < AttackSpeed)
             {
-                CurrentAttackTimer += Time.deltaTime;
+                CurrentAttackTimer += Time.deltaTime* AttackSpeedTick;
 
             }
         }
@@ -66,6 +74,7 @@ public class PartnerGost : MonoBehaviour
 
         if (colliders.Length > 0)
         {
+            _audioSoruce.Play();
             _animator.SetTrigger("Attack");
             Poolable p = Managers.Pool.Pop(Managers.Object.GostAttackFx);
             p.Spawn(transform);

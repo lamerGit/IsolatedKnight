@@ -20,6 +20,10 @@ public class UIManager
 
     public UI_GameSet GameSetUI { get; private set; }
 
+    public UI_Gold GoldUI { get; private set; }
+
+    public UI_GameSceneOption GameSceneOption { get; private set; }
+
     //게임 씬일때만 나타나는 UI
     public void GameScenInit()
     {
@@ -72,5 +76,19 @@ public class UIManager
 
         GameSetUI = InstGameSetUI.GetComponent<UI_GameSet>();
         GameSetUI.Close();
+
+        GameObject goldUI = Resources.Load<GameObject>($"Prefabs/GoldUI");
+        GameObject InstGoldUI= Object.Instantiate(goldUI, Managers.Instance.Canvas.transform);
+        InstGoldUI.name=goldUI.name;
+
+        GoldUI=InstGoldUI.GetComponent<UI_Gold>();
+
+        GameObject gameSceneOption = Resources.Load<GameObject>($"Prefabs/GameSceneOption");
+        GameObject InstGameSceneOption= Object.Instantiate(gameSceneOption, Managers.Instance.Canvas.transform);
+        InstGameSceneOption.name=gameSceneOption.name;
+
+        GameSceneOption=InstGameSceneOption.GetComponent<UI_GameSceneOption>();
+        GameSceneOption.Close();
+
     }
 }

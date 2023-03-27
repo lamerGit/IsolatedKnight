@@ -17,6 +17,8 @@ public class Boss_Bloom : EnemyBase
 
     BossType _type;
 
+    AudioSource _spawnAudio;
+
     float SkillRecovery
     {
         get { return _skillRecovery; }
@@ -71,6 +73,13 @@ public class Boss_Bloom : EnemyBase
 
 
         }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        _spawnAudio=transform.Find("SpawnSound").GetComponent<AudioSource>();
     }
 
     protected override void Update()
@@ -132,6 +141,8 @@ public class Boss_Bloom : EnemyBase
         _collider.enabled = false;
 
         Managers.Object.MyPlayer.ExpUp(_exp);
+        Managers.Object.MyPlayer.GoldUp(100);
+
         Managers.GameManager.State = GameState.LevelUp;
         Managers.GameManager.BossRewardStack++;
         Managers.UIManager.BossRewardButtonGroup.Open();
@@ -191,6 +202,7 @@ public class Boss_Bloom : EnemyBase
         CurrentFireTick = 0;
         _stateFireFx.Stop();
 
+        _spawnAudio.Play();
 
 
     }

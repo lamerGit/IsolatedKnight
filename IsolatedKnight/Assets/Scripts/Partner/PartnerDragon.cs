@@ -21,15 +21,17 @@ public class PartnerDragon : MonoBehaviour
 
     float _attackSpeedTick = 1.0f;
 
+    AudioSource _audioSoruce;
+
     public float AttackSpeedTick
     {
-        get { return _attackSpeedTick; }
+        get { return _attackSpeedTick+Managers.GameManager.ExtraPartnerAttackSpeedTick; }
         set { _attackSpeedTick = value; }
     }
 
     public float AttackSpeed
     {
-        get { return _attackSpeed - Managers.GameManager.ExtraDragonAttackSpeed; }
+        get { return _attackSpeed; }
         private set { _attackSpeed = value; }
     }
 
@@ -48,6 +50,7 @@ public class PartnerDragon : MonoBehaviour
 
     private void Awake()
     {
+        _audioSoruce=GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         _head = transform.Find("RigHeadGizmo");
     }
@@ -71,6 +74,7 @@ public class PartnerDragon : MonoBehaviour
         {
             for (int i = 0; i < 1; i++)
             {
+                _audioSoruce.Play();
                 int r=Random.Range(0, colliders.Length);
 
                 transform.LookAt(colliders[r].gameObject.transform.position);

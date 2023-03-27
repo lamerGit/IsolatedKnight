@@ -17,6 +17,7 @@ public class Boss_Snake : EnemyBase
 
     float _currentSkillCoolTime = 0.0f;
 
+    AudioSource _spawnAudio;
     float CurrentSkillCoolTime
     {
         get { return _currentSkillCoolTime; }
@@ -62,6 +63,13 @@ public class Boss_Snake : EnemyBase
 
 
         }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        _spawnAudio = transform.Find("SpawnSound").GetComponent<AudioSource>();
     }
 
     protected override void Update()
@@ -125,6 +133,8 @@ public class Boss_Snake : EnemyBase
         _collider.enabled = false;
 
         Managers.Object.MyPlayer.ExpUp(_exp);
+        Managers.Object.MyPlayer.GoldUp(100);
+
         Managers.GameManager.State = GameState.LevelUp;
         Managers.GameManager.BossRewardStack++;
         Managers.UIManager.BossRewardButtonGroup.Open();
@@ -194,7 +204,7 @@ public class Boss_Snake : EnemyBase
         CurrentFireTick = 0;
         _stateFireFx.Stop();
 
-
+        _spawnAudio.Play();
 
     }
 

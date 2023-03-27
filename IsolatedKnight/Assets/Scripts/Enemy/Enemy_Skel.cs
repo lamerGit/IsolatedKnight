@@ -33,8 +33,9 @@ public class Enemy_Skel : EnemyBase
         _collider.enabled = false;
 
         Managers.Object.MyPlayer.ExpUp(_exp);
+        Managers.Object.MyPlayer.GoldUp(1);
 
-        if(Managers.GameManager.SynergyDefenceFireTier1FireTrans && _fireStack>0)
+        if (Managers.GameManager.SynergyDefenceFireTier1FireTrans && _fireStack>0)
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, _fireTranRange, LayerMask.GetMask("Enemy"));
             if (colliders.Length > 0)

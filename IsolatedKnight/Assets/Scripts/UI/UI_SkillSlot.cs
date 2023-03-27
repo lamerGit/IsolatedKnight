@@ -29,6 +29,10 @@ public class UI_SkillSlot : MonoBehaviour
 
     GameObject _onOffFx;
 
+    public AudioClip[] _audioClips;
+
+    public AudioSource _audioSource;
+
     public float SkillColTime
     {
         get { return _skillColTime; }
@@ -125,6 +129,7 @@ public class UI_SkillSlot : MonoBehaviour
                     _backGroundImage.sprite= Managers.UIManager.LevelUpButtonGroup._levelIcon[(int)LevelUpOption.SkillOnePoint];
                     Skill onePointskill = null;
                     Managers.Data.SkillDict.TryGetValue((int)SkillType.OnePoint, out onePointskill);
+                    _audioSource.clip = _audioClips[(int)SkillType.OnePoint];
 
                     SkillColTime = onePointskill.skillColTime;
                     _skillDamage= onePointskill.skillDamage;
@@ -137,6 +142,7 @@ public class UI_SkillSlot : MonoBehaviour
 
                     Skill multiPointskill = null;
                     Managers.Data.SkillDict.TryGetValue((int)SkillType.MultiPoint, out multiPointskill);
+                    _audioSource.clip = _audioClips[(int)SkillType.MultiPoint];
 
                     SkillColTime = multiPointskill.skillColTime;
                     _skillDamage = multiPointskill.skillDamage;
@@ -147,6 +153,7 @@ public class UI_SkillSlot : MonoBehaviour
 
                     Skill touchBuffskill = null;
                     Managers.Data.SkillDict.TryGetValue((int)SkillType.TouchBuff, out touchBuffskill);
+                    _audioSource.clip = _audioClips[(int)SkillType.TouchBuff];
 
                     SkillColTime = touchBuffskill.skillColTime;
                     _skillDamage = touchBuffskill.skillDamage;
@@ -157,6 +164,7 @@ public class UI_SkillSlot : MonoBehaviour
 
                     Skill buffskill = null;
                     Managers.Data.SkillDict.TryGetValue((int)SkillType.Buff, out buffskill);
+                    _audioSource.clip = _audioClips[(int)SkillType.Buff];
 
                     SkillColTime = buffskill.skillColTime;
                     _skillDamage = buffskill.skillDamage;
@@ -170,6 +178,8 @@ public class UI_SkillSlot : MonoBehaviour
 
     private void Awake()
     {
+        _audioSource=GetComponent<AudioSource>();
+
         _button = transform.Find("Button").GetComponent<Button>();
         _backGroundImage = transform.Find("Background").GetComponent<Image>();
 
@@ -206,7 +216,7 @@ public class UI_SkillSlot : MonoBehaviour
         {
             if (CurrentSkillColTime == SkillColTime)
             {
-
+                _audioSource.Play();
                 switch (SkillType)
                 {
                     case SkillType.None:

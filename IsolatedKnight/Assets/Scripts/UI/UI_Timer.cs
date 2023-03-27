@@ -62,6 +62,7 @@ public class UI_Timer : MonoBehaviour
                         Managers.Object.EnemySpawnerGroup.OnKnight();
                         break;
                     case 9:
+                        BackGroundSound.Instance.SoundChange();
                         BossSpawn(BossType.Reaper);
                         break;
 
