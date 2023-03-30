@@ -60,4 +60,12 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
+    public void OnWave(int count=1)
+    {
+        for(int i=0; i<count; i++)
+        {
+            SkelSpawn();
+        }
+    }
+
 }

@@ -11,7 +11,7 @@ public class SwordWind : Poolable
     float _currentDeSpawnTimer = 0.0f;
     float _deSpawnTimer = 3.0f;
 
-
+    AudioSource _audioSource;
     float CurrentDeSpawnTimer
     {
         get { return _currentDeSpawnTimer; }
@@ -54,6 +54,7 @@ public class SwordWind : Poolable
     private void Awake()
     {
         Rigid = GetComponent<Rigidbody>();
+        _audioSource = GetComponent<AudioSource>();
 
         Managers.GameManager.StateChange += StateChange;
     }
@@ -93,7 +94,7 @@ public class SwordWind : Poolable
     {
         if (other.CompareTag("Enemy") && Managers.GameManager.State == GameState.Nomal)
         {
-            other.GetComponent<EnemyBase>().OnExtraDamage(Damage, DamageType.Touch);
+            other.GetComponent<EnemyBase>().OnExtraDamage(Damage, DamageType.SwordWind);
             
 
         }
@@ -103,6 +104,7 @@ public class SwordWind : Poolable
 
     public override void Spawn(Transform spawnTransform)
     {
+        _audioSource.Play();
         CurrentDeSpawnTimer = 0.0f;
         
     }

@@ -35,7 +35,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnEscape(InputAction.CallbackContext obj)
     {
-        Managers.UIManager.GameSceneOption.Open();
+        if(Managers.UIManager.GameSceneOption.gameObject.activeSelf)
+        {
+            Managers.UIManager.GameSceneOption.Close();
+        }
+        else
+        {
+            Managers.UIManager.GameSceneOption.Open();
+        }
+
+        
     }
 
 
@@ -63,6 +72,16 @@ public class PlayerController : MonoBehaviour
                 myPlayer.AttackAnimation();
                 myPlayer.ResetTouchSpeed();
 
+                if (Managers.GameManager.TouchAndAutoTouchTier1TouchCountOn)
+                {
+                    myPlayer.TouchCount++;
+                }
+
+                if(Managers.GameManager.SynergyRandomProjectileTier1RandomOn)
+                {
+                    myPlayer.RandomCount++;
+                }
+
                 if (Managers.GameManager.SwordWindTier1SwordWindOn)
                 {
                     SwordWind();
@@ -84,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void SwordWind()
+    public void SwordWind()
     {
         Poolable bullet = Managers.Pool.Pop(Managers.Object.SwordWind);
 
@@ -100,7 +119,7 @@ public class PlayerController : MonoBehaviour
         dir.y += 0.17f;
         component.Rigid.velocity = dir * _swordWindSpeed;
 
-        component.Damage = myPlayer.TouchDamage + Managers.GameManager.ExtraTouchDamage;
+        component.Damage = (int)((myPlayer.TouchDamage + Managers.GameManager.ExtraTouchDamage)*0.5f);
         component.Dir = dir;
         component.Speed = _swordWindSpeed;
 

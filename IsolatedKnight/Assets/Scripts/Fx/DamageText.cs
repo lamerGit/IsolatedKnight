@@ -13,7 +13,7 @@ public class DamageText : Poolable
     private void Awake()
     {
         _text = GetComponentInChildren<TextMeshPro>();
-        _randomSpeed = Random.Range(1.0f, 3.0f);
+        _randomSpeed = Random.Range(1.0f, 9.0f);
     }
 
     private void Update()
@@ -26,6 +26,15 @@ public class DamageText : Poolable
         transform.position = spawnTransform.position;
 
         _text.text = $"{damage}";
+
+        StartCoroutine(DeSpawnText());
+    }
+
+    public override void ExTextSpawn(string text, Transform spawnTransform)
+    {
+        transform.position= spawnTransform.position;
+
+        _text.text = text;
 
         StartCoroutine(DeSpawnText());
     }

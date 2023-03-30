@@ -6,7 +6,7 @@
       "staminaRecoverySpeed": "10.0",
       "skillRecoverySpeed":  "5.0",
       "fixedDamage": "0",
-      "expAmount": "1.0",
+      "expAmount": "0.0",
       "goldAmount": "0.0"
     }
   ]

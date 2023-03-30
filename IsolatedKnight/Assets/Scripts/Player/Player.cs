@@ -28,6 +28,10 @@ public class Player : MonoBehaviour
     int _fire;
     int _thunder;
 
+    // 추가공격데미지 스탯
+    int _ice;
+    int _greenBall;
+    int _meteor;
 
 
     float _currentTouchSpeed = 0.0f;
@@ -41,11 +45,17 @@ public class Player : MonoBehaviour
     Animator _animator;
 
     float _currentAutoAttackTimer = 0.0f;
-    float _AutoAttackTimer = 2.0f;
+    float _AutoAttackTimer = 1.0f;
     float _AutoAttackRange = 60.0f;
 
     float _expAttackRange = 60.0f;
     float _allowSpeed = 40.0f;
+
+    float _iceAttackRange = 60.0f;
+    float _iceSpeed = 20.0f;
+
+    float _greenBallRange = 60.0f;
+    float _greenBallSpeed = 5.0f;
 
     float _currentLightningTimer = 0.0f;
     float _lightningTimer = 2.0f;
@@ -64,6 +74,185 @@ public class Player : MonoBehaviour
     AudioSource _levelUpAudio;
 
     int _currentGold = 0;
+
+    int _iceCount = 0;
+    int _maxIceCount = 50;
+
+    int _greenBallCount = 0;
+    int _maxGreenBallCount = 10;
+
+    int _touchCount = 0;
+    int _maxTouchCount = 25;
+
+    float _currentTouchCountTimer = 0.0f;
+    float _touchCountTimer = 0.1f;
+
+    int _touchHitCount = 0;
+
+    int _meteorCount = 0;
+    int _maxMeteorCount = 30;
+
+    int _randomCount = 0;
+    int _maxRandomCount = 10;
+
+    PlayerController _playerController;
+
+    float _touchRecovery = 1.0f;
+
+    public int RandomCount
+    {
+        get { return _randomCount; }
+        set { _randomCount = Mathf.Clamp( value,0,_maxRandomCount);
+        if(_randomCount==_maxRandomCount)
+            {
+                int r=Random.Range(0, 4);
+
+                switch (r)
+                {
+                    case 0:
+                        _playerController.SwordWind();
+                        break;
+                    case 1:
+                        ExpAttack();
+                        break;
+                    case 2:
+                        IceAttack();
+                        break;
+                    case 3:
+                        GreenBallAttack();
+                        break;
+
+
+                }
+
+               
+                _randomCount = 0;
+            }
+        
+        }
+    }
+
+    public int MeteorCount
+    {
+        get { return _meteorCount; }
+        set
+        {
+            _meteorCount = Mathf.Clamp(value, 0, _maxMeteorCount);
+            if (_meteorCount == _maxMeteorCount)
+            {
+                Managers.Object.PartnerMeteor.Attack();
+                _meteorCount = 0;
+            }
+
+
+        }
+    }
+
+    public int Meteor
+    {
+        get { return _meteor; }
+        private set { _meteor = value; }
+    }
+
+    float CurrentTouchCountTimer
+    {
+        get { return _currentTouchCountTimer; }
+        set { _currentTouchCountTimer = Mathf.Clamp( value,0.0f,_touchCountTimer);
+        if(_currentTouchCountTimer==_touchCountTimer)
+            {
+                TouchCountAutoAttack();
+                _currentTouchCountTimer=0;
+            }
+        
+        }
+    }
+
+    public int TouchCount
+    {
+        get { return _touchCount; }
+        set { _touchCount = Mathf.Clamp(value,0,_maxTouchCount); 
+        if(_touchCount==_maxTouchCount)
+            {
+                _touchHitCount += 10;
+
+                if(Managers.GameManager.TouchAndAutoTouchTier2TouchCountUp)
+                {
+                    _touchHitCount += 10;
+                }
+
+                if (Managers.GameManager.TouchAndAutoTouchTier3TouchCountUp)
+                {
+                    _touchHitCount += 15;
+                }
+
+                _touchCount = 0;
+            }
+        
+        }
+    }
+
+    public int MaxGreenBallCount
+    {
+        get { return _maxGreenBallCount;}
+        set { _maxGreenBallCount = value;
+        if(_maxGreenBallCount<GreenBallCount)
+            {
+                GreenBallCount += _maxGreenBallCount;
+            }
+        
+        }
+    }
+
+    public int GreenBallCount
+    {
+        get { return _greenBallCount; }
+        set
+        {
+            _greenBallCount = Mathf.Clamp(value, 0, MaxGreenBallCount);
+            if (_greenBallCount == MaxGreenBallCount)
+            {
+                GreenBallAttack();
+                _greenBallCount = 0;
+            }
+
+
+
+        }
+    }
+
+
+
+    public int MaxIceCount
+    {
+        get { return _maxIceCount; }
+        set
+        {
+            _maxIceCount = value;
+            if (_maxIceCount < IceCount)
+            {
+                IceCount += _maxIceCount;
+            }
+
+
+
+        }
+    }
+
+    public int IceCount
+    {
+        get { return _iceCount; }
+        set { _iceCount = Mathf.Clamp( value,0,MaxIceCount);
+        
+            if(_iceCount== MaxIceCount)
+            {
+                IceAttack();
+                _iceCount = 0;
+            }
+        
+        
+        }
+    }
+
     public WeaponType EquipWeaponType
     {
         get { return (WeaponType)_type; }
@@ -180,6 +369,13 @@ public class Player : MonoBehaviour
         get { return _staminaRecoverySpeed; }
         set { _staminaRecoverySpeed = value;}
     }
+
+    public float TouchRecoverySpeed
+    {
+        get { return _touchRecovery; }
+        set { _touchRecovery = value; }
+    }
+
     #region Particle
     public ParticleSystem SkillResetFx
     {
@@ -324,9 +520,11 @@ public class Player : MonoBehaviour
                 {
                     _staminaTier3Overload = true;
                     Managers.GameManager.ExtraSkillDamage += (int)(SkillDamage * 6.0f);
+                    SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Skilldamageup);
                     Managers.GameManager.ExtraPartnerDamage += (int)(PartnerDamage * 3.0f);
-                    
-                    
+                    SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Summondamageup);
+
+
                 }
                 if(StaminaCheck)
                 {
@@ -334,10 +532,11 @@ public class Player : MonoBehaviour
 
                     if(Managers.GameManager.SynergyWaringDragonTier1WaningOn)
                     {
-                        Managers.Object.PartnerDragon.AttackSpeedTick = 3.0f;
+                        Managers.Object.PartnerDragon.AttackSpeedTick = 5.0f;
+                        SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].DragonattackSpeedUp);
                     }
-
-                    Debug.Log("과부화");
+                    SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].overload);
+                    //Debug.Log("과부화");
                 }
 
                 StaminaCheck = false;
@@ -352,21 +551,25 @@ public class Player : MonoBehaviour
                 {
                     _staminaTier3Overload = false;
                     Managers.GameManager.ExtraSkillDamage -= (int)(SkillDamage * 6.0f);
+                    SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Skilldamagedown);
                     Managers.GameManager.ExtraPartnerDamage -= (int)(PartnerDamage * 3.0f);
-                    
-                    
+                    SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Summondamagedown);
+
+
                 }
 
-                if(!StaminaCheck)
+                if (!StaminaCheck)
                 {
                     Managers.UIManager.StaminaUI.OverloadColor(StaminaCheck);
 
                     if (Managers.GameManager.SynergyWaringDragonTier1WaningOn)
                     {
                         Managers.Object.PartnerDragon.AttackSpeedTick = 1.0f;
+                        SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].DragonattackSpeedDown);
                     }
 
-                    Debug.Log("과부화해제");
+                    SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].overloadend);
+                    //Debug.Log("과부화해제");
                 }
 
                 StaminaCheck = true;
@@ -394,6 +597,7 @@ public class Player : MonoBehaviour
     {
         _playerDieAudio = GetComponent<AudioSource>();
         _levelUpAudio=transform.Find("LevelUpSound").GetComponent<AudioSource>();
+        _playerController = GetComponent<PlayerController>();
 
         _animator = GetComponent<Animator>();
         AttackPoint = transform.Find("AttackPoint").gameObject;
@@ -431,6 +635,9 @@ public class Player : MonoBehaviour
 
         Fixed f = null;
         Managers.Data.FixedDict.TryGetValue(0,out f);
+
+        ExtraAttack extraAttack = null;
+        Managers.Data.ExtraAttackDict.TryGetValue(0,out extraAttack);
 
         
 
@@ -480,6 +687,10 @@ public class Player : MonoBehaviour
         Fire = f.fire;
         _thunder = f.thunder;
 
+        _ice = extraAttack.ice;
+        _greenBall=extraAttack.greenBall;
+        Meteor = extraAttack.meteor;
+
         CurrenTouchSpeed = TouchSpeed;
         CurrentStamina = MaxStamina-0.1f;
 
@@ -495,7 +706,7 @@ public class Player : MonoBehaviour
         {
             if (CurrenTouchSpeed < TouchSpeed)
             {
-                CurrenTouchSpeed += Time.deltaTime;
+                CurrenTouchSpeed += Time.deltaTime*TouchRecoverySpeed;
                 //Debug.Log(CurrenTouchSpeed);
             }
 
@@ -513,6 +724,11 @@ public class Player : MonoBehaviour
             if(CurrentLightningTimer<_lightningTimer && Managers.GameManager.PassiveThunderTier1ThunderOn)
             {
                 CurrentLightningTimer += Time.deltaTime;
+            }
+
+            if(CurrentTouchCountTimer<_touchCountTimer && Managers.GameManager.TouchAndAutoTouchTier1TouchCountOn && _touchHitCount>0)
+            {
+                CurrentTouchCountTimer += Time.deltaTime;
             }
         }
 
@@ -533,7 +749,7 @@ public class Player : MonoBehaviour
             if(r<0.5f)
             {
                 CurrentStamina -= StaminaConsum;
-                //Debug.Log(CurrentStamina);
+                //Debug.Log($"{StaminaConsum} 소비");
 
             }
             else
@@ -544,6 +760,7 @@ public class Player : MonoBehaviour
         else
         {
             CurrentStamina -= StaminaConsum;
+            //Debug.Log($"{StaminaConsum} 소비");
         }
         TouchPossibleCheck=false;
     }
@@ -578,7 +795,7 @@ public class Player : MonoBehaviour
 
     public void GoldUp(int gold)
     {
-        _currentGold += gold + (int)(gold * _goldAmount);
+        _currentGold += gold + (int)(gold * _goldAmount)+(int)(gold*Managers.GameManager.ExtraGoldPersent);
 
         Managers.UIManager.GoldUI.GoldChange(_currentGold);
     }
@@ -610,6 +827,31 @@ public class Player : MonoBehaviour
         }
     }
 
+    void TouchCountAutoAttack()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _AutoAttackRange, LayerMask.GetMask("Enemy"));
+
+        if (colliders.Length > 0)
+        {
+            
+            for (int i = 0; i < 1; i++)
+            {
+                int r = Random.Range(0, colliders.Length);
+                if (Managers.GameManager.TouchBuffTier3AutoAttackBuff)
+                {
+                    colliders[r].GetComponent<EnemyBase>().OnTouchDamage(TouchDamage, DamageType.Touch);
+                }
+                else
+                {
+                    colliders[r].GetComponent<EnemyBase>().OnExtraDamage(TouchDamage, DamageType.Touch);
+                }
+                _touchHitCount--;
+            }
+
+        }
+        
+    }
+
 
     public void ExpAttack()
     {
@@ -618,7 +860,13 @@ public class Player : MonoBehaviour
 
         if (colliders.Length > 0)
         {
-            for (int i = 0; i < 1; i++)
+            int expCount = 1;
+            if(Managers.GameManager.PassiveExpTier3Arrow)
+            {
+                expCount = 3;
+            }
+
+            for (int i = 0; i < expCount; i++)
             {
                 int r=Random.Range(0, colliders.Length);
 
@@ -639,46 +887,51 @@ public class Player : MonoBehaviour
                 component.Speed = _allowSpeed;
 
 
-                if (Managers.GameManager.PassiveExpTier3Arrow)
+                if (Managers.GameManager.State == GameState.LevelUp)
                 {
-                    Poolable left = Managers.Pool.Pop(Managers.Object.ExpAllow);
-                    Poolable right = Managers.Pool.Pop(Managers.Object.ExpAllow);
-
-                    left.transform.position = AttackPoint.transform.position + Vector3.left;
-                    right.transform.position = AttackPoint.transform.position + Vector3.forward;
-
-                    left.Spawn(AttackPoint.transform);
-                    right.Spawn(AttackPoint.transform);
-
-                    dir = (colliders[r].transform.position - AttackPoint.transform.position).normalized;
-                    left.transform.LookAt(colliders[r].transform.position);
-                    right.transform.LookAt(colliders[r].transform.position);
-
-                    PassiveExpArrow leftComponent = left.GetComponent<PassiveExpArrow>();
-                    PassiveExpArrow rightComponent = right.GetComponent<PassiveExpArrow>();
-
-                    dir.y += 0.01f;
-
-                    leftComponent.Rigid.velocity = dir * _allowSpeed;
-                    rightComponent.Rigid.velocity = dir * _allowSpeed;
-
-                    leftComponent.Damage = _arrow;
-                    rightComponent.Damage = _arrow;
-
-                    leftComponent.Dir = dir;
-                    rightComponent.Dir = dir;
-
-                    leftComponent.Speed = _allowSpeed;
-                    rightComponent.Speed = _allowSpeed;
-
-                    if (Managers.GameManager.State == GameState.LevelUp)
-                    {
-                        leftComponent.Rigid.velocity = Vector3.zero;
-                        rightComponent.Rigid.velocity = Vector3.zero;
-
-                    }
+                    component.Rigid.velocity = Vector3.zero;
 
                 }
+
+            }
+
+        }
+
+
+    }
+
+    public void IceAttack()
+    {
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _iceAttackRange, LayerMask.GetMask("Enemy"));
+
+        if (colliders.Length > 0)
+        {
+            int iceCount = 5;
+            if(Managers.GameManager.PassiveAndIceTier2MoreIce)
+            {
+                iceCount = 15;
+            }
+
+            for (int i = 0; i < iceCount; i++)
+            {
+                int r = Random.Range(0, colliders.Length);
+
+                Poolable bullet = Managers.Pool.Pop(Managers.Object.PassiveIce);
+
+                bullet.transform.position = AttackPoint.transform.position;
+                bullet.Spawn(AttackPoint.transform);
+
+                Vector3 dir = (colliders[r].transform.position - AttackPoint.transform.position).normalized;
+                bullet.transform.LookAt(colliders[r].transform.position);
+                PassiveAndIce component = bullet.GetComponent<PassiveAndIce>();
+
+                dir.y += 0.01f;
+                component.Rigid.velocity = dir * _iceSpeed;
+
+                component.Damage = _ice;
+                component.Dir = dir;
+                component.Speed = _iceSpeed;
 
 
                 if (Managers.GameManager.State == GameState.LevelUp)
@@ -692,6 +945,54 @@ public class Player : MonoBehaviour
         }
 
 
+    }
+
+    public void GreenBallAttack()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _greenBallRange, LayerMask.GetMask("Enemy"));
+
+        if (colliders.Length > 0)
+        {
+            
+            for (int i = 0; i < 1; i++)
+            {
+                int r = Random.Range(0, colliders.Length);
+
+                Poolable bullet = Managers.Pool.Pop(Managers.Object.GreenBall);
+
+                bullet.transform.position = AttackPoint.transform.position;
+                bullet.Spawn(AttackPoint.transform);
+
+                Vector3 dir = (colliders[r].transform.position - AttackPoint.transform.position).normalized;
+                bullet.transform.LookAt(colliders[r].transform.position);
+                SkillAndGreenBall component = bullet.GetComponent<SkillAndGreenBall>();
+
+                dir.y += 0.01f;
+                component.Rigid.velocity = dir * _greenBallSpeed;
+
+                component.Damage = _greenBall;
+                component.Dir = dir;
+                component.Speed = _greenBallSpeed;
+
+                if(Managers.GameManager.SkillAndGreenBallTier2GreenBallSpeedUp)
+                {
+                    component.Speed += _greenBallSpeed;
+                }
+
+                if(Managers.GameManager.SkillAndGreenBallTier3DurationUp)
+                {
+                    component.DeSpawnTimer += component.DeSpawnTimer;
+                }
+
+                if (Managers.GameManager.State == GameState.LevelUp)
+                {
+                    component.Rigid.velocity = Vector3.zero;
+
+                }
+
+            }
+
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -718,18 +1019,32 @@ public class Player : MonoBehaviour
             return;
 
         BackGroundSound.Instance.BackGroundStop();
-        GameDataManager.Instance.PlayerGold = Mathf.Clamp(GameDataManager.Instance.PlayerGold + _currentGold, 0, GameDataManager.maxGold);
-        GameDataManager.Instance.SaveData();
         _playerDieAudio.Play();
         _isDead = true;
         _animator.SetTrigger("Die");
        
     }
 
+    public void GoldSave()
+    {
+        GameDataManager.Instance.PlayerGold = Mathf.Clamp(GameDataManager.Instance.PlayerGold + _currentGold, 0, GameDataManager.maxGold);
+        GameDataManager.Instance.SaveData();
+
+        _currentGold = 0;
+    }
+
     public void OnGameSetUI()
     {
         Managers.UIManager.GameSetUI.Open(false);
     }
+
+    void SpawnText(string text)
+    {
+        Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
+        p.ExTextSpawn(text, Managers.Object.MyPlayer.transform);
+    }
+
+
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

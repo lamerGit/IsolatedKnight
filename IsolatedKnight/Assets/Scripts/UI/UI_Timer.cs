@@ -23,6 +23,9 @@ public class UI_Timer : MonoBehaviour
 
                 switch(_min)
                 {
+                    case 1:
+                        Managers.Object.EnemySpawnerGroup.On1MinWave();
+                        break;
                     case 2:
                         Managers.Object.EnemySpawnerGroup.OnDefence();
                     break;
@@ -44,6 +47,10 @@ public class UI_Timer : MonoBehaviour
                     case 4:
                         Managers.Object.EnemySpawnerGroup.OnSpeed();
                         break;
+                    case 5:
+                        Managers.Object.EnemySpawnerGroup.On5MinWave();
+                        break;
+
                     case 6:
                         List<BossType> listBuff = new List<BossType>();
                         listBuff.Add(BossType.SnakeBuff);
@@ -60,6 +67,9 @@ public class UI_Timer : MonoBehaviour
                         break;
                     case 7:
                         Managers.Object.EnemySpawnerGroup.OnKnight();
+                        break;
+                    case 8:
+                        Managers.Object.EnemySpawnerGroup.On8MinWave();
                         break;
                     case 9:
                         BackGroundSound.Instance.SoundChange();

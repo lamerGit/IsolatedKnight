@@ -76,29 +76,31 @@ public class Managers : MonoBehaviour
         s_instance._uiManager.GameScenInit();
         s_instance._obj.Init();
         s_instance._pool.Init();
-        s_instance._pool.CreatePool(Object.Skel, count: 30);
-        s_instance._pool.CreatePool(Object.SkelDefence, count: 30);
-        s_instance._pool.CreatePool(Object.SkelSpeed, count: 30);
-        s_instance._pool.CreatePool(Object.SkelKnight, count: 30);
-        s_instance._pool.CreatePool(Object.DamageText, count: 30);
-        s_instance._pool.CreatePool(Object.TouchAttackFx, count: 30);
-        s_instance._pool.CreatePool(Object.DragonBreath, count: 30);
-        s_instance._pool.CreatePool(Object.GolemRock, count: 30);
-        s_instance._pool.CreatePool(Object.RockExplosion, count: 30);
-        s_instance._pool.CreatePool(Object.GostAttackFx, count: 30);
+        s_instance._pool.CreatePool(Object.Skel, count: 60);
+        s_instance._pool.CreatePool(Object.SkelDefence, count: 60);
+        s_instance._pool.CreatePool(Object.SkelSpeed, count: 60);
+        s_instance._pool.CreatePool(Object.SkelKnight, count: 60);
+        s_instance._pool.CreatePool(Object.DamageText, count: 60);
+        s_instance._pool.CreatePool(Object.TouchAttackFx, count: 60);
+        s_instance._pool.CreatePool(Object.DragonBreath, count: 60);
+        s_instance._pool.CreatePool(Object.GolemRock, count: 60);
+        s_instance._pool.CreatePool(Object.RockExplosion, count: 60);
+        s_instance._pool.CreatePool(Object.GostAttackFx, count: 60);
         s_instance._pool.CreatePool(Object.OnePointSkillFx, count: 10);
-        s_instance._pool.CreatePool(Object.ExpAllow, count: 30);
-        s_instance._pool.CreatePool(Object.PassiveLightningFx, count: 30);
+        s_instance._pool.CreatePool(Object.ExpAllow, count: 60);
+        s_instance._pool.CreatePool(Object.PassiveLightningFx, count: 60);
         s_instance._pool.CreatePool(Object.BossSnake, count: 1);
-        s_instance._pool.CreatePool(Object.SwordWind, count: 30);
+        s_instance._pool.CreatePool(Object.SwordWind, count: 60);
         s_instance._pool.CreatePool(Object.BossSnakeBuff, count: 1);
         s_instance._pool.CreatePool(Object.WolfPath, count: 1);
         s_instance._pool.CreatePool(Object.BossWolf, count: 1);
         s_instance._pool.CreatePool(Object.BossWolfBuff, count: 1);
         s_instance._pool.CreatePool(Object.BossBloom, count: 1);
         s_instance._pool.CreatePool(Object.BossBloomBuff, count: 1);
-        s_instance._pool.CreatePool(Object.BloomBullet, count: 30);
+        s_instance._pool.CreatePool(Object.BloomBullet, count: 60);
         s_instance._pool.CreatePool(Object.BossReaper, count: 1);
+        s_instance._pool.CreatePool(Object.PassiveIce, count: 60);
+        s_instance._pool.CreatePool(Object.GreenBall, count: 60);
 
     }
 

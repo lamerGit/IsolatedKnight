@@ -46,8 +46,9 @@ public class UI_WeaponSelectItem : MonoBehaviour
 
         if(euiped)
         {
-            _equipText.text = "Equip";
-        }else
+            _equipText.text = GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].equip;
+        }
+        else
         {
             _equipText.text = "";
         }

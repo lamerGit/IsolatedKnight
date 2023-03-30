@@ -29,7 +29,8 @@ public class Boss_Snake : EnemyBase
                 _animator.SetTrigger("Skill");
                 StateClean();
                 _agent.isStopped = true;
-                _agent.speed = _agent.speed + 0.5f;
+                _maxSpeed = _maxSpeed + 0.5f;
+                BaseSpeed = _maxSpeed;
                 _currentSkillCoolTime = 0.0f;
             }
 
@@ -168,7 +169,8 @@ public class Boss_Snake : EnemyBase
 
         _maxHp = boss.maxHp;
         Hp = boss.maxHp;
-        _agent.speed = boss.speed + Managers.GameManager.ExtraEnemySpeed;
+        _maxSpeed = boss.speed + Managers.GameManager.ExtraEnemySpeed;
+        BaseSpeed = _maxSpeed;
         _exp = boss.exp;
         _skillCoolTime = boss.skillCoolTime;
         _skillRecovery=boss.skillRecovery;
@@ -202,6 +204,7 @@ public class Boss_Snake : EnemyBase
         _speedDownStack = 0;
         _fireStack = 0;
         CurrentFireTick = 0;
+        StateClean();
         _stateFireFx.Stop();
 
         _spawnAudio.Play();

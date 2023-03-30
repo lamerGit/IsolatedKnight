@@ -74,6 +74,11 @@ public class PartnerGost : MonoBehaviour
 
         if (colliders.Length > 0)
         {
+            if (Managers.GameManager.PartnerAndMeteorTier1MeteorOn)
+            {
+                Managers.Object.MyPlayer.MeteorCount++;
+            }
+
             _audioSoruce.Play();
             _animator.SetTrigger("Attack");
             Poolable p = Managers.Pool.Pop(Managers.Object.GostAttackFx);
@@ -81,14 +86,14 @@ public class PartnerGost : MonoBehaviour
             for (int i = 0; i < colliders.Length; i++)
             {
                 EnemyBase e = colliders[i].GetComponent<EnemyBase>();
-                e.EnemySlow(stack:2);
-                if (Managers.GameManager.PartnerGostTier2Slow)
+                e.EnemySlow(stack:3);
+                if (Managers.GameManager.PartnerGostTier2Damage)
                 {
                     e.OnPartnerDamage(AttackDamge,DamageType.PartnerGost);
                 }
                 if(Managers.GameManager.PartnerGostTier3Slow)
                 {
-                    e.EnemySlow(stack: 2);
+                    e.EnemySlow(stack: 6);
                 }
 
             }

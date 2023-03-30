@@ -21,7 +21,7 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
     public void Open()
     {
         _left.Option=LevelUpOption.None;
-        _Middle.Option=LevelUpOption.None;
+        _Middle.Option = LevelUpOption.None ;
         _right.Option = LevelUpOption.None;
         RandomOption();
         
@@ -32,7 +32,9 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
     {
         List<LevelUpOption> options = new List<LevelUpOption>();
 
-        if(Managers.GameManager.TouchDamageTier<3)
+        #region Nomal
+
+        if (Managers.GameManager.TouchDamageTier<3)
         {
             options.Add(LevelUpOption.TouchDamage);
         }
@@ -112,6 +114,35 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
             options.Add(LevelUpOption.PassiveThunder);
         }
 
+        if(Managers.GameManager.PassiveAndIceTier<3)
+        {
+            options.Add(LevelUpOption.PassiveAndIce);
+        }
+
+        if(Managers.GameManager.SkillAndGreenBallTier<3)
+        {
+            options.Add(LevelUpOption.SkillAndGreenBall);
+        }
+
+        if(Managers.GameManager.TouchAndAutoTouchTier<3)
+        {
+            options.Add(LevelUpOption.TouchAndAutoTouch);
+        }
+
+        if(Managers.GameManager.PartnerAndMeteorTier<3)
+        {
+            options.Add(LevelUpOption.PartnerAndMeteor);
+        }
+
+        if(Managers.GameManager.PassiveGoldUpTier<3)
+        {
+            options.Add(LevelUpOption.GoldUp);
+        }
+
+        #endregion
+
+        #region Synergy
+
         if (Managers.GameManager.TouchDamageTier > 1 && Managers.GameManager.TouchSpeedTier > 1 && Managers.GameManager.SynergySpeedGameTier < 1)
         {
             options.Add(LevelUpOption.SpeedGame);
@@ -137,7 +168,25 @@ public class UI_LevelUpButtonGroup : MonoBehaviour
             options.Add(LevelUpOption.DefenceFire);
         }
 
-        for(int i=options.Count-1; i>-1; i--)
+        if(Managers.GameManager.ExpUpTier>1 && Managers.GameManager.PassiveGoldUpTier>2 && Managers.GameManager.SynergyFixedUpTier<1)
+        {
+            options.Add(LevelUpOption.SynergyFixedUp);
+        }
+
+        if(Managers.GameManager.TouchBuffTier>1 && Managers.GameManager.SkillBuffTier>1 && Managers.GameManager.PartnerBuffTier>1 && Managers.GameManager.SynergyTouchSkillPartnerUpTier<1)
+        {
+            options.Add(LevelUpOption.TouchSkillPartnerUp);
+        }
+
+        if(Managers.GameManager.PassiveAndIceTier>2 && Managers.GameManager.SkillAndGreenBallTier>2 && Managers.GameManager.TouchAndAutoTouchTier>2 && Managers.GameManager.SynergyRandomProjectileTier<1)
+        {
+            options.Add(LevelUpOption.RandomProjectile);
+        }
+
+
+        #endregion
+
+        for (int i=options.Count-1; i>-1; i--)
         {
             int randIndex = Random.Range(0, i + 1);
 

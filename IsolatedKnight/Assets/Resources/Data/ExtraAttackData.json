@@ -1,0 +1,10 @@
+{
+  "extraAttacks": [
+    {
+      "type": "0",
+      "ice": "5",
+      "greenBall": "200",
+      "meteor": "100"
+    }
+  ]
+} 

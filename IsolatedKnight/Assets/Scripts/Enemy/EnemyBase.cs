@@ -32,7 +32,7 @@ public class EnemyBase : Poolable
     float _currentSpeedDownTimer = 0.0f;
 
     float _SpeedDownTimer = 2.0f;
-    float _speedDownPoint = 0.3f;
+    float _speedDownPoint = 0.1f;
 
     protected ParticleSystem _stateFireFx;
 
@@ -48,6 +48,16 @@ public class EnemyBase : Poolable
     protected bool _bullet = false;
 
     protected AudioSource _myAudio;
+
+    protected float _maxSpeed;
+
+    protected int _iceStack = 0;
+
+    protected float BaseSpeed
+    {
+        get { return _agent.speed; }
+        set { _agent.speed = Mathf.Clamp (value,0.0f,_maxSpeed); }
+    }
 
     protected float CurrentFireTick
     {
@@ -95,7 +105,7 @@ public class EnemyBase : Poolable
                 if (_agent == null)
                     return;
 
-                _agent.speed =_agent.speed+ _speedDownStack * _speedDownPoint;
+                BaseSpeed = BaseSpeed + _speedDownStack * _speedDownPoint;
                 _speedDownStack = 0;
             
             }
@@ -216,6 +226,11 @@ public class EnemyBase : Poolable
 
         FireCheck();
 
+        if(Managers.GameManager.PassiveAndIceTier1IceOn && damageType!=DamageType.Ice)
+        {
+            Managers.Object.MyPlayer.IceCount++;
+        }
+
         //Debug.Log(Hp);
     }
 
@@ -244,6 +259,11 @@ public class EnemyBase : Poolable
         p.DamageTextSpawn(totaldamage, transform);
         StartCoroutine(HitMaterial());
         Hp -= totaldamage;
+
+        if (Managers.GameManager.PassiveAndIceTier1IceOn && damageType != DamageType.Ice)
+        {
+            Managers.Object.MyPlayer.IceCount++;
+        }
 
         //Debug.Log(Hp);
     }
@@ -531,8 +551,9 @@ public class EnemyBase : Poolable
     {
         _speedDownStack+=stack;
         CurrentSpeedDownTimer = 0.0f;
-        _agent.speed =_agent.speed- _speedDownPoint*stack;
+        BaseSpeed = BaseSpeed - _speedDownPoint*stack;
     }
+
 
     protected virtual IEnumerator HitMaterial()
     {

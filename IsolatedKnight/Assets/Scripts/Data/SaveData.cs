@@ -28,4 +28,12 @@ public class SaveData
 
     public float BgmValue;
     public float CfxValue;
+
+    public int Language;
+
+    public bool SwordClear;
+    public bool AxeClear;
+    public bool HammerClear;
+    public bool StickClear;
+    public bool HandClear;
 }

@@ -108,6 +108,7 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case BossRewardOption.None:
                 Managers.Object.MyPlayer.GoldUp(50);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].getgold);
                 break;
             case BossRewardOption.SwordWind:
                 SwordWindTierSelected();
@@ -182,7 +183,9 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.ExtraTouchDamage += (int)(Managers.Object.MyPlayer.TouchDamage * 2.0f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Touchdamageup);
                 Managers.GameManager.ExtraMaxStamina -= (int)(Managers.Object.MyPlayer.MaxStamina * 0.2f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Maxstaminadown);
                 break;
 
         }
@@ -195,7 +198,9 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.ExtraPartnerDamage += (int)(Managers.Object.MyPlayer.PartnerDamage * 2.0f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Summondamageup);
                 Managers.GameManager.ExtraTouchDamage -= (int)(Managers.Object.MyPlayer.TouchDamage * 0.5f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Touchdamagedown);
                 break;
 
         }
@@ -208,8 +213,11 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.ExtraSkillDamage += (int)(Managers.Object.MyPlayer.SkillDamage * 3.0f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Skilldamageup);
                 Managers.GameManager.ExtraTouchDamage -= (int)(Managers.Object.MyPlayer.TouchDamage * 0.3f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Touchdamagedown);
                 Managers.GameManager.ExtraPartnerDamage -= (int)(Managers.Object.MyPlayer.PartnerDamage * 0.3f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Summondamagedown);
                 break;
 
         }
@@ -222,8 +230,11 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.ExtraFixedDamage += 3;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Fixeddamageup);
                 Managers.GameManager.ExtraEnemySpeed += 1.0f;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Enemyspeedup);
                 Managers.GameManager.ExtraExpPersent += 1.0f;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].ExpUp);
                 break;
 
         }
@@ -236,7 +247,11 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.ExtraMaxStamina += (int)(Managers.Object.MyPlayer.MaxStamina * 1.0f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Maxstaminaup);
                 Managers.GameManager.ExtraTouchDamage += (int)(Managers.Object.MyPlayer.TouchDamage * 0.5f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Touchdamageup);
+                Managers.Object.MyPlayer.StaminaRecoverySpeed += 3.0f;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].staminaRecoveryUp);
                 break;
 
         }
@@ -249,9 +264,12 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.ExtraSkillRecovery += 3.0f;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Skillrecoveryspeedup);
                 Managers.GameManager.ExtraTouchSpeed += Managers.Object.MyPlayer.TouchSpeed * 0.3f;
                 Managers.Object.MyPlayer.CurrenTouchSpeed = 0.0f;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Touchspeedup);
                 Managers.GameManager.ExtraEnemySpeed += 0.5f;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Enemyspeedup);
                 break;
 
         }
@@ -263,7 +281,8 @@ public class UI_BossRewardButton : MonoBehaviour
         switch (Managers.GameManager.FixedUpTier)
         {
             case 0:
-                Managers.GameManager.ExtraFixedDamage += 3;
+                Managers.GameManager.ExtraFixedDamage += 2;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Fixeddamageup);
                 break;
 
         }
@@ -276,6 +295,7 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.ExtraExpPersent += 2.0f;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].ExpUp);
                 break;
 
         }
@@ -291,7 +311,9 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.ExtraSkillRecovery += 10.0f;
-                Managers.GameManager.ExtraTouchDamage -= (int)(Managers.Object.MyPlayer.TouchDamage * 1.0f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Skilldamageup);
+                Managers.GameManager.ExtraTouchDamage -= (int)(Managers.Object.MyPlayer.TouchDamage * 3.0f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Touchdamagedown);
                 break;
 
         }
@@ -304,6 +326,7 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.StickRandomSkillTier1RandomOn = true;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Chancetonotskillcooltime);
                 break;
 
         }
@@ -316,8 +339,11 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.ExtraPartnerDamage -= (int)(Managers.Object.MyPlayer.PartnerDamage * 0.5f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Summondamagedown);
                 Managers.GameManager.ExtraSkillDamage += (int)(Managers.Object.MyPlayer.SkillDamage * 3.0f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Skilldamageup);
                 Managers.GameManager.ExtraFixedDamage += 1;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Fixeddamageup);
                 break;
 
         }
@@ -332,6 +358,7 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.HammaerStunTier1StunOn = true;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Slowwhentouch);
                 break;
 
         }
@@ -344,6 +371,7 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.HammerExtraAttackTier1ExtraAttackOn = true;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Fixeddamagewhentouch);
                 break;
 
         }
@@ -355,8 +383,10 @@ public class UI_BossRewardButton : MonoBehaviour
         switch (Managers.GameManager.HammerFixedTier)
         {
             case 0:
-                Managers.GameManager.ExtraFixedDamage += 3;
+                Managers.GameManager.ExtraFixedDamage += 2;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Fixeddamageup);
                 Managers.GameManager.ExtraTouchSpeed += Managers.Object.MyPlayer.TouchSpeed * 0.5f;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Touchspeedup);
                 Managers.Object.MyPlayer.CurrenTouchSpeed = 0.0f;
 
                 break;
@@ -373,6 +403,7 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.ExtraTouchDamage += (int)(Managers.Object.MyPlayer.TouchDamage * 2.0f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Touchdamageup);
                 break;
 
         }
@@ -385,6 +416,7 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.AxeArrowTier1ArrowOn = true;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Arrowwhentouch);
                 break;
 
         }
@@ -397,6 +429,7 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.AxeFrenzyTier1FrenzyOn = true;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Staminarecoverywhentouch);
                 break;
 
         }
@@ -412,9 +445,13 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.ExtraPartnerDamage += (int)(Managers.Object.MyPlayer.PartnerDamage * 0.3f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Summondamageup);
                 Managers.GameManager.ExtraTouchDamage += (int)(Managers.Object.MyPlayer.TouchDamage * 0.3f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Touchdamageup);
                 Managers.GameManager.ExtraSkillDamage += (int)(Managers.Object.MyPlayer.SkillDamage * 0.3f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Skilldamageup);
                 Managers.GameManager.ExtraFixedDamage += 1;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Fixeddamageup);
                 break;
 
         }
@@ -426,7 +463,9 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.ExtraPartnerDamage += (int)(Managers.Object.MyPlayer.PartnerDamage * 2.0f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Summondamageup);
                 Managers.GameManager.ExtraMaxStamina -= (int)(Managers.Object.MyPlayer.MaxStamina * 0.3f);
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Maxstaminadown);
                 break;
 
         }
@@ -439,10 +478,17 @@ public class UI_BossRewardButton : MonoBehaviour
         {
             case 0:
                 Managers.GameManager.SwordWindTier1SwordWindOn = true;
+                SpawnText(GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Swordwindwhentouch);
                 break;
 
         }
         Managers.GameManager.SwordWindTier++;
     }
     #endregion
+
+    void SpawnText(string text)
+    {
+        Poolable p = Managers.Pool.Pop(Managers.Object.DamageText);
+        p.ExTextSpawn(text, Managers.Object.MyPlayer.transform);
+    }
 }

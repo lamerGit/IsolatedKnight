@@ -1,3 +1,4 @@
+using Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,14 @@ public enum LevelUpOption
     ThunderArrow,
     WaringDragon,
     DefenceFire,
+    PassiveAndIce,
+    SkillAndGreenBall,
+    TouchAndAutoTouch,
+    PartnerAndMeteor,
+    GoldUp,
+    SynergyFixedUp,
+    TouchSkillPartnerUp,
+    RandomProjectile
 }
 
 public enum PartnerType
@@ -127,11 +136,115 @@ public enum DamageType
     PassiveThunder,
     PassiveFire,
     PassiveDefence,
-    SwordWind
+    SwordWind,
+    Ice,
+    GreenBall,
+    Meteor
+
 }
 
 public enum GameScene
 {
     Lobby=0,
-    GameScene
+    GameScene,
+    SwordEnding,
+    AxeEnding,
+    HammerEnding,
+    StickEnding,
+    HandEnding
+}
+
+public enum LanguageType
+{
+    us=0,
+    kr
+}
+
+public enum Language
+{
+    None = 0,
+    CFX,
+    BGM,
+    Weapon,
+    PowerUp,
+    Start,
+    Swordwindwhentouch,
+    Staminarecoverywhentouch,
+    Arrowwhentouch,
+    Fixeddamagewhentouch,
+    Chancetonotskillcooltime,
+    Summonandskilldamageupwhenoveload,
+    Maxstaminaup,
+    Autotouchupgrade,
+    Autotouchget,
+    Chancetonotstaminaconsum,
+    Staminaconsumdown,
+    Multiattackwhentouch,
+    Slowwhentouch,
+    SummonattackSpeedup,
+    Dragonattackmultishot,
+    Dragonattackpiercing,
+    SummonDragon,
+    Summonsdealextradamage,
+    GhostSlowUp,
+    Ghostdodamage,
+    Summonghost,
+    Golemattackexplosion,
+    Golemattackbounce,
+    Summongolem,
+    skillresetskillget,
+    StaminaRecoveryupwhenusingskill,
+    Touchspeedupwhenusingskill,
+    Touchabilityupskillget,
+    HolyshockslowUp,
+    Slowwhenholyshockattack,
+    Holyshockskillget,
+    Enemymaximumhp10persentdamage,
+    LightningBallskillget,
+    Arrowcountby3,
+    Arrowattackwhenexpget,
+    ExpUp,
+    ShieldattackSpeedUp,
+    ShielddamageUp,
+    Slowwhenshieldattack,
+    Fixeddamageshield,
+    BurnRateUp,
+    Burnsstackby2stacks,
+    Chancetoburnwhenattacking,
+    skillrecoveryafterlightninghit,
+    lightningCountUp,
+    Fixeddamagelightning,
+    GoldUp,
+    Burntransferafterburnenemydie,
+    Dragonattackspeedupafteroverload,
+    Arrowsbounce,
+    Skillrecoveryspeedup,
+    Enemyspeedup,
+    Touchspeedup,
+    Fixeddamageup,
+    Summondamageup,
+    Skilldamageup,
+    Touchdamageup,
+    Randomprojectileafterattacking10touch,
+    IceArrowafter30fixeddamage,
+    icearrowcountup,
+    IceArrowafter50fixeddamage,
+    DeathBalldurationup,
+    DeathBallspeedup,
+    DeathBallafterusing10skill,
+    WhirlWindCountUp,
+    WhirlWindafterattacking25touch,
+    BurnonMeterorHit,
+    SlowonMeteorHit,
+    Meteorafterattacking30summons,
+    Skillrecoveryspeeddown,
+    Maxstaminadown,
+    Touchdamagedown,
+    Summondamagedown,
+    Skilldamagedown,
+    DragonattackSpeedUp,
+    DragonattackSpeedDown,
+    overload
+
+
 }

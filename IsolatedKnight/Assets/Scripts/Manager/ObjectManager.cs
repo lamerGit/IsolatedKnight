@@ -66,6 +66,11 @@ public class ObjectManager
 
     public EnemySpawnerGroup EnemySpawnerGroup { get; private set; }
 
+    public GameObject PassiveIce { get; private set; }
+
+    public GameObject GreenBall { get; private set; }
+
+    public PartnerMeteor PartnerMeteor { get; private set; }
     public void Init()
     {
         GameObject p = Resources.Load<GameObject>($"Prefabs/Player");
@@ -169,6 +174,17 @@ public class ObjectManager
 
         EnemySpawnerGroup=InstSpawnerGroup.GetComponent<EnemySpawnerGroup>();
         EnemySpawnerGroup.SpawnerOff();
+
+        PassiveIce = Resources.Load<GameObject>($"Prefabs/PassiveIce");
+
+        GreenBall = Resources.Load<GameObject>($"Prefabs/GreenBall");
+
+        GameObject partnerMeteor = Resources.Load<GameObject>($"Prefabs/PartnerMeteor");
+        GameObject InstPartnerMeteor=Object.Instantiate(partnerMeteor);
+        InstPartnerMeteor.name=partnerMeteor.name;
+
+        PartnerMeteor=InstPartnerMeteor.GetComponent<PartnerMeteor>();
+        PartnerMeteor.DeSpawn();
 
     }
 }

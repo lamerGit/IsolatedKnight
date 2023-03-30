@@ -13,6 +13,12 @@ public class UI_LobbyGroup : MonoBehaviour
 
     
     RectTransform _rect;
+
+    TextMeshProUGUI _titleText;
+
+    TextMeshProUGUI _startButtonText;
+    TextMeshProUGUI _powerUpButtonText;
+    TextMeshProUGUI _weaponButtonText;
     private void Awake()
     {
         _rect = GetComponent<RectTransform>();
@@ -20,8 +26,14 @@ public class UI_LobbyGroup : MonoBehaviour
         _startButton=transform.Find("StartButton").GetComponent<Button>();
         _powerUpButton = transform.Find("PowerUpButton").GetComponent<Button>();
         _weaponButton = transform.Find("WeaponButton").GetComponent<Button>();
-       
 
+        _titleText = transform.Find("Title").GetComponent<TextMeshProUGUI>();
+
+
+        _startButtonText = transform.Find("StartButton/Text").GetComponent<TextMeshProUGUI>();
+        _powerUpButtonText = transform.Find("PowerUpButton/Text").GetComponent<TextMeshProUGUI>();
+        _weaponButtonText = transform.Find("WeaponButton/Text").GetComponent<TextMeshProUGUI>();
+       
         _startButton.onClick.AddListener(OnStartButton);
         _powerUpButton.onClick.AddListener(OnPowerUpGroup);
         _weaponButton.onClick.AddListener(OnWeaponSelectGroup);
@@ -35,7 +47,20 @@ public class UI_LobbyGroup : MonoBehaviour
         _rect.sizeDelta=new Vector2(camera.pixelWidth,camera.pixelHeight);
 
 
-        
+        LanguageCheck();
+
+        GameDataManager.Instance.ChangeLanguage += LanguageCheck;
+
+    }
+
+
+    void LanguageCheck()
+    {
+        _titleText.text = GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].lonelyKnight;
+        _startButtonText.text = GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Start;
+        _powerUpButtonText.text = GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].PowerUp;
+        _weaponButtonText.text = GameDataManager.Instance.LanguageData[GameDataManager.Instance.LanguageType].Weapon;
+
     }
 
     

@@ -12,6 +12,6 @@ public class UI_BlackOut : MonoBehaviour
 
         Camera camera = Camera.main;
 
-        _rect.sizeDelta = new Vector2(camera.pixelWidth, camera.pixelHeight);
+        _rect.sizeDelta = new Vector2(camera.pixelWidth*2.0f, camera.pixelHeight*2.0f);
     }
 }

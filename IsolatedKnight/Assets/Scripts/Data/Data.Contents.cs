@@ -328,4 +328,158 @@ namespace Data
         }
     }
     #endregion
+
+    #region ExtraAttack
+    [Serializable]
+    public class ExtraAttack
+    {
+        public int type;
+        public int ice;
+        public int greenBall;
+        public int meteor;
+    }
+
+    [Serializable]
+    public class ExtraAttackLoader : ILoader<int, ExtraAttack>
+    {
+        public List<ExtraAttack> extraAttacks = new List<ExtraAttack>();
+
+        public Dictionary<int, ExtraAttack> MakeDict()
+        {
+            Dictionary<int, ExtraAttack> dict = new Dictionary<int, ExtraAttack>();
+            foreach (ExtraAttack extra in extraAttacks)
+            {
+                dict.Add(extra.type, extra);
+            }
+            return dict;
+
+        }
+    }
+    #endregion
+
+    #region Language
+    [Serializable]
+    public class Language
+    {
+        public int type;
+        public string None;
+        public string CFX;
+        public string BGM;
+        public string Weapon;
+        public string PowerUp;
+        public string Start;
+        public string Swordwindwhentouch;
+        public string Staminarecoverywhentouch;
+        public string Arrowwhentouch;
+        public string Fixeddamagewhentouch;
+        public string Chancetonotskillcooltime;
+        public string Summonandskilldamageupwhenoveload;
+        public string Maxstaminaup;
+        public string Autotouchupgrade;
+        public string Autotouchget;
+        public string Chancetonotstaminaconsum;
+        public string Staminaconsumdown;
+        public string Multiattackwhentouch;
+        public string Slowwhentouch;
+        public string SummonattackSpeedup;
+        public string Dragonattackmultishot;
+        public string Dragonattackpiercing;
+        public string SummonDragon;
+        public string Summonsdealextradamage;
+        public string GhostSlowUp;
+        public string Ghostdodamage;
+        public string Summonghost;
+        public string Golemattackexplosion;
+        public string Golemattackbounce;
+        public string Summongolem;
+        public string skillresetskillget;
+        public string StaminaRecoveryupwhenusingskill;
+        public string Touchspeedupwhenusingskill;
+        public string Touchabilityupskillget;
+        public string HolyshockslowUp;
+        public string Slowwhenholyshockattack;
+        public string Holyshockskillget;
+        public string Enemymaximumhp10persentdamage;
+        public string LightningBallskillget;
+        public string Arrowcountby3;
+        public string Arrowattackwhenexpget;
+        public string ExpUp;
+        public string ShieldattackSpeedUp;
+        public string ShielddamageUp;
+        public string Slowwhenshieldattack;
+        public string Fixeddamageshield;
+        public string BurnRateUp;
+        public string Burnsstackby2stacks;
+        public string Chancetoburnwhenattacking;
+        public string skillrecoveryafterlightninghit;
+        public string lightningCountUp;
+        public string Fixeddamagelightning;
+        public string GoldUp;
+        public string Burntransferafterburnenemydie;
+        public string Dragonattackspeedupafteroverload;
+        public string Arrowsbounce;
+        public string Skillrecoveryspeedup;
+        public string Enemyspeedup;
+        public string Touchspeedup;
+        public string Fixeddamageup;
+        public string Summondamageup;
+        public string Skilldamageup;
+        public string Touchdamageup;
+        public string Randomprojectileafterattacking10touch;
+        public string IceArrowafter30fixeddamage;
+        public string icearrowcountup;
+        public string IceArrowafter50fixeddamage;
+        public string DeathBalldurationup;
+        public string DeathBallspeedup;
+        public string DeathBallafterusing10skill;
+        public string WhirlWindCountUp;
+        public string WhirlWindafterattacking25touch;
+        public string BurnonMeterorHit;
+        public string SlowonMeteorHit;
+        public string Meteorafterattacking30summons;
+        public string Skillrecoveryspeeddown;
+        public string Maxstaminadown;
+        public string Touchdamagedown;
+        public string Summondamagedown;
+        public string Skilldamagedown;
+        public string DragonattackSpeedUp;
+        public string DragonattackSpeedDown;
+        public string overload;
+        public string lonelyKnight;
+        public string option;
+        public string quit;
+        public string level;
+        public string gameover;
+        public string win;
+        public string lobby;
+        public string tryagein;
+        public string equip;
+        public string restart;
+        public string giveup;
+        public string getgold;
+        public string staminaRecoveryUp;
+        public string overloadend;
+        public string touchspeeddown;
+        public string staminaRecoveryDown;
+
+
+    }
+
+    [Serializable]
+    public class LanguageLoader : ILoader<int, Language>
+    {
+        public List<Language> languages = new List<Language>();
+
+        public Dictionary<int, Language> MakeDict()
+        {
+            Dictionary<int, Language> dict = new Dictionary<int, Language>();
+            foreach (Language language in languages)
+            {
+                dict.Add(language.type, language);
+            }
+            return dict;
+
+        }
+    }
+    #endregion
 }

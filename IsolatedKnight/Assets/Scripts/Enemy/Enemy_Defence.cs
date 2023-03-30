@@ -65,7 +65,8 @@ public class Enemy_Defence : EnemyBase
         _level = skelDefence.level;
         _maxHp = skelDefence.maxHp;
         Hp = skelDefence.maxHp;
-        _agent.speed = skelDefence.speed + Managers.GameManager.ExtraEnemySpeed;
+        _maxSpeed = skelDefence.speed + Managers.GameManager.ExtraEnemySpeed;
+        BaseSpeed = _maxSpeed;
         _exp = skelDefence.exp;
 
         _state = EnemyState.Chase;
@@ -84,6 +85,7 @@ public class Enemy_Defence : EnemyBase
         _speedDownStack = 0;
         _fireStack = 0;
         CurrentFireTick = 0;
+        StateClean();
         _stateFireFx.Stop();
 
 

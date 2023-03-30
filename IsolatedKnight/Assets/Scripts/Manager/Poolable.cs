@@ -24,4 +24,9 @@ public class Poolable : MonoBehaviour
 	{
 
 	}
+
+	public virtual void ExTextSpawn(string text,Transform spawnTransform)
+	{
+
+	}
 }

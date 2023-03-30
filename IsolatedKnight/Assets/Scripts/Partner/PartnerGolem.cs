@@ -79,6 +79,11 @@ public class PartnerGolem : MonoBehaviour
         {
             for (int i = 0; i < 1; i++)
             {
+                if (Managers.GameManager.PartnerAndMeteorTier1MeteorOn)
+                {
+                    Managers.Object.MyPlayer.MeteorCount++;
+                }
+
                 int r=Random.Range(0, colliders.Length);
 
                 transform.LookAt(colliders[r].gameObject.transform.position);
@@ -99,7 +104,11 @@ public class PartnerGolem : MonoBehaviour
                 component.Dir = dir;
                 component.Speed = _bulletSpeed;
 
-
+                if (Managers.GameManager.State == GameState.LevelUp)
+                {
+                    component.Rigid.velocity = Vector3.zero;
+                    
+                }
                 //Debug.Log("АјАн");
             }
             CurrentAttackTimer = 0.0f;

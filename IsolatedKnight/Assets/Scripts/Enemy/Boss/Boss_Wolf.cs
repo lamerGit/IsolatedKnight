@@ -170,7 +170,8 @@ public class Boss_Wolf : EnemyBase
 
         _maxHp = boss.maxHp;
         Hp = boss.maxHp;
-        _agent.speed = boss.speed + Managers.GameManager.ExtraEnemySpeed;
+        _maxSpeed = boss.speed + Managers.GameManager.ExtraEnemySpeed;
+        BaseSpeed = _maxSpeed;
         _exp = boss.exp;
         _skillCoolTime = boss.skillCoolTime;
         _skillRecovery = boss.skillRecovery;
@@ -204,6 +205,7 @@ public class Boss_Wolf : EnemyBase
         _speedDownStack = 0;
         _fireStack = 0;
         CurrentFireTick = 0;
+        StateClean();
         _stateFireFx.Stop();
 
         _spawnAudio.Play();

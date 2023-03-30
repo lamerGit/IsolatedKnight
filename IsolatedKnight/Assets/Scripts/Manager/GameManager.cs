@@ -32,7 +32,11 @@ public class GameManager
     { DamageType.PassiveThunder, 0 },
     { DamageType.PassiveFire, 0 },
     { DamageType.PassiveDefence, 0 },
-    { DamageType.SwordWind, 0 }};
+    { DamageType.SwordWind, 0 },
+    { DamageType.Ice, 0 },
+    { DamageType.GreenBall, 0 },
+    { DamageType.Meteor, 0 }
+    };
 
 
 
@@ -95,7 +99,7 @@ public class GameManager
 
     public int PartnerGostTier { get; set; } = 0;
 
-    public bool PartnerGostTier2Slow { get; set; } = false;
+    public bool PartnerGostTier2Damage { get; set; } = false;
     public bool PartnerGostTier3Slow { get; set;} = false;
 
     #endregion
@@ -158,6 +162,9 @@ public class GameManager
 
     public bool PassiveThunderTier3CoolTimeRecovery { get;set; } = false;
 
+    public int PassiveGoldUpTier { get; set; } = 0;
+
+    public float ExtraGoldPersent { get; set; } = 0.0f;
 
     #endregion
 
@@ -176,6 +183,13 @@ public class GameManager
     public int SynergyDefenceFireTier { get; set; } = 0;
 
     public bool SynergyDefenceFireTier1FireTrans { get; set;} = false;
+
+    public int SynergyFixedUpTier { get; set;} = 0;
+
+    public int SynergyTouchSkillPartnerUpTier { get; set;} = 0;
+
+    public int SynergyRandomProjectileTier { get; set; } = 0;
+    public bool SynergyRandomProjectileTier1RandomOn { get; set; } = false;
 
     #endregion
 
@@ -226,6 +240,36 @@ public class GameManager
     public int FixedUpTier { get; set; } = 0;
 
     public int ExpUpTier { get; set; } = 0;
+
+
+    #endregion
+
+    #region ExtraAttack
+
+    public int PassiveAndIceTier { get; set;} = 0;
+
+    public bool PassiveAndIceTier1IceOn { get; set; } = false;
+    public bool PassiveAndIceTier2MoreIce { get; set; } = false;
+
+    public int SkillAndGreenBallTier { get; set; } = 0;
+
+    public bool SkillAndGreenBallTier1GreenBallOn { get; set; } = false;
+
+    public bool SkillAndGreenBallTier2GreenBallSpeedUp { get; set;} = false;
+
+    public bool SkillAndGreenBallTier3DurationUp { get; set; } = false;
+
+    public int TouchAndAutoTouchTier { get; set; } = 0;
+    public bool TouchAndAutoTouchTier1TouchCountOn { get; set; } = false;
+    public bool TouchAndAutoTouchTier2TouchCountUp { get; set; } = false;
+    public bool TouchAndAutoTouchTier3TouchCountUp { get; set; } = false;
+
+    public int PartnerAndMeteorTier { get; set;} = 0;
+    public bool PartnerAndMeteorTier1MeteorOn { get; set;} = false;
+    public bool PartnerAndMeteorTier2MeteorSlow { get; set;} = false;
+    public bool PartnerAndMeteorTier3MeteorFire { get; set;} = false;
+
+
 
 
     #endregion

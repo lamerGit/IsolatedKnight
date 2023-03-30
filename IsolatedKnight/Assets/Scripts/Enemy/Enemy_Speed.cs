@@ -65,7 +65,8 @@ public class Enemy_Speed : EnemyBase
         _level = skelSpeed.level;
         _maxHp = skelSpeed.maxHp;
         Hp = skelSpeed.maxHp;
-        _agent.speed = skelSpeed.speed + Managers.GameManager.ExtraEnemySpeed;
+        _maxSpeed = skelSpeed.speed + Managers.GameManager.ExtraEnemySpeed;
+        BaseSpeed = _maxSpeed;
         _exp = skelSpeed.exp;
 
         _state = EnemyState.Chase;
@@ -84,6 +85,7 @@ public class Enemy_Speed : EnemyBase
         _speedDownStack = 0;
         _fireStack = 0;
         CurrentFireTick = 0;
+        StateClean();
         _stateFireFx.Stop();
 
 

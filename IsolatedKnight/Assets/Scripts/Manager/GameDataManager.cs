@@ -32,6 +32,12 @@ public class GameDataManager : Singleton<GameDataManager>
 
     public bool HandOpen { get; set; }
 
+    public bool SwordClear { get; set; }
+    public bool AxeClear { get; set; }
+    public bool HammerClear { get; set; }
+    public bool StickClear { get; set; }
+    public bool HandClear { get; set; }
+
     public static int maxGold = 99999999;
 
     public static int maxTouchDamageTier = 5;
@@ -45,6 +51,20 @@ public class GameDataManager : Singleton<GameDataManager>
     public static int maxGoldUpTier = 5;
 
     public Action ChangeGold { get; set; }
+
+    LanguageType _languageType = LanguageType.us;
+    public LanguageType LanguageType
+    {
+        get { return _languageType; }
+        set { _languageType = value;
+            ChangeLanguage?.Invoke();
+        }
+
+    }
+
+    public Action ChangeLanguage { get; set; }
+
+    public Dictionary<LanguageType, Data.Language> LanguageData { get; private set; } = new Dictionary<LanguageType, Data.Language>();
 
     [SerializeField]
     AudioMixer _audioMixer;
@@ -71,11 +91,14 @@ public class GameDataManager : Singleton<GameDataManager>
     protected override void Awake()
     {
         base.Awake();
+        LanguageInit();
+        LanguageSet();
     }
 
     protected override void Initialize()
     {
        LoadData();
+       //Cursor.visible = false;
     }
 
     void LoadData()
@@ -108,6 +131,14 @@ public class GameDataManager : Singleton<GameDataManager>
 
             BgmVolume = saveData.BgmValue;
             CfxVolume = saveData.CfxValue;
+
+            LanguageType = (LanguageType)saveData.Language;
+
+            SwordClear = saveData.SwordClear;
+            AxeClear = saveData.AxeClear;
+            HammerClear = saveData.HammerClear;
+            StickClear = saveData.StickClear;
+            HandClear = saveData.HandClear;
 
 
         }else
@@ -157,6 +188,14 @@ public class GameDataManager : Singleton<GameDataManager>
             saveData.BgmValue = BgmVolume;
             saveData.CfxValue = CfxVolume;
 
+            saveData.Language = (int)LanguageType;
+
+            saveData.SwordClear= SwordClear;
+            saveData.AxeClear= AxeClear;
+            saveData.HammerClear= HammerClear;
+            saveData.StickClear= StickClear;
+            saveData.HandClear= HandClear;
+
             string json =JsonUtility.ToJson(saveData);
 
             if(!Directory.Exists(path))
@@ -198,6 +237,14 @@ public class GameDataManager : Singleton<GameDataManager>
         saveData.BgmValue = BgmVolume;
         saveData.CfxValue = CfxVolume;
 
+        saveData.Language = (int)LanguageType;
+
+        saveData.SwordClear = SwordClear;
+        saveData.AxeClear = AxeClear;
+        saveData.HammerClear = HammerClear;
+        saveData.StickClear = StickClear;
+        saveData.HandClear = HandClear;
+
         string json = JsonUtility.ToJson(saveData);
 
         if (!Directory.Exists(path))
@@ -206,5 +253,33 @@ public class GameDataManager : Singleton<GameDataManager>
         }
 
         File.WriteAllText(fullPath, json);
+    }
+
+    public Dictionary<int, Data.Language> LanguageDict { get; private set; } = new Dictionary<int, Data.Language>();
+
+
+    void LanguageInit()
+    {
+        LanguageDict = LoadJson<Data.LanguageLoader, int, Data.Language>("LanguageData").MakeDict();
+    }
+
+    Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
+    {
+        TextAsset textAsset = Resources.Load<TextAsset>($"Data/{path}");
+        return Newtonsoft.Json.JsonConvert.DeserializeObject<Loader>(textAsset.text);
+    }
+
+
+    void LanguageSet()
+    {
+        Data.Language us = null;
+        LanguageDict.TryGetValue((int)LanguageType.us,out us);
+
+        Data.Language kr = null;
+        LanguageDict.TryGetValue((int)LanguageType.kr, out kr);
+
+        LanguageData[LanguageType.us] = us;
+        LanguageData[LanguageType.kr] = kr;
+
     }
 }

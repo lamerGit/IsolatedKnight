@@ -74,6 +74,11 @@ public class PartnerDragon : MonoBehaviour
         {
             for (int i = 0; i < 1; i++)
             {
+                if(Managers.GameManager.PartnerAndMeteorTier1MeteorOn)
+                {
+                    Managers.Object.MyPlayer.MeteorCount++;
+                }
+
                 _audioSoruce.Play();
                 int r=Random.Range(0, colliders.Length);
 
@@ -122,8 +127,20 @@ public class PartnerDragon : MonoBehaviour
                     leftComponent.Speed = _bulletSpeed;
                     rightComponent.Speed = _bulletSpeed;
 
-                }
+                    if (Managers.GameManager.State == GameState.LevelUp)
+                    {
 
+                        leftComponent.Rigid.velocity = Vector3.zero;
+                        rightComponent.Rigid.velocity = Vector3.zero;
+
+                    }
+
+                }
+                if (Managers.GameManager.State == GameState.LevelUp)
+                {
+                    component.Rigid.velocity = Vector3.zero;
+                    
+                }
 
                 //Debug.Log("АјАн");
             }

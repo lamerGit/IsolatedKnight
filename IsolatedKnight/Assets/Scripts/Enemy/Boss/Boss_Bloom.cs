@@ -99,7 +99,7 @@ public class Boss_Bloom : EnemyBase
             {
                
                 _agent.isStopped = false;
-                _agent.speed = 0.0f;
+                BaseSpeed = 0.0f;
             }
         }
 
@@ -177,8 +177,8 @@ public class Boss_Bloom : EnemyBase
 
         _maxHp = boss.maxHp;
         Hp = boss.maxHp;
-        //_agent.speed = boss.speed + Managers.GameManager.ExtraEnemySpeed;
-        _agent.speed = boss.speed;
+        _maxSpeed = boss.speed;
+        BaseSpeed = _maxSpeed;
         _exp = boss.exp;
         _skillCoolTime = boss.skillCoolTime;
         SkillRecovery = boss.skillRecovery;
@@ -200,6 +200,7 @@ public class Boss_Bloom : EnemyBase
         _speedDownStack = 0;
         _fireStack = 0;
         CurrentFireTick = 0;
+        StateClean();
         _stateFireFx.Stop();
 
         _spawnAudio.Play();
