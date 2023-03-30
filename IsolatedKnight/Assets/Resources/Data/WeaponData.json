@@ -21,8 +21,8 @@
       "touchDamage": "15",
       "touchSpeed": "0.8",
       "staminaconsum": "15.0",
-      "partnerDamage": "15",
-      "skillDamage": "10"
+      "partnerDamage": "20",
+      "skillDamage": "5"
     },
     {
       "type": "3",

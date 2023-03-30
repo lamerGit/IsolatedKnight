@@ -173,6 +173,7 @@ public class Player : MonoBehaviour
         set { _touchCount = Mathf.Clamp(value,0,_maxTouchCount); 
         if(_touchCount==_maxTouchCount)
             {
+                _animator.SetTrigger("Attack3");
                 _touchHitCount += 10;
 
                 if(Managers.GameManager.TouchAndAutoTouchTier2TouchCountUp)

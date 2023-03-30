@@ -1,0 +1,9 @@
+lastUpgrade=01014
+proj.pluginVersion=0.10.14
+proj.AppId=488009213786
+and.BundleId=com.hellogames.lonelyknight
+proj.classDir=Assets
+proj.ConstantsClassName=GPGSIds
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--Google+Play+game+services+IDs.+Save+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--app_id--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e488009213786%3c%2fstring%3e%0d%0a++%3c%21--package_name--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.hellogames.lonelyknight%3c%2fstring%3e%0d%0a++%3c%21--achievement+Sword--%3e%0d%0a++%3cstring+name%3d%22achievement_sword%22+translatable%3d%22false%22%3eCgkI2s72_JkOEAIQAw%3c%2fstring%3e%0d%0a++%3c%21--achievement+Axe--%3e%0d%0a++%3cstring+name%3d%22achievement_axe%22+translatable%3d%22false%22%3eCgkI2s72_JkOEAIQBA%3c%2fstring%3e%0d%0a++%3c%21--achievement+Hammer--%3e%0d%0a++%3cstring+name%3d%22achievement_hammer%22+translatable%3d%22false%22%3eCgkI2s72_JkOEAIQBQ%3c%2fstring%3e%0d%0a++%3c%21--achievement+Staff--%3e%0d%0a++%3cstring+name%3d%22achievement_staff%22+translatable%3d%22false%22%3eCgkI2s72_JkOEAIQBg%3c%2fstring%3e%0d%0a++%3c%21--achievement+Hand--%3e%0d%0a++%3cstring+name%3d%22achievement_hand%22+translatable%3d%22false%22%3eCgkI2s72_JkOEAIQBw%3c%2fstring%3e%0d%0a%3c%2fresources%3e
+and.ClientId=488009213786-2lgnhvlbke6oto1f7r0b9llinc55g8lq.apps.googleusercontent.com
+android.SetupDone=true

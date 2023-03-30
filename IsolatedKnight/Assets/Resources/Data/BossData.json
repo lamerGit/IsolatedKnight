@@ -2,7 +2,7 @@
   "bosss": [
     {
       "type": "0",
-      "maxHp": "5200",
+      "maxHp": "3500",
       "speed": "3.0",
       "skillCoolTime": "10.0",
       "skillRecovery": "1.0",
@@ -10,7 +10,7 @@
     },
     {
       "type": "1",
-      "maxHp": "12400",
+      "maxHp": "35000",
       "speed": "3.0",
       "skillCoolTime": "9.0",
       "skillRecovery": "1.0",
@@ -18,7 +18,7 @@
     },
     {
       "type": "2",
-      "maxHp": "4400",
+      "maxHp": "4000",
       "speed": "4.5",
       "skillCoolTime": "15.0",
       "skillRecovery": "1.0",
@@ -26,7 +26,7 @@
     },
     {
       "type": "3",
-      "maxHp": "10800",
+      "maxHp": "40000",
       "speed": "5.5",
       "skillCoolTime": "12.0",
       "skillRecovery": "1.0",
@@ -34,7 +34,7 @@
     },
     {
       "type": "4",
-      "maxHp": "2800",
+      "maxHp": "3000",
       "speed": "0.0",
       "skillCoolTime": "10.0",
       "skillRecovery": "1.0",
@@ -42,7 +42,7 @@
     },
     {
       "type": "5",
-      "maxHp": "7600",
+      "maxHp": "30000",
       "speed": "0.0",
       "skillCoolTime": "8.0",
       "skillRecovery": "1.0",

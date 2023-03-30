@@ -100,6 +100,7 @@ public class UI_GameSet : MonoBehaviour
                     if (!GameDataManager.Instance.SwordClear)
                     {
                         GameDataManager.Instance.SwordClear = true;
+                        GPGSBinder.Inst.UnlockAchievement(GPGSIds.achievement_sword, success => { });
                         GameDataManager.Instance.SaveData();
                         SceneManager.LoadScene((int)GameScene.SwordEnding);
                     }
@@ -112,6 +113,7 @@ public class UI_GameSet : MonoBehaviour
                     if (!GameDataManager.Instance.AxeClear)
                     {
                         GameDataManager.Instance.AxeClear = true;
+                        GPGSBinder.Inst.UnlockAchievement(GPGSIds.achievement_axe, success => { });
                         GameDataManager.Instance.SaveData();
                         SceneManager.LoadScene((int)GameScene.AxeEnding);
                     }
@@ -124,6 +126,7 @@ public class UI_GameSet : MonoBehaviour
                     if (!GameDataManager.Instance.HammerClear)
                     {
                         GameDataManager.Instance.HammerClear = true;
+                        GPGSBinder.Inst.UnlockAchievement(GPGSIds.achievement_hammer, success => { });
                         GameDataManager.Instance.SaveData();
                         SceneManager.LoadScene((int)GameScene.HammerEnding);
                     }
@@ -136,6 +139,7 @@ public class UI_GameSet : MonoBehaviour
                     if (!GameDataManager.Instance.StickClear)
                     {
                         GameDataManager.Instance.StickClear = true;
+                        GPGSBinder.Inst.UnlockAchievement(GPGSIds.achievement_staff, success => { });
                         GameDataManager.Instance.SaveData();
                         SceneManager.LoadScene((int)GameScene.StickEnding);
                     }
@@ -148,6 +152,7 @@ public class UI_GameSet : MonoBehaviour
                     if (!GameDataManager.Instance.HandClear)
                     {
                         GameDataManager.Instance.HandClear = true;
+                        GPGSBinder.Inst.UnlockAchievement(GPGSIds.achievement_hand, success => { });
                         GameDataManager.Instance.SaveData();
                         SceneManager.LoadScene((int)GameScene.HandEnding);
                     }
@@ -182,6 +187,7 @@ public class UI_GameSet : MonoBehaviour
                     if(!GameDataManager.Instance.SwordClear)
                     {
                         GameDataManager.Instance.SwordClear = true;
+                        GPGSBinder.Inst.UnlockAchievement(GPGSIds.achievement_sword, success => { });
                         GameDataManager.Instance.SaveData();
                         SceneManager.LoadScene((int)GameScene.SwordEnding);
                     }else
@@ -193,6 +199,7 @@ public class UI_GameSet : MonoBehaviour
                     if (!GameDataManager.Instance.AxeClear)
                     {
                         GameDataManager.Instance.AxeClear = true;
+                        GPGSBinder.Inst.UnlockAchievement(GPGSIds.achievement_axe, success => { });
                         GameDataManager.Instance.SaveData();
                         SceneManager.LoadScene((int)GameScene.AxeEnding);
                     }
@@ -205,6 +212,7 @@ public class UI_GameSet : MonoBehaviour
                     if (!GameDataManager.Instance.HammerClear)
                     {
                         GameDataManager.Instance.HammerClear = true;
+                        GPGSBinder.Inst.UnlockAchievement(GPGSIds.achievement_hammer, success => { });
                         GameDataManager.Instance.SaveData();
                         SceneManager.LoadScene((int)GameScene.HammerEnding);
                     }
@@ -217,6 +225,7 @@ public class UI_GameSet : MonoBehaviour
                     if (!GameDataManager.Instance.StickClear)
                     {
                         GameDataManager.Instance.StickClear = true;
+                        GPGSBinder.Inst.UnlockAchievement(GPGSIds.achievement_staff, success => { });
                         GameDataManager.Instance.SaveData();
                         SceneManager.LoadScene((int)GameScene.StickEnding);
                     }
@@ -229,6 +238,7 @@ public class UI_GameSet : MonoBehaviour
                     if (!GameDataManager.Instance.HandClear)
                     {
                         GameDataManager.Instance.HandClear = true;
+                        GPGSBinder.Inst.UnlockAchievement(GPGSIds.achievement_hand, success => { });
                         GameDataManager.Instance.SaveData();
                         SceneManager.LoadScene((int)GameScene.HandEnding);
                     }

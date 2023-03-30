@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -93,12 +94,22 @@ public class GameDataManager : Singleton<GameDataManager>
         base.Awake();
         LanguageInit();
         LanguageSet();
+
+        GoogleLogin();
     }
 
     protected override void Initialize()
     {
        LoadData();
        //Cursor.visible = false;
+    }
+
+    bool loginOk=false;
+    void GoogleLogin()
+    {
+        GPGSBinder.Inst.Login((success, localUser) =>
+        loginOk = success);
+
     }
 
     void LoadData()
@@ -146,66 +157,108 @@ public class GameDataManager : Singleton<GameDataManager>
             //Debug.Log("데이터 없음");
             // 없으면 새로 만든다~
 
-            PlayerGold = 0;
-            Power_TouchDamageTier = 0;
-            Power_TouchSpeedTier = 0;
-            Power_MaxStaminaTier = 0;
-            Power_SkillDamageTier = 0;
-            Power_SkillCoolTimeRecoveryTier = 0;
-            Power_PartnerDamageTier = 0;
-            Power_FixedDamageTier = 0;
-            Power_ExpUpTier = 0;
-            Power_GoldUpTier = 0;
-            EquipWeapon = WeaponType.Sword;
-            SwordOpen = true;
-            AxeOpen = false;
-            HammerOpen = false;
-            StickOpen = false;
-            HandOpen = false;
-
-            BgmVolume = 0.5f;
-            CfxVolume = 0.5f;
-
-            SaveData saveData = new();
-
-            saveData.PlayerGold = PlayerGold;
-            saveData.Power_TouchDamageTier= Power_TouchDamageTier;
-            saveData.Power_TouchSpeedTier= Power_TouchSpeedTier;
-            saveData.Power_MaxStaminaTier= Power_MaxStaminaTier;
-            saveData.Power_SkillDamageTier= Power_SkillDamageTier;
-            saveData.Power_SkillCoolTimeRecoveryTier= Power_SkillCoolTimeRecoveryTier;
-            saveData.Power_PartnerDamageTier= Power_PartnerDamageTier;
-            saveData.Power_FixedDamageTier= Power_FixedDamageTier;
-            saveData.Power_ExpUpTier= Power_ExpUpTier;
-            saveData.Power_GoldUpTier= Power_GoldUpTier;
-            saveData.EquipWeapon= (int)EquipWeapon;
-            saveData.SwordOpen= SwordOpen;
-            saveData.AxeOpen= AxeOpen;
-            saveData.HammerOpen= HammerOpen;
-            saveData.StickOpen= StickOpen;
-            saveData.HandOpen= HandOpen;
-
-            saveData.BgmValue = BgmVolume;
-            saveData.CfxValue = CfxVolume;
-
-            saveData.Language = (int)LanguageType;
-
-            saveData.SwordClear= SwordClear;
-            saveData.AxeClear= AxeClear;
-            saveData.HammerClear= HammerClear;
-            saveData.StickClear= StickClear;
-            saveData.HandClear= HandClear;
-
-            string json =JsonUtility.ToJson(saveData);
-
-            if(!Directory.Exists(path))
+            //클라우드데이터 확인
+            GPGSBinder.Inst.LoadCloud("mysave", (success, data) =>
             {
-                Directory.CreateDirectory(path);
-            }
+                //있는경우
+                if(success)
+                {
+                    SaveData saveData = JsonUtility.FromJson<SaveData>(data);
 
-            File.WriteAllText(fullPath, json);
-            
+                    PlayerGold = Mathf.Clamp(saveData.PlayerGold, 0, maxGold);
+                    Power_TouchDamageTier = Mathf.Clamp(saveData.Power_TouchDamageTier, 0, maxTouchDamageTier);
+                    Power_TouchSpeedTier = Mathf.Clamp(saveData.Power_TouchSpeedTier, 0, maxTouchSpeedTier);
+                    Power_MaxStaminaTier = Mathf.Clamp(saveData.Power_MaxStaminaTier, 0, maxMaxStaminaTier);
+                    Power_SkillDamageTier = Mathf.Clamp(saveData.Power_SkillDamageTier, 0, maxSkillDamageTier);
+                    Power_SkillCoolTimeRecoveryTier = Mathf.Clamp(saveData.Power_SkillCoolTimeRecoveryTier, 0, maxSkillCollTimeRecoveryTier);
+                    Power_PartnerDamageTier = Mathf.Clamp(saveData.Power_PartnerDamageTier, 0, maxPartnerDamageTier);
+                    Power_FixedDamageTier = Mathf.Clamp(saveData.Power_FixedDamageTier, 0, maxFixedDamageTier);
+                    Power_ExpUpTier = Mathf.Clamp(saveData.Power_ExpUpTier, 0, maxExpUpTier);
+                    Power_GoldUpTier = Mathf.Clamp(saveData.Power_GoldUpTier, 0, maxGoldUpTier);
+                    EquipWeapon = (WeaponType)saveData.EquipWeapon;
+                    SwordOpen = saveData.SwordOpen;
+                    AxeOpen = saveData.AxeOpen;
+                    HammerOpen = saveData.HammerOpen;
+                    StickOpen = saveData.StickOpen;
+                    HandOpen = saveData.HandOpen;
 
+                    BgmVolume = saveData.BgmValue;
+                    CfxVolume = saveData.CfxValue;
+
+                    LanguageType = (LanguageType)saveData.Language;
+
+                    SwordClear = saveData.SwordClear;
+                    AxeClear = saveData.AxeClear;
+                    HammerClear = saveData.HammerClear;
+                    StickClear = saveData.StickClear;
+                    HandClear = saveData.HandClear;
+                }else
+                {
+                    //없는 경우
+                    PlayerGold = 0;
+                    Power_TouchDamageTier = 0;
+                    Power_TouchSpeedTier = 0;
+                    Power_MaxStaminaTier = 0;
+                    Power_SkillDamageTier = 0;
+                    Power_SkillCoolTimeRecoveryTier = 0;
+                    Power_PartnerDamageTier = 0;
+                    Power_FixedDamageTier = 0;
+                    Power_ExpUpTier = 0;
+                    Power_GoldUpTier = 0;
+                    EquipWeapon = WeaponType.Sword;
+                    SwordOpen = true;
+                    AxeOpen = false;
+                    HammerOpen = false;
+                    StickOpen = false;
+                    HandOpen = false;
+
+                    BgmVolume = 0.5f;
+                    CfxVolume = 0.5f;
+
+                    SaveData saveData = new();
+
+                    saveData.PlayerGold = PlayerGold;
+                    saveData.Power_TouchDamageTier = Power_TouchDamageTier;
+                    saveData.Power_TouchSpeedTier = Power_TouchSpeedTier;
+                    saveData.Power_MaxStaminaTier = Power_MaxStaminaTier;
+                    saveData.Power_SkillDamageTier = Power_SkillDamageTier;
+                    saveData.Power_SkillCoolTimeRecoveryTier = Power_SkillCoolTimeRecoveryTier;
+                    saveData.Power_PartnerDamageTier = Power_PartnerDamageTier;
+                    saveData.Power_FixedDamageTier = Power_FixedDamageTier;
+                    saveData.Power_ExpUpTier = Power_ExpUpTier;
+                    saveData.Power_GoldUpTier = Power_GoldUpTier;
+                    saveData.EquipWeapon = (int)EquipWeapon;
+                    saveData.SwordOpen = SwordOpen;
+                    saveData.AxeOpen = AxeOpen;
+                    saveData.HammerOpen = HammerOpen;
+                    saveData.StickOpen = StickOpen;
+                    saveData.HandOpen = HandOpen;
+
+                    saveData.BgmValue = BgmVolume;
+                    saveData.CfxValue = CfxVolume;
+
+                    saveData.Language = (int)LanguageType;
+
+                    saveData.SwordClear = SwordClear;
+                    saveData.AxeClear = AxeClear;
+                    saveData.HammerClear = HammerClear;
+                    saveData.StickClear = StickClear;
+                    saveData.HandClear = HandClear;
+
+                    string json = JsonUtility.ToJson(saveData);
+                    GoogleSave(json);
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    File.WriteAllText(fullPath, json);
+                }
+
+            });
+
+           
         }
 
     }
@@ -246,6 +299,7 @@ public class GameDataManager : Singleton<GameDataManager>
         saveData.HandClear = HandClear;
 
         string json = JsonUtility.ToJson(saveData);
+        GoogleSave(json);
 
         if (!Directory.Exists(path))
         {
@@ -282,4 +336,11 @@ public class GameDataManager : Singleton<GameDataManager>
         LanguageData[LanguageType.kr] = kr;
 
     }
+
+    void GoogleSave(string data)
+    {
+        GPGSBinder.Inst.SaveCloud("mysave", data, success => { });
+    }
+
+
 }
