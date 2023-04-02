@@ -7,18 +7,18 @@ using UnityEngine.UI;
 
 public class UI_LobbyGroup : MonoBehaviour
 {
-    Button _startButton;
-    Button _powerUpButton;
-    Button _weaponButton;
+    Button _startButton = null;
+    Button _powerUpButton = null;
+    Button _weaponButton = null;
 
-    
-    RectTransform _rect;
 
-    TextMeshProUGUI _titleText;
+    RectTransform _rect = null;
 
-    TextMeshProUGUI _startButtonText;
-    TextMeshProUGUI _powerUpButtonText;
-    TextMeshProUGUI _weaponButtonText;
+    TextMeshProUGUI _titleText=null;
+
+    TextMeshProUGUI _startButtonText = null;
+    TextMeshProUGUI _powerUpButtonText = null;
+    TextMeshProUGUI _weaponButtonText = null;
     private void Awake()
     {
         _rect = GetComponent<RectTransform>();

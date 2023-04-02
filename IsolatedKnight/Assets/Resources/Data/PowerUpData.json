@@ -1,7 +1,7 @@
 {
   "powerUps": [
     {
-      "Type": "1",
+      "Type": "0",
       "touchDamageIncrement": "2",
       "touchSpeedIncrement": "0.1",
       "maxStaminaIncrement":  "10",

@@ -43,7 +43,7 @@ public class DataManager
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
         TextAsset textAsset = Resources.Load<TextAsset>($"Data/{path}");
-        return Newtonsoft.Json.JsonConvert.DeserializeObject<Loader>(textAsset.text);
+        return JsonUtility.FromJson<Loader>(textAsset.text);
     }
 
 }

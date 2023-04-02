@@ -1,7 +1,7 @@
 {
   "stats": [
     {
-      "Type": "1",
+      "Type": "0",
       "maxStamina": "100",
       "staminaRecoverySpeed": "10.0",
       "skillRecoverySpeed":  "5.0",

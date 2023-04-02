@@ -632,7 +632,7 @@ public class Player : MonoBehaviour
         Managers.Data.WeaponDict.TryGetValue((int)GameDataManager.Instance.EquipWeapon,out weapon);
 
         Stat stat = null;
-        Managers.Data.StatDict.TryGetValue(1,out stat);
+        Managers.Data.StatDict.TryGetValue(0,out stat);
 
         Fixed f = null;
         Managers.Data.FixedDict.TryGetValue(0,out f);
@@ -660,7 +660,7 @@ public class Player : MonoBehaviour
 
         // 로비에서 얻은 증가량 계산
         PowerUp powerUp = null;
-        Managers.Data.PowerUpDict.TryGetValue(1, out powerUp);
+        Managers.Data.PowerUpDict.TryGetValue(0, out powerUp);
 
         int touchDamageIncrement = powerUp.touchDamageIncrement * GameDataManager.Instance.Power_TouchDamageTier;
         float touchSpeedIncrement = powerUp.touchSpeedIncrement * GameDataManager.Instance.Power_TouchSpeedTier;

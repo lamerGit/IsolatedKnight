@@ -1,11 +1,13 @@
-using Newtonsoft.Json;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class GameDataManager : Singleton<GameDataManager>
 {
@@ -54,6 +56,8 @@ public class GameDataManager : Singleton<GameDataManager>
     public Action ChangeGold { get; set; }
 
     LanguageType _languageType = LanguageType.us;
+
+    //public TextMeshProUGUI testText = null;
     public LanguageType LanguageType
     {
         get { return _languageType; }
@@ -65,7 +69,11 @@ public class GameDataManager : Singleton<GameDataManager>
 
     public Action ChangeLanguage { get; set; }
 
-    public Dictionary<LanguageType, Data.Language> LanguageData { get; private set; } = new Dictionary<LanguageType, Data.Language>();
+    public Dictionary<LanguageType, Data.Language> LanguageData { get; private set; } = new Dictionary<LanguageType, Data.Language>()
+    {
+        [LanguageType.us]=null,
+        [LanguageType.kr]=null,
+    };
 
     [SerializeField]
     AudioMixer _audioMixer;
@@ -96,12 +104,22 @@ public class GameDataManager : Singleton<GameDataManager>
         LanguageSet();
 
         GoogleLogin();
+
+        //testText=GameObject.Find("testText").GetComponent<TextMeshProUGUI>();
     }
 
     protected override void Initialize()
     {
        LoadData();
        //Cursor.visible = false;
+       if(SceneManager.GetActiveScene().buildIndex==0)
+        {
+            AdmobManager.Instance.BannerOn(true);
+        }else
+        {
+            AdmobManager.Instance.BannerOn(false);
+        }
+
     }
 
     bool loginOk=false;
@@ -160,8 +178,9 @@ public class GameDataManager : Singleton<GameDataManager>
             //클라우드데이터 확인
             GPGSBinder.Inst.LoadCloud("mysave", (success, data) =>
             {
+                //testText.text=success.ToString();
                 //있는경우
-                if(success)
+                if (success)
                 {
                     SaveData saveData = JsonUtility.FromJson<SaveData>(data);
 
@@ -192,7 +211,8 @@ public class GameDataManager : Singleton<GameDataManager>
                     HammerClear = saveData.HammerClear;
                     StickClear = saveData.StickClear;
                     HandClear = saveData.HandClear;
-                }else
+                }
+                else
                 {
                     //없는 경우
                     PlayerGold = 0;
@@ -320,7 +340,7 @@ public class GameDataManager : Singleton<GameDataManager>
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
         TextAsset textAsset = Resources.Load<TextAsset>($"Data/{path}");
-        return Newtonsoft.Json.JsonConvert.DeserializeObject<Loader>(textAsset.text);
+        return JsonUtility.FromJson<Loader>(textAsset.text);
     }
 
 
@@ -339,7 +359,7 @@ public class GameDataManager : Singleton<GameDataManager>
 
     void GoogleSave(string data)
     {
-        GPGSBinder.Inst.SaveCloud("mysave", data, success => { });
+        GPGSBinder.Inst.SaveCloud("mysave", data, success => {  });
     }
 
 
