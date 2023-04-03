@@ -12,8 +12,8 @@ public class AdmobManager : Singleton<AdmobManager>
     
     void Start()
     {
-        testDeviceIds.Add("33a2cb135b0e0a4e");
-        testDeviceIds.Add("9d4f0bc9a0f1fc5b");
+        //testDeviceIds.Add("33a2cb135b0e0a4e");
+        //testDeviceIds.Add("9d4f0bc9a0f1fc5b");
 
 
         var requestConfiguration = new RequestConfiguration
